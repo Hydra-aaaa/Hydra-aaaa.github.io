@@ -140,6 +140,78 @@
     
     
     <article
+  id="post-lc-day4"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/16/lc-day4/"
+    >lc-day4</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/16/lc-day4/" class="article-date">
+  <time datetime="2021-11-16T10:39:12.000Z" itemprop="datePublished">2021-11-16</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="113-路径总和-II"><a href="#113-路径总和-II" class="headerlink" title="113. 路径总和 II"></a>113. 路径总和 II</h1><p><img src="/2021/11/16/lc-day4/1.png" alt="题目"></p>
+<p>经过昨天的思考后，今天这题能直接秒了。仔细观察这个写法，我发现递归函数dfs每次都对函数进行了判断，判断这个</p>
+<p>点是不是叶子节点，所以这对所有节点适用，但要记得此时的tar已经减去了这层的节点值了</p>
+<blockquote>
+<p>关于特判，这个题只有主函数特判了初始的节点，后面如果再出现空节点函数dfs会忽略过去</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">pathSum</span>(TreeNode* root, <span class="keyword">int</span> targetSum) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(root, targetSum - root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span> &amp;&amp; targetSum == <span class="number">0</span>) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)&#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(root-&gt;left-&gt;val);</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;left, targetSum - root-&gt;left-&gt;val);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(root-&gt;right-&gt;val);</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;right, targetSum - root-&gt;right-&gt;val);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/16/lc-day4/1.png" alt="通过"></p>
+<h1 id="106-从中序与后序遍历序列构造二叉树"><a href="#106-从中序与后序遍历序列构造二叉树" class="headerlink" title="106. 从中序与后序遍历序列构造二叉树"></a>106. 从中序与后序遍历序列构造二叉树</h1><p><img src="/2021/11/16/lc-day4/3.png" alt="题目"></p>
+<p>这个已经一两个月没写了，忘完了，直接看题解吧 ^_^</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; inorder, vector&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = inorder.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            p[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(inorder, postorder, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; inorder, vector&lt;<span class="keyword">int</span>&gt;&amp; postorder, <span class="keyword">int</span> il, <span class="keyword">int</span> ir, <span class="keyword">int</span> pl, <span class="keyword">int</span> pr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pl &gt; pr) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">int</span> key = postorder[pr];</span><br><span class="line">        <span class="keyword">int</span> k = p[key] - il;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(key);</span><br><span class="line">        root-&gt;left = <span class="built_in">dfs</span>(inorder, postorder, il, il + k - <span class="number">1</span>, pl, pl + k - <span class="number">1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">dfs</span>(inorder, postorder, il + k + <span class="number">1</span>, ir, pl + k, pr - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用的y总的模板"><a href="#用的y总的模板" class="headerlink" title="用的y总的模板"></a>用的y总的模板</h2><blockquote>
+<p>难点1：边界处理，这里的边界是左闭右闭</p>
+</blockquote>
+<blockquote>
+<p>难点2：后续遍历，在经过前几日的后序遍历的洗礼后，现在看后序遍历就有更新的体会了，这题用后序遍历特别巧妙的把一个问题划分为若干个子问题解决</p>
+</blockquote>
+<h2 id="再研究一下Carl的解法"><a href="#再研究一下Carl的解法" class="headerlink" title="再研究一下Carl的解法"></a>再研究一下Carl的解法</h2><p>我选择死亡，太多了。。。。。</p>
+<p>不写啦</p>
+<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a>105. 从前序与中序遍历序列构造二叉树</h1><p><img src="/2021/11/16/lc-day4/4.png" alt="题目"></p>
+<p>直接套用上一题的模板</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pos;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; pre, vector&lt;<span class="keyword">int</span>&gt;&amp; in)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = pre.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) pos[in[i]] = i;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(pre, in, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; pre, vector&lt;<span class="keyword">int</span>&gt;&amp; in, <span class="keyword">int</span> pl, <span class="keyword">int</span> pr, <span class="keyword">int</span> il, <span class="keyword">int</span> ir)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pl &gt; pr) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">int</span> key = pre[pl];</span><br><span class="line">        <span class="keyword">int</span> k = pos[key] - il;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(key);</span><br><span class="line">        root-&gt;left = <span class="built_in">dfs</span>(pre, in, pl + <span class="number">1</span>, pl + <span class="number">1</span> + k - <span class="number">1</span>, il, il + k - <span class="number">1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">dfs</span>(pre, in, pl + k + <span class="number">1</span>, pr, il + k + <span class="number">1</span>, ir);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>五分钟搞定！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-lc-day3"
   class="article article-type-post"
   itemscope
