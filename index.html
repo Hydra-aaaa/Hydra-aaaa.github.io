@@ -140,6 +140,68 @@
     
     
     <article
+  id="post-lc-day5"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/17/lc-day5/"
+    >lc-day5</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/17/lc-day5/" class="article-date">
+  <time datetime="2021-11-17T14:33:07.000Z" itemprop="datePublished">2021-11-17</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p>不要学地理，会变得不幸！注册一个傻逼esri账户，各种给我报错，我的电脑一碰就错，同学的电脑一试就行，我真的杀人的心都有了，我弄了三节课一直报错（有心栽花），同学w在那边看漫画边弄（还是我指点的），一节课就弄好了（无心插柳）。最后下午还是用w的电脑弄好的。。地理信息真的是个傻逼专业，建议关了</p>
+<h1 id="318-最大单词长度乘积"><a href="#318-最大单词长度乘积" class="headerlink" title="318. 最大单词长度乘积"></a>318. 最大单词长度乘积</h1><p><img src="/2021/11/17/lc-day5/1.png" alt="题目"></p>
+<p>这个题乍一看没思路，想清楚了其实很简单，就是一个位运算预处理，然后就是常规遍历。剩下的都是一些细节处理</p>
+<blockquote>
+<p>如何快速检测两个单词有没有重复字母？答案是哈希化处理。创建一个26位的数字，记录每个字母是否在哈希表中出现过，如果出现则设为1，没有出现就是0，这样预处理万所有单词后，枚举所有的情况，如果有两个单词的哈希值“相与”，如果结果为0则证明满足要求</p>
+</blockquote>
+<blockquote>
+<p>细节：lc对c++及其不友好，稍微没写严谨就报错，比如(int)(words[i].size() * words[j].size())这行代码，多加了两对括弧才能开始跑代码，真的恶心</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; state;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;word : words)&#123;</span><br><span class="line">            <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : word)&#123;</span><br><span class="line">                num |= <span class="number">1</span> &lt;&lt; (c - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            state.<span class="built_in">push_back</span>(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; words.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((state[i] &amp; state[j]) == <span class="number">0</span>) </span><br><span class="line">                    res = <span class="built_in">max</span>(res, (<span class="keyword">int</span>)(words[i].<span class="built_in">size</span>() * words[j].<span class="built_in">size</span>()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>珍爱生命，远离c++</p>
+<h1 id="再说一点题外话吧"><a href="#再说一点题外话吧" class="headerlink" title="再说一点题外话吧"></a>再说一点题外话吧</h1><p>学校的课程一点用都没有，纯纯的耽误时间，我有这些功夫，刷题八股文项目，拿一个200k的offer（秋招群里有两个二三本的人都拿到了，他们刷的题还没我多）轻轻松松，每天怀着上坟的心情上课，我还要写学校布置的作业，还要跟专业老师配合，还要听对开发毫无卵用的线代，概率论，写他们的作业，让他们侵占我的学习时间，我感觉我好伟大，顶着这么多debuff现在11点还在这写lc和博客，睡前还得听英语，明天早晨7点多起来继续还得的刷lc，看js。我越来越搞不懂我自己了吗？不，恰恰相反，我太清楚我这个时间点要做什么了，所以对未达标很痛苦 。我渴望有一天能活的纯粹一点</p>
+<p>没啥说的了，生命不息，圣战（run）不止</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-lc-day4"
   class="article article-type-post"
   itemscope
@@ -203,6 +265,8 @@
     
     <footer class="article-footer">
        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
     </footer>
   </div>
 
