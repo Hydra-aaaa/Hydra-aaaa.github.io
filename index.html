@@ -140,6 +140,68 @@
     
     
     <article
+  id="post-lc-day9"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/21/lc-day9/"
+    >lc-day9</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/21/lc-day9/" class="article-date">
+  <time datetime="2021-11-21T07:12:09.000Z" itemprop="datePublished">2021-11-21</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="559-N-叉树的最大深度"><a href="#559-N-叉树的最大深度" class="headerlink" title="559. N 叉树的最大深度"></a>559. N 叉树的最大深度</h1><p><img src="/2021/11/21/lc-day9/1.png" alt="题目"></p>
+<blockquote>
+<p>今天的lc每日一题</p>
+<p>题目很简单，但是我猛然间将现在的代码和以前的代码做了一个对比，有了新发现</p>
+</blockquote>
+<p>下面是我今天的代码，我的代码思路是每递归深入一层，就更新一次深度（初始深度为1），最后的全局变量就是答案</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxH;</span><br><span class="line">    int maxDepth(Node* root) &#123;</span><br><span class="line">        if(root == nullptr) return 0;</span><br><span class="line">        dfs(root, 1);</span><br><span class="line">        return maxH;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void dfs(Node* root, int h)&#123;</span><br><span class="line">        if(root == nullptr) return;</span><br><span class="line">        if(maxH &lt; h) maxH = h;</span><br><span class="line">        for(int i = 0; i &lt; root-&gt;children.size(); i++)&#123;</span><br><span class="line">            dfs(root-&gt;children[i], h + 1);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这是我以前的代码，后序遍历，这就不是在求深度了，这是从底层往高层算，是在回溯，求的是高度，而二叉树的高度值与深度值大小相同，所以代码也就过了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> max1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; root-&gt;children.<span class="built_in">size</span>(); i++) </span><br><span class="line">        max1 = <span class="built_in">max</span>(max1, <span class="built_in">maxDepth</span>(root-&gt;children[i]));</span><br><span class="line">        <span class="keyword">return</span> max1 + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这再次印证了Carl的话，递归和回溯的区别，一个去一个回，是截然不同的</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-lc-day8"
   class="article article-type-post"
   itemscope
@@ -823,64 +885,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-搭建博客1"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/"
-    >搭建博客1</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/" class="article-date">
-  <time datetime="2021-11-13T06:37:09.000Z" itemprop="datePublished">2021-11-13</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <hr>
-<h1 id="博客的作用"><a href="#博客的作用" class="headerlink" title="博客的作用"></a>博客的作用</h1><p>这个博客我决定用来写我在学习过程中的<strong>问题</strong>和<strong>笔记</strong>，顺便发一点感想。本来最初是打算用阿里云搭建博客的，结果发现wall内的东西都要备案，就作罢了，有些东西现在还不能说</p>
-<h1 id="失败的一上午"><a href="#失败的一上午" class="headerlink" title="失败的一上午"></a>失败的一上午</h1><p>今天想做一个在【标签页】显示所有【标签】的功能，结果花了一上午也没有解决，网上翻了好多教程都没有答案，只好放弃，准备直接写学习笔记了。太失败了(-_-) 后续我应该还会再试试的，毕竟我的方向是前端，这个应该在我的业务范围之内     &#128512;</p>
-<h1 id="下午"><a href="#下午" class="headerlink" title="下午"></a>下午</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_43401436/article/details/107191688">感谢该博主的帮助</a></p>
-<p>下午在解决图片上传问题，发现一个有趣的现象，我本地的图片显示不出来，却能在云端显示出来，具体表现是这样的</p>
-<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/3.png"></p>
-<p>这张图在本地是没有在typora上显示的，但我如果再发布到网站上就出现了</p>
-<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/2.png"></p>
-<p>暂时没有解决方案，不过反正能达到要求就行了，反正都要在本地先跑一遍在上传到云端。</p>
-<p>总结：这个图片路径能够被我安装的hexo插件解析出来并成功发布，但是我本地的typora却无法解析出它的路径，这是因为插件会在解析时自己再加一段路径。所以我只能舍弃本地显示选择云端显示了</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="tag">搭建博客</a></li></ul>
 
     </footer>
   </div>
