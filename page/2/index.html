@@ -140,6 +140,70 @@
     
     
     <article
+  id="post-lc-day2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/14/lc-day2/"
+    >lc-day2</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/14/lc-day2/" class="article-date">
+  <time datetime="2021-11-14T06:44:57.000Z" itemprop="datePublished">2021-11-14</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="257-⼆叉树的所有路径"><a href="#257-⼆叉树的所有路径" class="headerlink" title="257. ⼆叉树的所有路径"></a>257. ⼆叉树的所有路径</h1><p>这个题出的好呀，一个简单题让我吃尽苦头</p>
+<p><img src="/2021/11/14/lc-day2/1.png" alt="257"></p>
+<blockquote>
+<p>先说遍历，感觉用不了广搜，只能深搜，而且深搜还得用先序遍历</p>
+</blockquote>
+<blockquote>
+<p>先序遍历的原因：先序遍历的顺序是“中左右”，这题我把“中”当做递归出口，而“左右”当做递归入口，只有在经历了大量搜索之后，然后判断已经到叶结点了，我就保存结果，执行return，递归结束</p>
+</blockquote>
+<blockquote>
+<p>这个题难住我的一个地方之一就是回溯，根据Carl的理论，有递归式就必须有回溯式，递归和回溯永远是在一起的。对于回溯我的理解就是恢复现场</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string&gt; result;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            string s;</span><br><span class="line">            s += <span class="built_in">to_string</span>(path[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; path.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">                s += <span class="string">&quot;-&gt;&quot;</span>;</span><br><span class="line">                s += <span class="built_in">to_string</span>(path[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(s);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>剩下的没啥说的了，都是常规操作</p>
+<h1 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100. 相同的树"></a>100. 相同的树</h1><p>待更新</p>
+<h1 id="101-对称⼆叉树"><a href="#101-对称⼆叉树" class="headerlink" title="101. 对称⼆叉树"></a>101. 对称⼆叉树</h1><p>待更新</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode-%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">LeetCode 二叉树</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-lc-day1"
   class="article article-type-post"
   itemscope
