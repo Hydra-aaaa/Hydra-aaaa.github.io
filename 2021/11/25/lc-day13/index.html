@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>lc-day12 |  Hydra</title>
+      <title>lc-day13 |  Hydra</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-lc-day12"
+  id="post-lc-day13"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  lc-day12
+  lc-day13
 </h1>
  
 
@@ -75,15 +75,15 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2021/11/24/lc-day12/" class="article-date">
-  <time datetime="2021-11-24T08:07:16.000Z" itemprop="datePublished">2021-11-24</time>
+      <a href="/2021/11/25/lc-day13/" class="article-date">
+  <time datetime="2021-11-25T07:07:42.000Z" itemprop="datePublished">2021-11-25</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">96</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -92,7 +92,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -107,10 +107,50 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="455-分发饼干"><a href="#455-分发饼干" class="headerlink" title="455. 分发饼干"></a>455. 分发饼干</h1><p><img src="/2021/11/24/lc-day12/1.png" alt="题目"></p>
-<p>就是一个很简单的贪心题，想到方法就试试，万一过了呢?</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findContentChildren</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; g, vector&lt;<span class="keyword">int</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(g.<span class="built_in">begin</span>(), g.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = g.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j &gt;= <span class="number">0</span> &amp;&amp; s[j] &gt;= g[i]) &#123;</span><br><span class="line">                ans++;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+  <h1 id="376-摆动序列"><a href="#376-摆动序列" class="headerlink" title="376. 摆动序列"></a>376. 摆动序列</h1><p><img src="/2021/11/25/lc-day13/1.png" alt="卡了一上午"></p>
+<p>贪心题还是挺麻烦的，至少我知道方法，但是没写出来（用Carl的话说就是：知道题目方法是常识性的东西，但是代码实现困难）</p>
+<p>贪心主要方法：手动模拟方法，感觉可行，就试一试</p>
+<blockquote>
+<p>难点1：如何设置寻找差值</p>
+<p>有n个数，但是差值只有n-1个，怎么找呢。解决办法是在首部设置一个跟nums[0]相等的虚拟的数，然后就可以从第1个数开始算差值进行比较</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先把结果值+1，因为 n 个数最多形成n - 1 个峰值。</span></span><br><span class="line">        <span class="comment">// 我们的解题逻辑 -&gt; 峰值就是结果</span></span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 假设数组前有一个假元素。值等于数组第一个元素</span></span><br><span class="line">        <span class="comment">// preDiff = (nums[0] - nums[-1]) = 0</span></span><br><span class="line">        <span class="keyword">int</span> preDiff = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> curDiff = <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">            curDiff = nums[i] - nums[i <span class="number">-1</span>];</span><br><span class="line">            <span class="comment">//如果当前差值和上一个差值为一正一负</span></span><br><span class="line">            <span class="comment">// preDiff = 0 是初始状态。</span></span><br><span class="line">            <span class="comment">// curDiff 为 0 时（前后元素相同），不进入if</span></span><br><span class="line">            <span class="keyword">if</span>((curDiff &gt; <span class="number">0</span> &amp;&amp; preDiff &lt;= <span class="number">0</span>) || (preDiff &gt;= <span class="number">0</span> &amp;&amp; curDiff &lt; <span class="number">0</span>))&#123;</span><br><span class="line">                result++;</span><br><span class="line">                preDiff = curDiff;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>难点2：为什么是prediff &lt;= 0? 这个问题我认为应该分开来思考成两种情况，&lt; 0就不说了，一正一负很好理解。</p>
+<p>问题是为什么等于零？为什么cur 不等于0，pre可以等于0？题目不是要求一正一负吗？这个问题应该这样思考，pre为0，cur不为零，那么证明此时cur这个点是峰值（低谷）的。反过来，如果cur==0， pre != 0，那就是说当前元素cur跟前一个元素重复了，所以就不对了，这个解法中的pre只会在开始为0，后面pre的取值由cur更新，而cur == 0是不满足if条件的。换句话说，如果数组中有重复元素，它只会取第一个，这也是这个算法的巧妙性</p>
+</blockquote>
+<p>还有一个y总的代码也挺好的，下次更新吧</p>
+<h1 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a>53. 最大子序和</h1><p><img src="/2021/11/25/lc-day13/2.png" alt="题目"></p>
+<blockquote>
+<p>贪心解法</p>
+<p>每次求值都进行选择,是当前的值【num[i]】更好还是【sum+num[i]】更好，局部最优形成全局最优</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, ans = <span class="number">-0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sum + nums[i] &gt;= nums[i]) sum = sum + nums[i];</span><br><span class="line">            <span class="keyword">else</span> sum = nums[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, sum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>动态规划</p>
+<p>核心公式差不多</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ans = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> f[nums.<span class="built_in">size</span>()];</span><br><span class="line">        f[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[i - <span class="number">1</span>] + nums[i] &gt;= nums[i]) f[i] = f[i - <span class="number">1</span>] + nums[i];</span><br><span class="line">            <span class="keyword">else</span> f[i] = nums[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, f[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h1><p>这题有一个误区，就是我能不能在同一天卖，然后再买。题目没说，那就应该是可以的。所以贪心的思路也就出来了，检查每两天的股票差值，是正值就买入，是负值就跳过，从局部最优到全局最优</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>; j &lt; prices.<span class="built_in">size</span>(); i++, j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> pro = prices[j] - prices[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans + pro, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55. 跳跃游戏"></a>55. 跳跃游戏</h1><p><img src="/2021/11/25/lc-day13/4.png" alt="题目"></p>
+<p>贪心题就是难想出来，代码其实挺简单的，这种题最重要的锻炼贪心思维</p>
+<blockquote>
+<p>具体来说就是判断最大覆盖范围，如果在覆盖范围内就更新maxStep，最后结果就出来了</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canJump(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">        int maxStep = 0;</span><br><span class="line">        for(int i = 0; i &lt; nums.size() - 1; i++)&#123;</span><br><span class="line">            if(maxStep &gt;= i) maxStep = max(maxStep, i + nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(maxStep &gt;= nums.size() - 1) return true;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>今天终于提起刷题的欲望了，但都是简单题？麻了，学计网去，等书到了开始更新计网的笔记，这种纯理论的东西就是记着玩，就是玩。</p>
  
       <!-- reward -->
       
@@ -175,7 +215,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://hydra-aaaa.github.io/2021/11/24/lc-day12/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://hydra-aaaa.github.io/2021/11/25/lc-day13/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -188,19 +228,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/11/25/lc-day13/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            lc-day13
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/11/23/lc-day11/" class="article-nav-link">
+      <a href="/2021/11/24/lc-day12/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">lc-day11</div>
+        <div class="article-nav-title">lc-day12</div>
       </a>
     
   </nav>
