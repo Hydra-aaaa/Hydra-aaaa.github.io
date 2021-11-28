@@ -132,6 +132,253 @@
     
     
     <article
+  id="post-lc-day1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/13/lc-day1/"
+    >lc刷题</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/13/lc-day1/" class="article-date">
+  <time datetime="2021-11-13T07:42:22.000Z" itemprop="datePublished">2021-11-13</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="222-完全二叉树的节点个数"><a href="#222-完全二叉树的节点个数" class="headerlink" title="222. 完全二叉树的节点个数"></a>222. 完全二叉树的节点个数</h1><p><img src="/2021/11/13/lc-day1/problem_1.png" alt="problem_1"></p>
+<p>对于这个题目，一开始很容易想到遍历，不管是前、中、后、层序遍历都是可以的遍历完一边后答案就出来了，太简单就不写了。说一下一个进阶的写法</p>
+<p><img src="/2021/11/13/lc-day1/2.png" alt="转载了Carl哥的图"></p>
+<p>对于每一个棵树，首先就判断它整体是不是完全二叉树</p>
+<blockquote>
+<p>如果是，那就很简单了，直接返回它的2^h即可，（h是高度，这个公式利用了满二叉树的性质）</p>
+</blockquote>
+<blockquote>
+<p>如果不是，那么必然有一边是满二叉树，另一边不是满二叉树，那么就把这个问题细分为两个子问题再递归计算，这个问题会无限被细分成满二叉树，然后就可以套公式计算了，具体的操作步骤如下</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countNodes</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        TreeNode* left = root-&gt;left;</span><br><span class="line">        TreeNode* right = root-&gt;right;</span><br><span class="line">        <span class="keyword">int</span> leftHeight = <span class="number">0</span>, rightHeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left)&#123;</span><br><span class="line">            leftHeight++;</span><br><span class="line">            left = left-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right)&#123;</span><br><span class="line">            rightHeight++;</span><br><span class="line">            right = right-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(leftHeight == rightHeight) <span class="keyword">return</span> (<span class="number">2</span> &lt;&lt; leftHeight) - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">countNodes</span>(root-&gt;left) + <span class="built_in">countNodes</span>(root-&gt;right) + <span class="number">1</span>; </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="110-平衡⼆叉树"><a href="#110-平衡⼆叉树" class="headerlink" title="110.平衡⼆叉树"></a>110.平衡⼆叉树</h1><p><img src="/2021/11/13/lc-day1/3.png" alt="image-20211113164842028"></p>
+<blockquote>
+<p>为什么要后序遍历?</p>
+<p>因为要从根节点计算两边子树的高度，相减的结果就是判断返回值的依据</p>
+</blockquote>
+<blockquote>
+<p>为什么返回-1</p>
+<p>因为如果两棵子树的差大于1的话，那么他就不是平衡二叉树了，所以再返回高度就没有意义了，这时要返回一个绝对不可能出现的值标记失败（相当于返回值int承担了两个作用）</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(root) == <span class="number">-1</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> left = <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(right == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(left - right) &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">max</span>(left, right) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<p>空间复杂度：O(n)</p>
+<p>这道题一开始写还没写出来，连暴力法都没想出来，还要强加练习呀</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(<span class="built_in">dfs</span>(root-&gt;left) - <span class="built_in">dfs</span>(root-&gt;right)) &lt;= <span class="number">1</span> &amp;&amp; <span class="built_in">isBalanced</span>(root-&gt;left) &amp;&amp; <span class="built_in">isBalanced</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">dfs</span>(root-&gt;left), <span class="built_in">dfs</span>(root-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>暴力法</p>
+<p>时间复杂度O(nlog(n))</p>
+<p>空间复杂度O(n)</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-搭建博客1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/"
+    >搭建博客1</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/" class="article-date">
+  <time datetime="2021-11-13T06:37:09.000Z" itemprop="datePublished">2021-11-13</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <hr>
+<h1 id="博客的作用"><a href="#博客的作用" class="headerlink" title="博客的作用"></a>博客的作用</h1><p>这个博客我决定用来写我在学习过程中的<strong>问题</strong>和<strong>笔记</strong>，顺便发一点感想。本来最初是打算用阿里云搭建博客的，结果发现wall内的东西都要备案，就作罢了，有些东西现在还不能说</p>
+<h1 id="失败的一上午"><a href="#失败的一上午" class="headerlink" title="失败的一上午"></a>失败的一上午</h1><p>今天想做一个在【标签页】显示所有【标签】的功能，结果花了一上午也没有解决，网上翻了好多教程都没有答案，只好放弃，准备直接写学习笔记了。太失败了(-_-) 后续我应该还会再试试的，毕竟我的方向是前端，这个应该在我的业务范围之内     &#128512;</p>
+<h1 id="下午"><a href="#下午" class="headerlink" title="下午"></a>下午</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_43401436/article/details/107191688">感谢该博主的帮助</a></p>
+<p>下午在解决图片上传问题，发现一个有趣的现象，我本地的图片显示不出来，却能在云端显示出来，具体表现是这样的</p>
+<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/3.png"></p>
+<p>这张图在本地是没有在typora上显示的，但我如果再发布到网站上就出现了</p>
+<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/2.png"></p>
+<p>暂时没有解决方案，不过反正能达到要求就行了，反正都要在本地先跑一遍在上传到云端。</p>
+<p>总结：这个图片路径能够被我安装的hexo插件解析出来并成功发布，但是我本地的typora却无法解析出它的路径，这是因为插件会在解析时自己再加一段路径。所以我只能舍弃本地显示选择云端显示了</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="tag">搭建博客</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-test"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/12/test/"
+    >Markdown语法练习</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/12/test/" class="article-date">
+  <time datetime="2021-11-12T11:32:20.000Z" itemprop="datePublished">2021-11-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/test/">test</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h1><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><h2 id="二级"><a href="#二级" class="headerlink" title="二级"></a>二级</h2><h3 id="三级"><a href="#三级" class="headerlink" title="三级"></a>三级</h3><h4 id="四级"><a href="#四级" class="headerlink" title="四级"></a>四级</h4><h5 id="五级"><a href="#五级" class="headerlink" title="五级"></a>五级</h5><h6 id="六级"><a href="#六级" class="headerlink" title="六级"></a>六级</h6><p><em>一个星号是斜体</em></p>
+<p><strong>两个星号是加粗</strong></p>
+<p><del>前后各两个波浪是删除线</del></p>
+<p><u>下划线underline</u></p>
+<h4 id="通过-Markdown-解析达到注释效果"><a href="#通过-Markdown-解析达到注释效果" class="headerlink" title="通过 Markdown 解析达到注释效果"></a>通过 Markdown 解析达到注释效果</h4><p>上面隐藏了一段被注释的文字</p>
+<p>这是一段没有被注释的文字</p>
+<h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><hr>
+<hr>
+<hr>
+<hr>
+<h4 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h4><ol>
+<li>这样</li>
+<li>表示</li>
+<li>即可</li>
+</ol>
+<ul>
+<li>无序</li>
+<li>表单</li>
+<li>表示</li>
+</ul>
+<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><ol>
+<li>hydra<ul>
+<li>123</li>
+<li>123</li>
+</ul>
+</li>
+<li>hyaaa<ul>
+<li>换行 + 四个空格 + ‘-‘</li>
+<li>321</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>无序就是把数字换成符号<ul>
+<li>ok</li>
+</ul>
+</li>
+</ul>
+<h4 id="markdown区块"><a href="#markdown区块" class="headerlink" title="markdown区块"></a>markdown区块</h4><blockquote>
+<p>hydra<br>mark<br>down</p>
+</blockquote>
+<blockquote>
+<p>hydra</p>
+<blockquote>
+<p>mark</p>
+<blockquote>
+<p>每个’&gt;’之间都有一个空格</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><code>cout &lt;&lt; hello</code><br>`为反引号,就是波浪线那个键</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">整段代码是用```写的</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>这样就ok了</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-hello-world"
   class="article article-type-post"
   itemscope
