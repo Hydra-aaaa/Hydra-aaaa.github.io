@@ -132,6 +132,213 @@
     
     
     <article
+  id="post-lc-day17"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/02/lc-day17/"
+    >lc-day17</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/12/02/lc-day17/" class="article-date">
+  <time datetime="2021-12-02T03:21:18.000Z" itemprop="datePublished">2021-12-02</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>重刷leetcode的题，不定期更新（改用javascript刷题）</p>
+<h1 id="使用最小花费爬楼梯"><a href="#使用最小花费爬楼梯" class="headerlink" title="使用最小花费爬楼梯"></a>使用最小花费爬楼梯</h1><p><img src="/2021/12/02/lc-day17/1.png" alt="题目"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">cost</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minCostClimbingStairs = <span class="function"><span class="keyword">function</span>(<span class="params">cost</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cost.length == <span class="number">2</span>) <span class="keyword">return</span> <span class="built_in">Math</span>.min(cost[<span class="number">0</span>], cost[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">let</span> arr = [];</span><br><span class="line">    arr[<span class="number">0</span>] = cost[<span class="number">0</span>];</span><br><span class="line">    arr[<span class="number">1</span>] = cost[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">2</span>; i &lt; cost.length; i++)&#123;</span><br><span class="line">        arr[i] = <span class="built_in">Math</span>.min(arr[i - <span class="number">1</span>], arr[i - <span class="number">2</span>]) + cost[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.min(arr[arr.length - <span class="number">1</span>], arr[arr.length - <span class="number">2</span>]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>写下面这题之前要搞清楚js中的二维数组如何定义</p>
+<p>方法一：传统的定义方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义m行n列的数组，初始化为0</span></span><br><span class="line"><span class="keyword">let</span> m = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(m);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">	arr[i] = <span class="keyword">new</span> <span class="built_in">Array</span>(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法二：奇淫技巧</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义m行n列的数组，初始化为0</span></span><br><span class="line"><span class="keyword">let</span> m = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(m).fill(<span class="number">0</span>).map(<span class="function">() =&gt;</span> <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="不同路径"><a href="#不同路径" class="headerlink" title="不同路径"></a>不同路径</h1><p><img src="/2021/12/02/lc-day17/2.png" alt="题目"></p>
+<p>明天更</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%87%8D%E5%88%B7pdf/" rel="tag">重刷pdf</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-sstream"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/02/sstream/"
+    >sstream</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/12/02/sstream/" class="article-date">
+  <time datetime="2021-12-02T02:41:04.000Z" itemprop="datePublished">2021-12-02</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="stringstream"><a href="#stringstream" class="headerlink" title="stringstream"></a>stringstream</h1><p>1.<sstream>库定义了三种类：istringstream、ostringstream和stringstream，分别用来进行流的输入、输出和输入输出操作。另外，每个类都有一个对应的宽字符集版本。<br> <sstream>使用string对象来代替字符数组。这样可以避免缓冲区溢出的危险。而且，传入参数和目标对象的类型被自动推导出来，即使使用了不正确的格式化符也没有危险。</sstream></sstream></p>
+<p>推荐使用stringstream</p>
+<h3 id="string到int的转换"><a href="#string到int的转换" class="headerlink" title="string到int的转换"></a>string到int的转换</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string result= ”<span class="number">10000</span>”;</span><br><span class="line"><span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">stream &lt;&lt; result;</span><br><span class="line">stream &gt;&gt; n;<span class="comment">//n等于10000</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你打算在多次转换中使用同一个stringstream对象，记住再每次转换前要使用clear()方法；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::stringstream stream;</span><br><span class="line">    <span class="keyword">int</span> first, second;</span><br><span class="line">    stream&lt;&lt; <span class="string">&quot;456&quot;</span>; <span class="comment">//插入字符串</span></span><br><span class="line">    stream &gt;&gt; first; <span class="comment">//转换成int</span></span><br><span class="line">    std::cout &lt;&lt; first &lt;&lt; std::endl;</span><br><span class="line">    stream.<span class="built_in">clear</span>(); <span class="comment">//在进行多次转换前，必须清除stream</span></span><br><span class="line">    stream &lt;&lt; <span class="literal">true</span>; <span class="comment">//插入bool值</span></span><br><span class="line">    stream &gt;&gt; second; <span class="comment">//提取出int</span></span><br><span class="line">    std::cout &lt;&lt; second &lt;&lt; std::endl;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">456 1</span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sstream/" rel="tag">sstream</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-蓝桥杯05"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/02/%E8%93%9D%E6%A1%A5%E6%9D%AF05/"
+    >蓝桥杯05</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/12/02/%E8%93%9D%E6%A1%A5%E6%9D%AF05/" class="article-date">
+  <time datetime="2021-12-02T01:49:40.000Z" itemprop="datePublished">2021-12-02</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="特别数的和"><a href="#特别数的和" class="headerlink" title="特别数的和"></a>特别数的和</h1><p>简单模拟, 今日打卡第一题</p>
+<p><img src="/2021/12/02/%E8%93%9D%E6%A1%A5%E6%9D%AF05/1.png" alt="题目"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> num = i;</span><br><span class="line">        <span class="keyword">while</span>(num != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp = num % <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">if</span>(temp == <span class="number">2</span> || temp == <span class="number">1</span> || temp == <span class="number">0</span> || temp == <span class="number">9</span>) &#123;</span><br><span class="line">                ans += i; </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="错误票据"><a href="#错误票据" class="headerlink" title="错误票据"></a>错误票据</h1><p><img src="/2021/12/02/%E8%93%9D%E6%A1%A5%E6%9D%AF05/2.png" alt="题目"></p>
+<p><img src="/2021/12/02/%E8%93%9D%E6%A1%A5%E6%9D%AF05/3.png" alt="题目"></p>
+<p>题目本身没有难度，就是考的输入</p>
+<blockquote>
+<p>借这里强调一下scanf吧，scanf会留下回车，scanf的结束符在键盘上是【ctrl+z】，在文本中是EOF【END OF FILE】</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">int</span> mi = <span class="number">110</span>, ma = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n) != EOF)&#123;</span><br><span class="line">        a[n]++;</span><br><span class="line">        mi = <span class="built_in">min</span>(mi, n);</span><br><span class="line">        ma = <span class="built_in">max</span>(ma, n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cut, wro;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = mi; i &lt;= ma; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == <span class="number">2</span>) wro = i;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == <span class="number">0</span>) cut = i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; cut &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; wro &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>yxc的代码用的sstream流，太神奇了</p>
+<p>要强调几点</p>
+<blockquote>
+<p>cin的结束符是回车，读取结束后回车仍然会保留在缓冲区中，会让下次的输入继续读取，如果还是cin，那就再留到下一次，空格是不会处理的，scanf同理</p>
+</blockquote>
+<blockquote>
+<p>getline则是先读取一行，如果碰到回车就会结束，但不会进入缓冲区。所以就可以用getline单独处理cin留下的空格</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cin &gt;&gt; x;			<span class="comment">//用x保存输入内容，并留下回车</span></span><br><span class="line"><span class="built_in">getline</span>(cin, s);	<span class="comment">//用s吸收掉回车</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>stringstream用于分割被空格，制表符号分割的字符串</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sstream&gt;</span>        <span class="comment">//istringstream 必须包含这个头文件</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span>  </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    string str=<span class="string">&quot;i am a boy&quot;</span>;  </span><br><span class="line">    <span class="function">istringstream <span class="title">is</span><span class="params">(str)</span></span>;  </span><br><span class="line">    string s;  </span><br><span class="line">    <span class="keyword">while</span>(is&gt;&gt;s)  &#123;  </span><br><span class="line">        cout&lt;&lt;s&lt;&lt;endl;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i</span><br><span class="line">am</span><br><span class="line">a</span><br><span class="line">boy</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    cin &gt;&gt; cnt;</span><br><span class="line">    string line;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">getline</span>(cin, line); <span class="comment">// 忽略掉第一行的回车（getline能吸收回车并删除di）</span></span><br><span class="line">    <span class="keyword">while</span> (cnt -- )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">getline</span>(cin, line);</span><br><span class="line">        <span class="function">stringstream <span class="title">ssin</span><span class="params">(line)</span></span>;</span><br><span class="line">        <span class="keyword">while</span> (ssin &gt;&gt; a[n]) n ++ ; <span class="comment">//从0开始分割字符串并赋值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(a, a + n);</span><br><span class="line">    <span class="keyword">int</span> res1, res2;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )</span><br><span class="line">        <span class="keyword">if</span> (a[i] == a[i - <span class="number">1</span>]) res2 = a[i];  <span class="comment">// 重号</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a[i] &gt;= a[i - <span class="number">1</span>] + <span class="number">2</span>) res1 = a[i] - <span class="number">1</span>; <span class="comment">// 断号</span></span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; res1 &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; res2 &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" rel="tag">蓝桥杯</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-蓝桥杯04"
   class="article article-type-post"
   itemscope
@@ -581,273 +788,6 @@
 
 
 <p>星期六果然还是懒了,   今天就更新计网算了, 顺便打一下蓝桥杯的题目, LeetCode就一题吧</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-计算机网络笔记01"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/11/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B001/"
-    >计算机网络笔记01</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/11/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B001/" class="article-date">
-  <time datetime="2021-11-26T07:24:33.000Z" itemprop="datePublished">2021-11-26</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>万众期待的计算机网络它来了，接下来我决定每天都更新一点计算机网络的学习笔记，这种方式能够加强自身的的学习印象<del>（其实我写博客是为了面试加分）</del></p>
-<blockquote>
-<p>看了个培训班的社招面试准备，给我整自闭了，项目多得跟喝汤一样，我真的有点怀疑人生了</p>
-</blockquote>
-<h1 id="第一章-计算机网络和因特网"><a href="#第一章-计算机网络和因特网" class="headerlink" title="第一章 计算机网络和因特网"></a>第一章 计算机网络和因特网</h1><h2 id="1-1-什么是因特网"><a href="#1-1-什么是因特网" class="headerlink" title="1.1 什么是因特网"></a>1.1 什么是因特网</h2><blockquote>
-<p>我们可以从两个角度来回答这个问题：一种是描述组成它的<strong>软硬件</strong>；另一种是将其视为为<strong>分布式应用</strong>提供<strong>基础服务的联网设施</strong>来描述。其实，第一种角度，是从它的组成来描述，第二种角度是从它的功能来描述</p>
-</blockquote>
-<h3 id="1-1-1-组成描述"><a href="#1-1-1-组成描述" class="headerlink" title="1.1.1 组成描述"></a>1.1.1 组成描述</h3><blockquote>
-<p>因特网是一个世界范围的计算机网络，这意味着它互联了数以亿计的计算设备（不仅仅是计算机哦）；这些设备包括但不限于传统PC、工作站以及所谓的服务器。现在有更多的设备加入到因特网中，比如便携式计算机、电视机、汽车、传感器等。用因特网的术语来说，所有连入因特网的设备都叫做<strong>主机</strong>或者<strong>端系统</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>端系统</strong>通过<strong>通信链路</strong>和<strong>分组交换机</strong>连接到一起。</p>
-</blockquote>
-<blockquote>
-<p>分组交换机从它的一条入链路接收分组，并且选择一条出链路将分组转发出去；分组交换机也有很多种类，最为有名的是路由器和链路层交换机；两者的的不同之处在于，<strong>链路层交换机主要用在接入网中，路由器主要用在网络核心.</strong></p>
-</blockquote>
-<blockquote>
-<p>端系统通过<strong>因特网服务提供商（</strong>Internet Service Provider，简称ISP）接入因特网</p>
-</blockquote>
-<blockquote>
-<p>很有名的协议有：**TCP（Transport Control Protocol，传输控制协议）和IP(Internet Protocol，网际协议)**；</p>
-</blockquote>
-<h3 id="服务描述"><a href="#服务描述" class="headerlink" title="服务描述"></a>服务描述</h3><blockquote>
-<p>应用程序编程接口（API，Application Programming Interface)</p>
-</blockquote>
-<h3 id="1-1-3-协议"><a href="#1-1-3-协议" class="headerlink" title="1.1.3 协议"></a>1.1.3 协议</h3><blockquote>
-<p><strong>协议:<strong>定义了两个或多个通信实体（不一定是端系统，还有可能是分组交换机等）之间</strong>交换信息的格式和次序</strong>以及<strong>对该信息所采取的动作</strong></p>
-</blockquote>
-<h2 id="1-2-网络的边缘"><a href="#1-2-网络的边缘" class="headerlink" title="1.2 网络的边缘"></a>1.2 网络的边缘</h2><blockquote>
-<p><strong>端系统</strong>：与因特网相连的计算机和其它设备，往往处于网络的边缘</p>
-<p><strong>端系统分类：</strong>客户和服务器</p>
-</blockquote>
-<h3 id="1-2-1-接入网"><a href="#1-2-1-接入网" class="headerlink" title="1.2.1 接入网"></a>1.2.1 接入网</h3><blockquote>
-<p><strong>接入网</strong>：是指将端系统连入到边缘路由器的物理链路</p>
-<p><strong>边缘路由器</strong>：是指端系统到任何其他远程端系统路径上的第一台路由器</p>
-</blockquote>
-<h3 id="1-2-2-物理媒体"><a href="#1-2-2-物理媒体" class="headerlink" title="1.2.2 物理媒体"></a>1.2.2 物理媒体</h3><blockquote>
-<p>传输媒体是构成通信链路的主要部分，物理媒体通常可以分为导引性媒体和非导引性媒体；其中导引性媒体，信号沿着固体前行；而非导引性媒体中，信号沿着固体媒体前行</p>
-<p>值得注意的是，架设传输媒体的人历成本要远远高于物理材料的成本</p>
-</blockquote>
-<h2 id="1-3-网络核心"><a href="#1-3-网络核心" class="headerlink" title="1.3 网络核心"></a>1.3 网络核心</h2><blockquote>
-<p>网络核心即为由互联端系统的分组交换机和链路构成的网状网络</p>
-<p>通过网络链路和交换机移动数据有两种基本方法：电路交换和分组交换</p>
-</blockquote>
-<h3 id="1-3-1-分组交换"><a href="#1-3-1-分组交换" class="headerlink" title="1.3.1 分组交换"></a>1.3.1 分组交换</h3><blockquote>
-<p>分组在通信链路上以等于该链路的最大传输速率传输通过通信链路。因此如果某条链路的最大传输速率为R，分组长度为L，则该链路传输该分组的时间为L/R；这个时间也被称为传播时延</p>
-</blockquote>
-<h3 id="1-3-2-电路交换"><a href="#1-3-2-电路交换" class="headerlink" title="1.3.2 电路交换"></a>1.3.2 电路交换</h3><blockquote>
-<p>在电路交换网络中，在端系统通信会话期间，交换机会预留端系统间通信路径上的相关资源（缓存，链路传输速率），即先建立连接，然后通信；而在分组交换网络中，这些资源没有被预留；也就是说，在端系统进行通信时，其所需要的资源是被保持的，其他通信是无法使用这一部分资源的；也就说，端系统间真正建立了一条“连接”；而这一连接，用电话的术语被称为“电路”。传统的电话网络就是电路交换网络的例子。</p>
-</blockquote>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-lc-day14"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/11/26/lc-day14/"
-    >lc-day14</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/11/26/lc-day14/" class="article-date">
-  <time datetime="2021-11-26T01:06:45.000Z" itemprop="datePublished">2021-11-26</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="45-跳跃游戏2"><a href="#45-跳跃游戏2" class="headerlink" title="45 跳跃游戏2"></a>45 跳跃游戏2</h1><p><img src="/2021/11/26/lc-day14/1.png" alt="题目"></p>
-<p>我好蠢，我好蠢，我好蠢，我好蠢，我好蠢，我好蠢，我好蠢，我好蠢，我好蠢…………</p>
-<p>别人的更新方式各种ac，我的各种卡死</p>
-<p>写了好久，最后还是看题解了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxPos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(end &lt; nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = start; j &lt; end; j++)&#123;	<span class="comment">//左闭右开区间， 循环体更新maxpos</span></span><br><span class="line">                maxPos = <span class="built_in">max</span>(maxPos, j + nums[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            start = end;			<span class="comment">//更新区间左右端点</span></span><br><span class="line">            end = maxPos + <span class="number">1</span>;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这个作者的代码，严格遵循了左闭右开的习惯，在第二层循环中遍历完区间，然后更新左右端点</p>
-</blockquote>
-<p>ver2.0</p>
-<blockquote>
-<p>这个代码的优化版本   tql</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxpos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            maxpos = <span class="built_in">max</span>(maxpos, i + nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(end == i)&#123;	<span class="comment">// 遇到当前覆盖的最远距离下标</span></span><br><span class="line">                ans++;			<span class="comment">//步数加1</span></span><br><span class="line">                end = maxpos;	<span class="comment">// 更新覆盖最远距离的下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="1005-K-次取反后最大化的数组和"><a href="#1005-K-次取反后最大化的数组和" class="headerlink" title="1005. K 次取反后最大化的数组和"></a>1005. K 次取反后最大化的数组和</h1><p><img src="/2021/11/26/lc-day14/2.png" alt="题目"></p>
-<p>写了这么多题目，感觉还是啥也不会，想到了第一层，没想到第二层，想到了排序没想到取绝对值，想到了第一层没想到第二层，题目还是做少了，我是sb</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(a) &lt; <span class="built_in">abs</span>(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestSumAfterKNegations</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), cmp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = nums.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;		<span class="comment">//第一步局部最优， 负数取反</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt; <span class="number">0</span> &amp;&amp; k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                k--;</span><br><span class="line">                nums[i] = -nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(k % <span class="number">2</span> == <span class="number">1</span>) nums[<span class="number">0</span>] = -nums[<span class="number">0</span>];		<span class="comment">// 如果负数用完了，就判断k的奇偶性，判断是否要给绝对值最小的</span></span><br><span class="line">        									<span class="comment">//数取反</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> &amp;i : nums) ans += i;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="134-加油站"><a href="#134-加油站" class="headerlink" title="134. 加油站"></a>134. 加油站</h1><p><img src="/2021/11/26/lc-day14/3.png" alt="题目"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; gas, vector&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rest = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gas.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            rest += gas[i] - cost[i];</span><br><span class="line">            total += gas[i] - cost[i];</span><br><span class="line">            <span class="keyword">if</span>(rest &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                start = i + <span class="number">1</span>;</span><br><span class="line">                rest = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(total &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> start;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>总结：如果x到不了y+1（但能到y），那么从x到y的任一点出发都不可能到达y+1。因为从其中任一点出发的话，相当于从0开始加油，而如果从x出发到该点则不一定是从0开始加油，可能还有剩余的油。既然不从0开始都到不了y+1，那么从0开始就更不可能到达y+1了…</p>
-</blockquote>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-lc-day13"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/11/25/lc-day13/"
-    >lc-day13</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/11/25/lc-day13/" class="article-date">
-  <time datetime="2021-11-25T07:07:42.000Z" itemprop="datePublished">2021-11-25</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="376-摆动序列"><a href="#376-摆动序列" class="headerlink" title="376. 摆动序列"></a>376. 摆动序列</h1><p><img src="/2021/11/25/lc-day13/1.png" alt="卡了一上午"></p>
-<p>贪心题还是挺麻烦的，至少我知道方法，但是没写出来（用Carl的话说就是：知道题目方法是常识性的东西，但是代码实现困难）</p>
-<p>贪心主要方法：手动模拟方法，感觉可行，就试一试</p>
-<blockquote>
-<p>难点1：如何设置寻找差值</p>
-<p>有n个数，但是差值只有n-1个，怎么找呢。解决办法是在首部设置一个跟nums[0]相等的虚拟的数，然后就可以从第1个数开始算差值进行比较</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先把结果值+1，因为 n 个数最多形成n - 1 个峰值。</span></span><br><span class="line">        <span class="comment">// 我们的解题逻辑 -&gt; 峰值就是结果</span></span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 假设数组前有一个假元素。值等于数组第一个元素</span></span><br><span class="line">        <span class="comment">// preDiff = (nums[0] - nums[-1]) = 0</span></span><br><span class="line">        <span class="keyword">int</span> preDiff = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> curDiff = <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">            curDiff = nums[i] - nums[i <span class="number">-1</span>];</span><br><span class="line">            <span class="comment">//如果当前差值和上一个差值为一正一负</span></span><br><span class="line">            <span class="comment">// preDiff = 0 是初始状态。</span></span><br><span class="line">            <span class="comment">// curDiff 为 0 时（前后元素相同），不进入if</span></span><br><span class="line">            <span class="keyword">if</span>((curDiff &gt; <span class="number">0</span> &amp;&amp; preDiff &lt;= <span class="number">0</span>) || (preDiff &gt;= <span class="number">0</span> &amp;&amp; curDiff &lt; <span class="number">0</span>))&#123;</span><br><span class="line">                result++;</span><br><span class="line">                preDiff = curDiff;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>难点2：为什么是prediff &lt;= 0? 这个问题我认为应该分开来思考成两种情况，&lt; 0就不说了，一正一负很好理解。</p>
-<p>问题是为什么等于零？为什么cur 不等于0，pre可以等于0？题目不是要求一正一负吗？这个问题应该这样思考，pre为0，cur不为零，那么证明此时cur这个点是峰值（低谷）的。反过来，如果cur==0， pre != 0，那就是说当前元素cur跟前一个元素重复了，所以就不对了，这个解法中的pre只会在开始为0，后面pre的取值由cur更新，而cur == 0是不满足if条件的。换句话说，如果数组中有重复元素，它只会取第一个，这也是这个算法的巧妙性</p>
-</blockquote>
-<p>还有一个y总的代码也挺好的，下次更新吧</p>
-<h1 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53. 最大子序和"></a>53. 最大子序和</h1><p><img src="/2021/11/25/lc-day13/2.png" alt="题目"></p>
-<blockquote>
-<p>贪心解法</p>
-<p>每次求值都进行选择,是当前的值【num[i]】更好还是【sum+num[i]】更好，局部最优形成全局最优</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, ans = <span class="number">-0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sum + nums[i] &gt;= nums[i]) sum = sum + nums[i];</span><br><span class="line">            <span class="keyword">else</span> sum = nums[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, sum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>动态规划</p>
-<p>核心公式差不多</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ans = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> f[nums.<span class="built_in">size</span>()];</span><br><span class="line">        f[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[i - <span class="number">1</span>] + nums[i] &gt;= nums[i]) f[i] = f[i - <span class="number">1</span>] + nums[i];</span><br><span class="line">            <span class="keyword">else</span> f[i] = nums[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans, f[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h1><p>这题有一个误区，就是我能不能在同一天卖，然后再买。题目没说，那就应该是可以的。所以贪心的思路也就出来了，检查每两天的股票差值，是正值就买入，是负值就跳过，从局部最优到全局最优</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>; j &lt; prices.<span class="built_in">size</span>(); i++, j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> pro = prices[j] - prices[i];</span><br><span class="line">            ans = <span class="built_in">max</span>(ans + pro, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55. 跳跃游戏"></a>55. 跳跃游戏</h1><p><img src="/2021/11/25/lc-day13/4.png" alt="题目"></p>
-<p>贪心题就是难想出来，代码其实挺简单的，这种题最重要的锻炼贪心思维</p>
-<blockquote>
-<p>具体来说就是判断最大覆盖范围，如果在覆盖范围内就更新maxStep，最后结果就出来了</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canJump(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">        int maxStep = 0;</span><br><span class="line">        for(int i = 0; i &lt; nums.size() - 1; i++)&#123;</span><br><span class="line">            if(maxStep &gt;= i) maxStep = max(maxStep, i + nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(maxStep &gt;= nums.size() - 1) return true;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>今天终于提起刷题的欲望了，但都是简单题？麻了，学计网去，等书到了开始更新计网的笔记，这种纯理论的东西就是记着玩，就是玩。</p>
  
       <!-- reward -->
       
