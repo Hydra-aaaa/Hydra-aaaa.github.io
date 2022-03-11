@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="三种获取对象原型的方法 Constructor.prototype是构造函数指向原型对象的方法 Object.getPrototypeOf(obj)是ES5中用来获取obj对象的原型对象的标准方法。 obj.__proto__是获取obj对象的原型对象的非标准方法。  实现Instanceofinstanceof运算符用于判断构造函数的prototype属性是否出现在对象的原型链中的任何位置 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js8">
+<meta property="og:url" content="https://hydra-aaaa.github.io/2022/03/01/js8/index.html">
+<meta property="og:site_name" content="Hydra">
+<meta property="og:description" content="三种获取对象原型的方法 Constructor.prototype是构造函数指向原型对象的方法 Object.getPrototypeOf(obj)是ES5中用来获取obj对象的原型对象的标准方法。 obj.__proto__是获取obj对象的原型对象的非标准方法。  实现Instanceofinstanceof运算符用于判断构造函数的prototype属性是否出现在对象的原型链中的任何位置 12">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-03-01T11:20:23.000Z">
+<meta property="article:modified_time" content="2022-03-07T06:42:32.927Z">
+<meta property="article:author" content="hydra">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hydra-aaaa.github.io/2022/03/01/js8/"/>
+
+
+
+
+
+  <title>js8 | Hydra</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hydra</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hydra blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/01/js8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-01T19:20:23+08:00">
+                2022-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="三种获取对象原型的方法"><a href="#三种获取对象原型的方法" class="headerlink" title="三种获取对象原型的方法"></a>三种获取对象原型的方法</h2><ul>
+<li>Constructor.prototype是构造函数指向原型对象的方法</li>
+<li><code>Object.getPrototypeOf(obj)</code>是ES5中用来获取<strong>obj对象</strong>的原型对象的标准方法。</li>
+<li><code>obj.__proto__</code>是获取<strong>obj对象</strong>的原型对象的非标准方法。</li>
+</ul>
+<h2 id="实现Instanceof"><a href="#实现Instanceof" class="headerlink" title="实现Instanceof"></a>实现Instanceof</h2><p>instanceof运算符用于判断构造函数的prototype属性是否出现在对象的原型链中的任何位置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">left, right</span>)</span>&#123;</span><br><span class="line">      <span class="comment">// 获取对象的原型</span></span><br><span class="line">      <span class="keyword">let</span> proto = <span class="built_in">Object</span>.getPrototypeOf(left)</span><br><span class="line">      <span class="comment">// 获取构造函数对象的原型</span></span><br><span class="line">      <span class="keyword">let</span> prototype = right.prototype</span><br><span class="line">    </span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!proto) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">if</span>(proto === prototype) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment">// 如果没有找到, 就继续从其原型上找</span></span><br><span class="line">        proto = <span class="built_in">Object</span>.getPrototypeOf(proto)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决0-1-0-2-0-3"><a href="#解决0-1-0-2-0-3" class="headerlink" title="解决0.1+0.2 !== 0.3"></a>解决0.1+0.2 !== 0.3</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberEpsilon</span>(<span class="params">arg1, arg2</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Math</span>.abs(arg1 - arg2) &lt; <span class="built_in">Number</span>.EPSILON</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(numberEpsilon(<span class="number">0.1</span> + <span class="number">0.2</span>, <span class="number">0.3</span>)); <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="js包装类型"><a href="#js包装类型" class="headerlink" title="js包装类型"></a>js包装类型</h2><p>js中基本类型是没有属性和方法的,为了方便操作基本类型,在调用基本类型时js会在后台隐式将基本类型转换为对象</p>
+<h2 id="let、const、var区别"><a href="#let、const、var区别" class="headerlink" title="let、const、var区别"></a>let、const、var区别</h2><p>(1) 块级作用域由{}包括,   let和const具有块级作用域,   var不存在块级作用域,解决了两个问题</p>
+<blockquote>
+<p>内层变量可以覆盖外层变量</p>
+<p>用来计数的循环变量泄漏为全局变量</p>
+</blockquote>
+<p><strong>var存在变量提升</strong>,   let,   const不存在变量提升,   变量只能在声明后使用</p>
+<p><strong>var会给全局添加属性</strong></p>
+<p><strong>var允许重复声明</strong>,  const, let不允许</p>
+<p>给let, const命令声明变量之前,  该变量都是不可用的,  语法上成为<strong>暂时性死区</strong>,   var声明不存在</p>
+<p>var,  let可以不用设置初始值,   const必须设置初始值</p>
+<p>let可以改变指针指向,   const不可以改变指针指向</p>
+<h2 id="const属性修改问题"><a href="#const属性修改问题" class="headerlink" title="const属性修改问题"></a>const属性修改问题</h2><p>const保证变量指向的地址不可改变,   对于基本的数据类型(数值,  字符串,  布尔值),  其值就保存在变量指向的那个内存地址中,  等同与常量</p>
+<p>对于引用类型来说(对象,  数组),  变量指向数据的内存地址,  保存的只是一个指针,  const只能保证这个指针固定不动,  数据结构内部不可控</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>箭头函数时es6提出的,  它没有prototype,  也没有自己的指向,  所以不可以new一个箭头函数</p>
+<p>new操作符的实现步骤如下:  </p>
+<blockquote>
+<p>1、创建一个对象</p>
+<p>2、将对象的proto属性指向构造函数的prototype</p>
+<p>3、构造函数肚饿this指向该对象，为这个对象挂载属性和方法</p>
+<p>4、返回新的对象</p>
+</blockquote>
+<p>上面的二、三步箭头函数无法执行</p>
+<h2 id="箭头函数和普通函数区别"><a href="#箭头函数和普通函数区别" class="headerlink" title="箭头函数和普通函数区别"></a>箭头函数和普通函数区别</h2><blockquote>
+<p><strong>箭头函数比普通函数更简洁</strong></p>
+<p>如果不需要返回值, 且只有一句话,   可以给语句前面加一个void,  再调用一个函数</p>
+<p>let fn = () =&gt; void fun()</p>
+</blockquote>
+<blockquote>
+<p><strong>箭头函数没有自己的this</strong></p>
+<p>箭头函数不会创建自己的this,  它继承了自己作用域上一层的this</p>
+</blockquote>
+<blockquote>
+<p><strong>箭头函数指向的this不会改变</strong></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">&#x27;GLOBAL&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	<span class="attr">id</span>: <span class="string">&#x27;OBJ&#x27;</span>,</span><br><span class="line">	<span class="attr">a</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">b</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.a() <span class="comment">// &#x27;OBJ&#x27;</span></span><br><span class="line">obj.b(); <span class="comment">// &#x27;GLOBAL&#x27;</span></span><br><span class="line"><span class="keyword">new</span> obj.a() <span class="comment">// undefine</span></span><br><span class="line"><span class="keyword">new</span> obj.b() <span class="comment">// Uncaught TypeError: obj.b is..</span></span><br></pre></td></tr></table></figure>
+
+<p>对象obj的方法b是使用箭头函数定义的,  这个函数中this就永远指向它定义时所处的全局执行环境this,  即便这个函数时作为对象obj的方法调用,   this依旧指向window对象  定义对象的大括号{}无法形成一个单独的执行环境, 它依然处于全局环境中</p>
+<blockquote>
+<p><strong>call() bind() apply() 等方法不能改变箭头函数this指向</strong></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">&#x27;Global&#x27;</span></span><br><span class="line"><span class="keyword">let</span> fun1 = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">&#125;</span><br><span class="line">fun1();	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.call(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.apply(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.bind(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)()	<span class="comment">// &#x27;Global&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>箭头函数不能作为构造函数使用</strong></p>
+<p><strong>没有arguments</strong></p>
+<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h2><p>1.<strong>对象扩展运算符</strong></p>
+<p>对象的扩展运算符(…)用于取出参数对象中的所有可遍历属性,  拷贝到当前对象中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = &#123;...bar&#125; <span class="comment">// &#123;a: 1, b: 2&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述方法等价于</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = <span class="built_in">Object</span>.assign(&#123;&#125;, bar) <span class="comment">// </span></span><br></pre></td></tr></table></figure>
+
+<p>Object.assign()方法用于对象的合并, 将源对象source的所有可枚举属性,  复制到目标对象(target)</p>
+<p>Object.assign方法第一个参数是目标对象,  后面参数是源对象(如果有同名属性, 后面会覆盖前面)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = &#123;...bar, ...&#123;<span class="attr">a</span>: <span class="number">2</span>, <span class="attr">b</span>: <span class="number">4</span>&#125;&#125; <span class="comment">//被覆盖</span></span><br></pre></td></tr></table></figure>
+
+<p>2.<strong>数组扩展运算符</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 1 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>]) </span><br><span class="line"><span class="comment">// 1 [2, 3, 4] 5</span></span><br></pre></td></tr></table></figure>
+
+<p>数组扩展运算符的应用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">add(...numbers) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>复制数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"><span class="keyword">const</span> arr2 = [...arr1]</span><br></pre></td></tr></table></figure>
+
+<p>扩展运算符会取出参数对象中所有可用属性, 拷贝到当前对象中</p>
+<p>合并数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr1 = [&#x27;two&#x27;, &#x27;three&#x27;];</span><br><span class="line">const arr2 = [&#x27;one&#x27;, ...arr1, &#x27;four&#x27;, &#x27;five&#x27;]</span><br><span class="line">// [&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;five&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>将字符串转换为真正的数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...<span class="string">&#x27;hello&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="对数组和对象的结构"><a href="#对数组和对象的结构" class="headerlink" title="对数组和对象的结构"></a>对数组和对象的结构</h2><p>解构是ES6提供的新的提取数据的模式,这种模式能够从对象或数组中针对性拿到想要的东西</p>
+<p><strong>数组解构</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a,b,c] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+
+<p>或者留空</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a,,c] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] <span class="comment">// a: 1, c: 3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>对象结构</strong></p>
+<p>解构对象是以属性名称为匹配条件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stu = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span>,</span><br><span class="line">	<span class="attr">age</span>: <span class="number">24</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解构属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;name, age&#125; = stu	<span class="comment">//name: &#x27;Bob&#x27; age: 24</span></span><br><span class="line"><span class="comment">// 调换位置也一样</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="new操作符实现-手写"><a href="#new操作符实现-手写" class="headerlink" title="new操作符实现(手写)"></a>new操作符实现(手写)</h2><p>1.首先创建了一个新的空对象</p>
+<p>2.设置原型,  将对象的原型设置为函数的prototype对象</p>
+<p>3.让函数的this指向这个对象,  指向构造函数的代码</p>
+<p>4.返回对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">    Dog.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_new</span>(<span class="params">fn, ...args</span>)</span>&#123;</span><br><span class="line">      <span class="comment">// 先用object创建一个新对象</span></span><br><span class="line">      <span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(fn.prototype)</span><br><span class="line">      <span class="comment">// obj指向构造函数原型了, 再修改this指针</span></span><br><span class="line">      <span class="keyword">const</span> res = fn.apply(obj, args)</span><br><span class="line">      <span class="keyword">return</span> res <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? res : obj</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> dog = _new(Dog, <span class="string">&#x27;大毛&#x27;</span>)</span><br><span class="line">    dog.sayName()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/01/lc26/" rel="next" title="lc26">
+                <i class="fa fa-chevron-left"></i> lc26
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/02/js9/" rel="prev" title="js9">
+                js9 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1%E5%8E%9F%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">三种获取对象原型的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Instanceof"><span class="nav-number">2.</span> <span class="nav-text">实现Instanceof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B30-1-0-2-0-3"><span class="nav-number">3.</span> <span class="nav-text">解决0.1+0.2 !&#x3D;&#x3D; 0.3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">js包装类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let%E3%80%81const%E3%80%81var%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">let、const、var区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const%E5%B1%9E%E6%80%A7%E4%BF%AE%E6%94%B9%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">const属性修改问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E5%8C%BA%E5%88%AB"><span class="nav-number">8.</span> <span class="nav-text">箭头函数和普通函数区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">9.</span> <span class="nav-text">扩展运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">10.</span> <span class="nav-text">对数组和对象的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%AE%9E%E7%8E%B0-%E6%89%8B%E5%86%99"><span class="nav-number">11.</span> <span class="nav-text">new操作符实现(手写)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hydra</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
