@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Http协议的请求和响应 Http:   超文本传输协议(HyperText Transfer Protocol)  Http协议的组成:    由Http请求和http响应组成  Http组成的三部分:   请求行,  请求头,   请求体     请求行  请求方式:   POST,   GET 请求的资源:   &#x2F;DemoEE&#x2F;form.html 协议版本:   HTTP&#x2F;1.1(一般都是)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计网3">
+<meta property="og:url" content="https://hydra-aaaa.github.io/2022/03/13/Http/index.html">
+<meta property="og:site_name" content="Hydra">
+<meta property="og:description" content="Http协议的请求和响应 Http:   超文本传输协议(HyperText Transfer Protocol)  Http协议的组成:    由Http请求和http响应组成  Http组成的三部分:   请求行,  请求头,   请求体     请求行  请求方式:   POST,   GET 请求的资源:   &#x2F;DemoEE&#x2F;form.html 协议版本:   HTTP&#x2F;1.1(一般都是)">
+<meta property="og:locale">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1491599/201907/1491599-20190717150755398-405136122.png">
+<meta property="article:published_time" content="2022-03-13T09:27:45.007Z">
+<meta property="article:modified_time" content="2022-03-13T09:27:45.007Z">
+<meta property="article:author" content="hydra">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1491599/201907/1491599-20190717150755398-405136122.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hydra-aaaa.github.io/2022/03/13/Http/"/>
+
+
+
+
+
+  <title>计网3 | Hydra</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hydra</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hydra blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/13/Http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计网3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-13T17:27:45+08:00">
+                2022-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Http协议的请求和响应"><a href="#Http协议的请求和响应" class="headerlink" title="Http协议的请求和响应"></a>Http协议的请求和响应</h3><ol>
+<li><p>Http:   超文本传输协议(HyperText Transfer Protocol)</p>
+</li>
+<li><p>Http协议的组成:    由Http请求和http响应组成</p>
+</li>
+<li><p>Http组成的三部分:   请求行,  请求头,   请求体</p>
+</li>
+</ol>
+<p><img src="https://img2018.cnblogs.com/blog/1491599/201907/1491599-20190717150755398-405136122.png"></p>
+<ol>
+<li><p>请求行</p>
+<blockquote>
+<p>请求方式:   POST,   GET</p>
+<p>请求的资源:   /DemoEE/form.html</p>
+<p>协议版本:   HTTP/1.1(一般都是)</p>
+<p>HTTP/1.0,   发送请求,   创建一个连接,   获得一个web资源,   连接结束</p>
+<p>HTTP/1.1,   发送请求,   创建一次连接,   获得多个web资源,   保持连接</p>
+</blockquote>
+</li>
+<li><p>请求头</p>
+<blockquote>
+<p>请求头是客户端发送给服务器的信息,   使用键值对表示key, value</p>
+<p>if-Modified-Since:   浏览器通知服务器,   本地缓存的最后变更时间,   与另一个响应头Last-Modified共同控制浏览器页面的缓存</p>
+<p>cookie:   与会话有关技术,   用于存放浏览器缓存的cookie信息</p>
+<p>User-Agent:   浏览器通知服务器,   客户端, 浏览器,  操作系统的相关信息</p>
+<p>Accept:   浏览器可支持的MIME(媒体类型Multipurpose  Internet Mail Extensions)类型,   文件描述的一种方式   text/html html文件,   text/css  css文件  text/javascript   js文件</p>
+</blockquote>
+</li>
+<li><p>请求体</p>
+<blockquote>
+<p>请求方式是post时,   请求体有请求的参数   username=zs&amp;password=123</p>
+<p>请求方式是get,  请求参数不会出现在请求体后,   会拼接在URL后面</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>get和post的区别:</strong></p>
+<blockquote>
+<p><strong>Get方法的特点:</strong>   请求的数据会附在URL中,   以?分割URL和传输数据,   多个参数用&amp;连接</p>
+<p>除此之外,   Get仅用于信息获取,   有安全性和幂等性</p>
+<p>安全性:   指的是非修改信息,   get请求不会产生副作用,   仅用于获取信息资源,   不会影响资源状态</p>
+<p>幂等性:   指无论调用这个URL多少次,   数据都不会变</p>
+<p>get的url具有长度限制</p>
+<p>get只产生一个TCP数据包</p>
+</blockquote>
+<blockquote>
+<p><strong>post方法特点:</strong>   根据Http规范,   post可能修改服务器上的资源请求,   例如我们在点赞时,   就是在提交post请求</p>
+<p>post请求信息放在请求数据中,   所以请求信息没有长度限制</p>
+<p>post方法会产生两个TCP数据包,   浏览器会把请求头发给服务器,   待服务器响应100 continue后,  浏览器在发送请求数据,   服务器响应200 ok,   看起来get请求的传输比post块,  实际上在网络良好的情况下可以忽略不计</p>
+</blockquote>
+<blockquote>
+<p><strong>GET 和 POST 的区别</strong>:   本质没有区别,   get和post都是HTTP请求协议的请求方法,   而http又是TCP/IP协议的通信协议之一,   所以都是TCP连接</p>
+</blockquote>
+<blockquote>
+<p>**区分: **  在http协议中,   会对这些不同的请求设置不同的类别管理,  例如单独获取资源的请求为GET,   修改服务器资源的请求为POST.   服务器对它们的请求报文格式作出要求</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<h3 id="HTTP1-0-1-1-2-0的版本区别"><a href="#HTTP1-0-1-1-2-0的版本区别" class="headerlink" title="HTTP1.0,   1.1,   2.0的版本区别"></a>HTTP1.0,   1.1,   2.0的版本区别</h3><ul>
+<li><strong>HTTP/1.0</strong></li>
+</ul>
+<p>HTTP/1.0规定浏览器与服务器只保持<strong>短暂的连接</strong>,   连接无法复用,    每个TCP连接只能发送一个请求,   浏览器的<strong>每次</strong>请求都需要与服务器建立一个<strong>TCP连接</strong>,   服务器完成请求处理后<strong>立刻断开TCP连接</strong>,   服务器<strong>不跟踪</strong>每个客户也不记录过去的请求.   </p>
+<ul>
+<li><strong>HTTP1.1</strong></li>
+</ul>
+<p>引入了持久连接,   TCP连接默认不关闭,   可以被多个请求复用</p>
+<p>引入了管道机制,   通一个TCP连接里面,   客户端可以发送多个请求</p>
+<p>服务端是顺序执行的,    效率还有提升空间</p>
+<p><strong>HTTP2.0</strong></p>
+<p>2.0重点解决通信效率问题,   HTTP2.0采用了多路复用技术,   在一个连接里面,   浏览器和服务端都可以同时发送多个请求和回应,   不用按照顺序一一对应,    这样做是使用了二进制分帧,   即HTTP2.0会将所有传输的信息分割为更小的消息和<strong>帧</strong>,   对它们采用二进制格式编码</p>
+<p>多路复用的优化:   Header压缩,   服务端推送</p>
+<p>Header压缩:   Http请求和响应是由请求行,  请求头  请求体组成,   一般对于请求体是会进行gzip压缩的,   但是请求行,请求头是没有进行压缩的,  以纯文本进行传输,   所以http2.0提出对请求头, 请求行压缩</p>
+<p>常用状态码:   </p>
+<p>100  继续发送请求</p>
+<p>200 请求完成 ok</p>
+<p>301 资源重定向   Move   Permanently    会导致浏览器将书签重新保存</p>
+<p>302 临时重定向   Found    浏览器书签保存的url不变</p>
+<p>304 客户端发送附带条件的请求,   但为满足服务器的条件,   </p>
+<p>400  客户端错误   </p>
+<p>401 无权限访问</p>
+<p>403  forbidden</p>
+<p>404  资源不存在</p>
+<p>500  Internal Server Error 服务器错误</p>
+<p>502 网关错误</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/12/Vue%E7%9F%A5%E8%AF%86%E7%82%B93/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/13/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80/" rel="prev" title="响应式布局">
+                响应式布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Http%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-number">1.</span> <span class="nav-text">Http协议的请求和响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP1-0-1-1-2-0%E7%9A%84%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">HTTP1.0,   1.1,   2.0的版本区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hydra</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

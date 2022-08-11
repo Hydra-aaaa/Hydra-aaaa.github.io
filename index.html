@@ -131,7 +131,7 @@
 
 
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/10/mianjing3/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/24/prox1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/03/10/mianjing3/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2022/03/24/prox1/" itemprop="url">prox1</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-10T09:33:33+08:00">
-                2022-03-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-24T11:09:06+08:00">
+                2022-03-24
               </time>
             
 
@@ -300,1363 +300,914 @@
       
         
           
-            <h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><p><strong>进程是资源分配的最小单位,   线程是cpu调度的最小单位</strong></p>
+            <h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><h4 id="代理是对目标对象的抽象"><a href="#代理是对目标对象的抽象" class="headerlink" title="代理是对目标对象的抽象"></a>代理是对目标对象的抽象</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/14/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/14/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-14T23:09:01+08:00">
+                2022-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一次完整的HTTP请求过程"><a href="#一次完整的HTTP请求过程" class="headerlink" title="一次完整的HTTP请求过程"></a>一次完整的HTTP请求过程</h3><ol>
+<li><p><strong>域名解析</strong></p>
+<p> 浏览器会解析url这个域名对应的ip地址</p>
+<ul>
+<li><p>浏览器首先搜索自身的DNS缓存,   看看自身缓存中是否有对应的条目,  如果没有过期,   解析就到此结束.  </p>
+</li>
+<li><p>浏览器自身缓存没有找到对应的条目,  那么chrome浏览器就会搜索操作系统自身的DNS缓存,   如果没有过期则停止搜索,   解析到此结束</p>
+</li>
+<li><p>浏览器在操作系统中没有找到对应条目,   浏览器会发起一个<strong>DNS系统调用</strong>,   向本地配置的DNS服务器发起域名解析请求,   这个请求是<strong>递归</strong>的,   也就是运营商DNS服务器必须给我们提供该IP的地址,   请求过程如下:   <strong>运营商DNS服务器</strong>首先查找<strong>自身的缓存</strong>,   如果能在到对应的条目,   且没有过期则解析成功,   如果没有找到对应的条目,   则运营商的DNS代我们的浏览器发送<strong>迭代DNS解析请求.</strong></p>
+</li>
+<li><p>运营商服务器会查找根域服务器的地址,   找到根域的DNS服务,   就会向其发送请求,   </p>
+</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/14/xss%E6%94%BB%E5%87%BB%E5%92%8Ccsrf%E6%94%BB%E5%87%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/14/xss%E6%94%BB%E5%87%BB%E5%92%8Ccsrf%E6%94%BB%E5%87%BB/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-14T14:43:32+08:00">
+                2022-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="xss攻击"><a href="#xss攻击" class="headerlink" title="xss攻击"></a>xss攻击</h3><p>xss攻击即cross site script,   跨脚本攻击,   缩写是css,   为了和层叠样式表区分,   改成了xss</p>
+<p>xss攻击是指攻击者在网站上注入恶意攻击的客户端代码,   通过恶意脚本对客户端网页进行篡改,   从而在用户浏览网页时,   对浏览器进行控制和获取用户隐私数据的一种攻击方式</p>
+<p>攻击者对客户端网页注入恶意脚本包括js,   有时也会包含HTML,   Flash,   有多种进行xss攻击,   共同特点是:   将一些隐私数据像cookie,  session发送给攻击者,   将受害者重定向带一个受攻击者控制的网站,   在受害者机器上进行操作</p>
+<p>xss攻击分为:   反射型,   存储型,   基于DOM</p>
+<h5 id="反射型-重定向到其他网站"><a href="#反射型-重定向到其他网站" class="headerlink" title="反射型(重定向到其他网站)"></a>反射型(重定向到其他网站)</h5><p>反射型xss只是简单把用户输入的数据”反射”给浏览器,   这种攻击方式往往需要攻击者诱使用户点击一个恶意连接,   或者提交一个表单,   或者进入一个恶意网站,   注入脚本进入被攻击者的网站</p>
 <blockquote>
-<p>一个进程就是程序运行的实例,   详细解释就是,   启动一个程序时,  操作系统会为该程序创建一块内存,   用来存放代码,   运行中的数据,   和一个执行任务的主线程主线程,   这个运行环境就是主线程.   </p>
-<p>进程是运行在虚拟内存上的,   虚拟内存是用来解决用户对硬件资源的无限需求和有限的硬件资源之间的矛盾.   从操作系统上看,   虚拟内存即交换文件;   从处理器角度看,   虚拟内存即虚拟地址空间</p>
+<p>举个例子,  当用户访问某个网站时,   网站会不小心点击到恶意连接,   页面会跳转到攻击者预先准备的网页,  这个时候会执行js的脚本,   可能是恶作剧的脚本,   或者是能获取用户隐私的脚本</p>
 </blockquote>
-<p><strong>进程和线程的关系</strong></p>
-<ul>
-<li>进程中的任意一线程出错,   都会导致整个进程崩溃</li>
-<li>线程间共享进程的数据</li>
-<li>当一个进程关闭以后,   操作系统会回收进程所占的内存,   防止内存泄漏</li>
-<li>进程之间内容相互隔离,   数据不会共享,  也避免了数据写出到其他线程上</li>
-</ul>
-<p> <strong>进程和线程的区别</strong></p>
-<ul>
-<li>进程能看做独立应用,   线程不能</li>
-<li>资源:  进程是cpu资源分配的最小单位,   线程是cpu调度的最小单位</li>
-<li>通信:  线程之间可以直接共享同一进程的资源,   而进程通信需要借助进程间通信</li>
-<li>系统开销:   由于创建或撤销进程,   系统都要为之分配或回收资源,   而进程通信需要借助进程间通信</li>
-</ul>
-<p><strong>浏览器的渲染进程的线程共有五种</strong>:</p>
+<h5 id="存储型-传入恶意代码至服务器"><a href="#存储型-传入恶意代码至服务器" class="headerlink" title="存储型(传入恶意代码至服务器)"></a>存储型(传入恶意代码至服务器)</h5><p>存储型xss会把用户输入的数据存储在服务端,   当浏览器请求数据时,   脚本从服务器传过来并执行,   这种xss具有很强的稳定性</p>
+<p>比较常见的一个场景是攻击方在论坛或社区等网站上提交一段恶意js脚本代码,   服务器接收后会保存下来,   </p>
+<p>其他用户再去访问这段内容时,   恶意脚本就会被执行</p>
+<h5 id="DOM型-破坏页面结构"><a href="#DOM型-破坏页面结构" class="headerlink" title="DOM型(破坏页面结构)"></a>DOM型(破坏页面结构)</h5><p>发生在客户端的界面上,   指用户在浏览网页时,   被注入了恶意代码修改了dom结构,    用户这时如果不小心点击了,   就会执行对应的脚本</p>
+<h5 id="防范xss攻击的方法"><a href="#防范xss攻击的方法" class="headerlink" title="防范xss攻击的方法"></a>防范xss攻击的方法</h5><p>最简单的做法:   对所有cookie设置httponly,    这样设置后所有script脚本都不能读取cookie,   设置cookie的方法是setHeader</p>
+<blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">` `</span><span class="string">&quot;Set-Cookie&quot;</span><span class="string">` `</span>, <span class="string">&quot;cookiename=httponlyTest;Path=/;Domain=domainvalue;Max-Age=seconds;HTTPOnly&quot;</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>输入检查:   不要相信任何用户输入,    对任何用户的输入都要内容检查,  过滤,  建立可信任字符和HTML的白名单,    比如decodingMap,   对于特殊的字符,  ‘&gt;’,  ‘&lt;’都会过滤,   防止xss攻击</p>
+<p><strong>CSRF</strong>跨站请求伪造</p>
+<p>csrf攻击是借助攻击者对受害者cookie骗取服务器的信任,   在受害者毫不知情的情况下伪造请求访问服务器,   在未授权的情况下执行需要权限的操作</p>
+<p>cookie是服务器保存在客户端的一段小数据,   他会在每次客户端向服务器发送请求时携带发送,   主要用于保存会话状态管理,   自定义设置</p>
+<p>所有浏览器所持有的cookie会分为两种,   session Cookie(会话结束就被删除),   permanent cookie(指定有效时间) </p>
+<p><strong>验证码</strong>:   对抗CSRF最有效的办法,   CSRF往往是在用户不知情的情况下伪造请求,   但是验证码可以强迫用户必须与页面交互后才能发送请求,   但是验证码不是万能的,   不能所有操作都要验证码,   这只是一种辅助方案</p>
+<p><strong>设置referer Ckeck</strong>   在http协议中,   http头中有一个字段叫Referer,   记录了http请求的来源地址, 通过检测请求来源是否合法,   来判断是否响应请求(缺点:   referer是浏览器提供的,   存在被破解的风险,   并且referer也会被修改)</p>
+<p><strong>添加token验证</strong>   CSRF请求之所以能成功,   关键在于攻击者利用到获取的cookie来通过安全验证,   所以必须设置一个cookie之外的攻击者访问不到的数据,   并在服务器设置拦截器验证token,   如果token不准确,   就会拒绝这次访问</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/13/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/13/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80/" itemprop="url">响应式布局</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-13T22:53:48+08:00">
+                2022-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><p>含义:  指同一页面在不同屏幕尺寸下有不同的布局,   传统的开发方式是PC端那一套,   手机端再开发一套,   </p>
+<p>而是用响应式布局只要开发一套就够了,    缺点是css比较重</p>
+<blockquote>
+<p>响应式设计与自适应设计的区别:   响应式开发一套界面,   通过检测视口标签,   针对不同客户端在客户端做代码处理,   来展现不同布局的内容;   自适应需要开发多套界面通过检测视口分辨率,   判断访问的设备是pc端,   平板,   手机,   从而请求服务层,   来返回不同的界面.   屏幕分成超小屏幕,   小屏幕,    </p>
+<p>中等屏幕,   大屏幕</p>
+</blockquote>
+<h5 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h5><p>针对不同媒体类型定义不同的样式,   当重置浏览器窗口大小的过程中,   会根据浏览器的高度和宽度重新渲染页面</p>
+<h5 id="百分比布局"><a href="#百分比布局" class="headerlink" title="百分比布局:"></a>百分比布局:</h5><p>缺点:  </p>
 <ol>
-<li><p>GUI渲染进程,  负责渲染浏览器,   解析html,  css,   构建DOM树,   构建CSSOM树,   构建渲染树和绘制页面;  当发生重绘和回流时就会执行该线程</p>
+<li>计算困难,   定义一个元素的宽高,   必须按照设计稿,  换算成百分比</li>
+<li>width和height相对父元素的width和height,   margin和padding不管垂直还是水平方向都是相对于父元素宽度的,   border-radius则是相对于元素自身的,    这使得百分比的布局问题变得复杂</li>
+</ol>
+<p><strong>rem布局</strong></p>
+<p>REM是css3的新单位,   并且移动端的支持度很高.   rem相对于根元素的font-szie大小,   根元素的font-size提供一个基准值,   当页面的size发生变化时,   只需要改变font-size值.   以rem为固定单位元素的大小也会发生响应式变化,   如果需要改变布局的大小,   只需要动态改变font-size就行了</p>
+<p>rem布局方法: </p>
+<ul>
+<li><p>所有设置的固定值都用rem做单位,   在html上设置一个基准值,  px和rem的比例相对应,   然后在效果图上获取px值,   布局时转换为rem</p>
 </li>
-<li><p>js引擎线程,   也称js内核,   负责处理js脚本程序,   解析js脚本</p>
-<p>GUI线程和JS引擎线程是互斥的,   所以如果js执行时间过长,   会造成页面渲染不连贯,   页面渲染加载阻塞</p>
+<li><p>js获取真实的屏幕宽度,   让其除以设计稿的宽度,   算出比例,   把之前的基准值按照比例重新设置,   这样项目在移动端自适应了</p>
 </li>
-<li><p>时间触发线程,   属于浏览器而不是js引擎,   用来控制事件循环</p>
+</ul>
+<p>缺点:   必须通过js来动态控制根元素font-size的大小,   也就是说,   css样式和js的代码有一定耦合性,   必须把font-size的代码放在css之前</p>
+<h5 id="视口单位"><a href="#视口单位" class="headerlink" title="视口单位"></a>视口单位</h5><p>css3新引入的单位,   与视图窗口有关,   vw表示相对视图窗口的宽度,   vh相对于视图窗口的高度,   vmin和vmax是其中的较小,  较大值</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/13/Http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/13/Http/" itemprop="url">计网3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-13T17:27:45+08:00">
+                2022-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Http协议的请求和响应"><a href="#Http协议的请求和响应" class="headerlink" title="Http协议的请求和响应"></a>Http协议的请求和响应</h3><ol>
+<li><p>Http:   超文本传输协议(HyperText Transfer Protocol)</p>
 </li>
-<li><p>定时器触发线程,   定时器触发线程是setInterval,   setTimeout所在线程,   浏览器定时计数,  不是js引擎计数,   以为js是单线程的,   计时完毕后,   添加到事件任务会被添加到任务队列等待执行,  计时器最小为4ms</p>
+<li><p>Http协议的组成:    由Http请求和http响应组成</p>
 </li>
-<li><p>异步http请求线程,   xmlHttpRequest连接后通过浏览器新开一个线程请求</p>
+<li><p>Http组成的三部分:   请求行,  请求头,   请求体</p>
 </li>
 </ol>
-<p><strong>进程之前的通信方式</strong></p>
+<p><img src="https://img2018.cnblogs.com/blog/1491599/201907/1491599-20190717150755398-405136122.png"></p>
 <ol>
-<li>管道通信  管道是最基本的线程通信机制.   管道就是操作系统内核开辟出的一段缓冲区进程1可以将数据拷贝到这段缓冲区上,   进程2就可以读取了<ul>
-<li>管道只能单向通信</li>
-<li>依赖文件系统</li>
-<li>生命周期随进程</li>
-<li>面向字节流服务</li>
-<li>管道内部提供同步机制</li>
-</ul>
+<li><p>请求行</p>
+<blockquote>
+<p>请求方式:   POST,   GET</p>
+<p>请求的资源:   /DemoEE/form.html</p>
+<p>协议版本:   HTTP/1.1(一般都是)</p>
+<p>HTTP/1.0,   发送请求,   创建一个连接,   获得一个web资源,   连接结束</p>
+<p>HTTP/1.1,   发送请求,   创建一次连接,   获得多个web资源,   保持连接</p>
+</blockquote>
+</li>
+<li><p>请求头</p>
+<blockquote>
+<p>请求头是客户端发送给服务器的信息,   使用键值对表示key, value</p>
+<p>if-Modified-Since:   浏览器通知服务器,   本地缓存的最后变更时间,   与另一个响应头Last-Modified共同控制浏览器页面的缓存</p>
+<p>cookie:   与会话有关技术,   用于存放浏览器缓存的cookie信息</p>
+<p>User-Agent:   浏览器通知服务器,   客户端, 浏览器,  操作系统的相关信息</p>
+<p>Accept:   浏览器可支持的MIME(媒体类型Multipurpose  Internet Mail Extensions)类型,   文件描述的一种方式   text/html html文件,   text/css  css文件  text/javascript   js文件</p>
+</blockquote>
+</li>
+<li><p>请求体</p>
+<blockquote>
+<p>请求方式是post时,   请求体有请求的参数   username=zs&amp;password=123</p>
+<p>请求方式是get,  请求参数不会出现在请求体后,   会拼接在URL后面</p>
+</blockquote>
 </li>
 </ol>
-<h3 id="浏览器渲染"><a href="#浏览器渲染" class="headerlink" title="浏览器渲染"></a>浏览器渲染</h3><ul>
-<li>首先解析收到的文档,   根据文档定义一棵DOM树,   DOM树是由DOM元素及属性结点组成</li>
-<li>对CSS进行解析,   生成CSSOM规则树</li>
-<li>根据DOM和CSSOM规则树构建渲染树.   渲染树的结点被称为渲染对象, 渲染对象和DOM大部分都是一一对应的</li>
-<li>当渲染对象被创建并添加到树中时,   没有位置和大小,   生成渲染树后进行回流(重绘),   这一阶段浏览器主要弄清各个结点在页面的几何位置和大小</li>
-<li>布局阶段结束后,   遍历渲染树并调用paint方法,   将他们显示在屏幕上,   绘制使用UI组件</li>
+<p><strong>get和post的区别:</strong></p>
+<blockquote>
+<p><strong>Get方法的特点:</strong>   请求的数据会附在URL中,   以?分割URL和传输数据,   多个参数用&amp;连接</p>
+<p>除此之外,   Get仅用于信息获取,   有安全性和幂等性</p>
+<p>安全性:   指的是非修改信息,   get请求不会产生副作用,   仅用于获取信息资源,   不会影响资源状态</p>
+<p>幂等性:   指无论调用这个URL多少次,   数据都不会变</p>
+<p>get的url具有长度限制</p>
+<p>get只产生一个TCP数据包</p>
+</blockquote>
+<blockquote>
+<p><strong>post方法特点:</strong>   根据Http规范,   post可能修改服务器上的资源请求,   例如我们在点赞时,   就是在提交post请求</p>
+<p>post请求信息放在请求数据中,   所以请求信息没有长度限制</p>
+<p>post方法会产生两个TCP数据包,   浏览器会把请求头发给服务器,   待服务器响应100 continue后,  浏览器在发送请求数据,   服务器响应200 ok,   看起来get请求的传输比post块,  实际上在网络良好的情况下可以忽略不计</p>
+</blockquote>
+<blockquote>
+<p><strong>GET 和 POST 的区别</strong>:   本质没有区别,   get和post都是HTTP请求协议的请求方法,   而http又是TCP/IP协议的通信协议之一,   所以都是TCP连接</p>
+</blockquote>
+<blockquote>
+<p>**区分: **  在http协议中,   会对这些不同的请求设置不同的类别管理,  例如单独获取资源的请求为GET,   修改服务器资源的请求为POST.   服务器对它们的请求报文格式作出要求</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<h3 id="HTTP1-0-1-1-2-0的版本区别"><a href="#HTTP1-0-1-1-2-0的版本区别" class="headerlink" title="HTTP1.0,   1.1,   2.0的版本区别"></a>HTTP1.0,   1.1,   2.0的版本区别</h3><ul>
+<li><strong>HTTP/1.0</strong></li>
 </ul>
-<p>这个过程是逐步完成的,   它会解析一部分就显示一部分</p>
-<h3 id="浏览器渲染优化"><a href="#浏览器渲染优化" class="headerlink" title="浏览器渲染优化"></a>浏览器渲染优化</h3><p><strong>针对js</strong> :   js会阻塞html和css的解析,  优化如下</p>
+<p>HTTP/1.0规定浏览器与服务器只保持<strong>短暂的连接</strong>,   连接无法复用,    每个TCP连接只能发送一个请求,   浏览器的<strong>每次</strong>请求都需要与服务器建立一个<strong>TCP连接</strong>,   服务器完成请求处理后<strong>立刻断开TCP连接</strong>,   服务器<strong>不跟踪</strong>每个客户也不记录过去的请求.   </p>
 <ul>
-<li>将js文件放在body后面</li>
-<li>body中间尽量不要写script</li>
-<li>async是在下载完成后,  立即异步加载,  加载后立刻执行</li>
+<li><strong>HTTP1.1</strong></li>
 </ul>
-<p><strong>针对CSS</strong></p>
-<ul>
-<li>link 浏览器会派发一个新等线程(http线程)去加载资源,   与此同时GUI线程会 继续向下渲染代码</li>
-<li>style GUI直接渲染</li>
-<li>@important  会阻碍渲染,  直到引用的资源被返回</li>
-</ul>
-<p><strong>针对DOM树和CSSOM树</strong></p>
-<ul>
-<li>html代码层级不要太深</li>
-<li>减少css代码层级</li>
-</ul>
-<p><strong>减少回流和重绘</strong></p>
-<ul>
-<li>减少dom操作</li>
-<li>不要使用table布局</li>
-</ul>
-<h3 id="浏览器本地存储方式"><a href="#浏览器本地存储方式" class="headerlink" title="浏览器本地存储方式"></a>浏览器本地存储方式</h3><ol>
-<li><p><strong>cookie</strong></p>
-<p>最早被提出的本地存储方式,  在此之前,  服务端是无法判断网络中两个请求是否是同一个用户发起的,   为了解决这个问题,   cookie就出现了</p>
-<p><strong>cookie的特性</strong>  </p>
-<ul>
-<li>cookie一旦被创建,  名称就无法修改</li>
-<li>cookie无法跨域名,  a域名和b域名的cookie是无法共享的,   这也是由cookie的隐私安全性决定的,   这样就能阻止非法获取其他网站的cookie</li>
-<li>每个域名下的cookie数量不能超过20个,   每个cookie的大小不能超过4kb</li>
-<li>cookie在请求一个新页面时会被发送过去</li>
-</ul>
-<p><strong>跨域名共享cookie的方法:</strong>  </p>
-<ul>
-<li>使用nginx反向代理</li>
-</ul>
-<p><strong>cookie使用场景</strong></p>
-<ul>
-<li>最常见的使用场景是cookie和session结合使用,  将sessionId存储到cookie中,   每次发送请求都会携带这个sessionId,  这样服务端就会知道是谁发送的请求,  从而响应相应的信息</li>
-</ul>
-<p><strong>LocalStorage</strong></p>
-<p>localStorage是html5新引入的特性</p>
-<p>**优点: **</p>
-<p>大小为5M</p>
-<p>localStorage是持久存储,   除非主动清理,  否则一直存在</p>
-<p>仅存储在本地,   不像cookie那样每次http请求都会携带</p>
-<p><strong>缺点</strong></p>
-<p>隐私模式无法读取localStorage</p>
-<p>受同源策略限制,    </p>
+<p>引入了持久连接,   TCP连接默认不关闭,   可以被多个请求复用</p>
+<p>引入了管道机制,   通一个TCP连接里面,   客户端可以发送多个请求</p>
+<p>服务端是顺序执行的,    效率还有提升空间</p>
+<p><strong>HTTP2.0</strong></p>
+<p>2.0重点解决通信效率问题,   HTTP2.0采用了多路复用技术,   在一个连接里面,   浏览器和服务端都可以同时发送多个请求和回应,   不用按照顺序一一对应,    这样做是使用了二进制分帧,   即HTTP2.0会将所有传输的信息分割为更小的消息和<strong>帧</strong>,   对它们采用二进制格式编码</p>
+<p>多路复用的优化:   Header压缩,   服务端推送</p>
+<p>Header压缩:   Http请求和响应是由请求行,  请求头  请求体组成,   一般对于请求体是会进行gzip压缩的,   但是请求行,请求头是没有进行压缩的,  以纯文本进行传输,   所以http2.0提出对请求头, 请求行压缩</p>
+<p>常用状态码:   </p>
+<p>100  继续发送请求</p>
+<p>200 请求完成 ok</p>
+<p>301 资源重定向   Move   Permanently    会导致浏览器将书签重新保存</p>
+<p>302 临时重定向   Found    浏览器书签保存的url不变</p>
+<p>304 客户端发送附带条件的请求,   但为满足服务器的条件,   </p>
+<p>400  客户端错误   </p>
+<p>401 无权限访问</p>
+<p>403  forbidden</p>
+<p>404  资源不存在</p>
+<p>500  Internal Server Error 服务器错误</p>
+<p>502 网关错误</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/12/Vue%E7%9F%A5%E8%AF%86%E7%82%B93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/12/Vue%E7%9F%A5%E8%AF%86%E7%82%B93/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-12T23:36:47+08:00">
+                2022-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/12/%E8%AE%A1%E7%BD%912/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/12/%E8%AE%A1%E7%BD%912/" itemprop="url">计网1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-12T22:37:24+08:00">
+                2022-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="OSI的七层模型分别是什么-各自的功能是什么"><a href="#OSI的七层模型分别是什么-各自的功能是什么" class="headerlink" title="OSI的七层模型分别是什么,   各自的功能是什么?"></a><strong>OSI的七层模型分别是什么,   各自的功能是什么?</strong></h3><p>应用层:   文件传输,   电子邮件,   文件服务,   虚拟终端,   各种应用软件</p>
+<p>协议   <strong>TFTP   HTTP   SNMP   FTP   SMTP   DNS   Telnet</strong></p>
+<p>表示层:   数据格式化,   代码转换,   数据加密</p>
+<p>协议:   没有协议</p>
+<p>会话层:   控制应用程序之间的会话能力,   如不同软件数据分发给不同的软件</p>
+<p>协议:  没有协议</p>
+<p>传输层:   提供端对端传输数据的基本功能,   如TCP,   UDP</p>
+<p>协议:   TCP,    UDP</p>
+<p>网络层:   定义IP编址,   定义路由功能,   如不同设备的数据转发</p>
+<p>协议:   IP   ICMP   RIP,  OSPF   BGP   IGMP</p>
+<p>数据链路层:   定义数据的基本格式,   如何传输,   如何标识,  如网卡MAC地址</p>
+<p>协议:   SLIP,   CSLIP,   PPP,   ARP,   RARP,   MTU</p>
+<p>物理层:   以二进制数据形式在物理媒体上传输数据</p>
+<p>协议:   ISO2110 IEE802</p>
+<p>在四层,   传输数据被称为段(Segments)</p>
+<p>在第三层被称为包(Packets)</p>
+<p>二层网络层被数据称为帧(FRames)</p>
+<p>一层物理层时数据被称为比特流(Bits)</p>
+<p>网络七层模型是一个标准,   而非实现</p>
+<p>网络五层模型是一个实现的应用模型</p>
+<p>网络五层模型是由七层模型简化而来</p>
+<h3 id="三次挥手"><a href="#三次挥手" class="headerlink" title="三次挥手"></a>三次挥手</h3><ol>
+<li><p>第一次握手:   客户端给服务端SYN报文,   并指明客户端的初始化序列号(ISN).   此时客户端处于SYN_Send状态</p>
+</li>
+<li><p>第二次握手:   服务器收到客户端的SYN报文后,   会以自己的SYN报文作为应答,   并且也是指定了自己的初始化序列号ISN,   同时会把客户端的ISN + 1作为ACK的值,   表示自己已经收到了客户端的SYN,   此时服务器处于SYN_RCVD的状态</p>
+</li>
+<li><p>第三次握手:   客户端收到SYN报文后,   会发送一个ACK报文,   也是把服务器ISN + 1作为ACK的值,   表示收到了SYN的报文,  客户端处于established</p>
+</li>
+<li><p>服务器收到ACK报文.   也处于established的状态,   此时双方建立了连接</p>
 </li>
 </ol>
-<h2 id="浏览器同源策略"><a href="#浏览器同源策略" class="headerlink" title="浏览器同源策略"></a>浏览器同源策略</h2><p>同源是指:  <strong>协议,  域名,  端口号必须一致</strong></p>
-<p>限制如下</p>
-<blockquote>
-<p>当前域名下js脚本不能访问其他域下的cookie,  localStorage,  sessionStorage</p>
-<p>当前域下js脚本不能访问操作其他域下的DOM</p>
-<p>当前域下ajax无法发送跨域请求</p>
-</blockquote>
-<p>解决跨域问题: </p>
-<p>**CORS: **</p>
-<h2 id="浏览器事件机制"><a href="#浏览器事件机制" class="headerlink" title="浏览器事件机制"></a>浏览器事件机制</h2><p>事件是指用户操作网页时发生的交互动作,  如click/move,  还可以是文档加载,  窗口滚动,大小调整.   事件被封装成一个对象,  该对象包含所有event信息(属性)和对事件进行的操作(方法)</p>
-<p>现代浏览器有三种事件模型: </p>
-<p>DOM0级事件,   这种模型不会传播,  没有事件流概念,  直接在元素的属性上绑定事件</p>
-<p>DOM2级别事件:  addEventListener绑定事件,  分三个阶段,   捕获阶段,  事件从document对象依次向子元素传播,  最终到达被点击的结点,  目标阶段, 当事件不断的传递直到目标节点的时候，最终在目标节点上触发这个事件.   冒泡阶段：事件冒泡即事件开始时，事件发生所在的节点，然后逐级传播到较为不具体的节点   </p>
-<p>stopPropagation()</p>
-<h3 id="Vue基础"><a href="#Vue基础" class="headerlink" title="Vue基础"></a>Vue基础</h3><p>当一个Vue实例被创建,   Vue会遍历data中所有的属性,   用Object.defineProperty将他们都转换为getter, setter,  并在内部追踪相关依赖</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/09/mianjing--%E6%89%8B%E5%86%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/09/mianjing--%E6%89%8B%E5%86%99/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-09T18:38:32+08:00">
-                2022-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-手写create"><a href="#1-手写create" class="headerlink" title="1.手写create"></a>1.手写create</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将传入的对象作为原型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    F.prototype = obj;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-手写instanceof"><a href="#2-手写instanceof" class="headerlink" title="2.手写instanceof"></a>2.手写instanceof</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先获取实例的原型</span></span><br><span class="line"><span class="comment">// 获取对象的原型</span></span><br><span class="line"><span class="comment">// 一直循环判断实例的原型等于类对象的原型,  直到实例原型为null,  因为原型链最终为null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">left, right</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> proto = <span class="built_in">Object</span>.getPrototypeOf(left),</span><br><span class="line">    prototype = right.prototype;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!proto) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(proto === protoype) reutrn <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        proto = <span class="built_in">Object</span>.getPrototype(proto);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-手写new操作符"><a href="#3-手写new操作符" class="headerlink" title="3.手写new操作符"></a>3.手写new操作符</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用new</span></span><br><span class="line"><span class="comment">// 首先创建一个新的对象</span></span><br><span class="line"><span class="comment">// 设置obj.__proto__ = Fn.prototype</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span>(<span class="params">Fn, ...args</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> newObj = &#123;&#125;;</span><br><span class="line">    <span class="comment">// 判断一个参数是否是一个函数</span></span><br><span class="line">    newObj.__proto__ = Fn.prototype;</span><br><span class="line">    <span class="keyword">let</span> res = Fn.call(obj, ...args);</span><br><span class="line">    <span class="keyword">if</span>((res !== <span class="literal">null</span>) &amp;&amp; (<span class="keyword">typeof</span> res === <span class="string">&#x27;object&#x27;</span> || <span class="keyword">typeof</span> res === <span class="string">&#x27;function&#x27;</span>)) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-手写Promise"><a href="#4-手写Promise" class="headerlink" title="4 手写Promise"></a>4 手写Promise</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PENDING = <span class="string">&#x27;pending&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> RESOLVE = <span class="string">&#x27;resolve&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> REJECT = <span class="string">&#x27;rejected&#x27;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">myPromise</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> self = <span class="built_in">this</span>;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-手写Promise-then"><a href="#5-手写Promise-then" class="headerlink" title="5 手写Promise.then"></a>5 手写Promise.then</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="6-手写promiseAll"><a href="#6-手写promiseAll" class="headerlink" title="6 手写promiseAll"></a>6 手写promiseAll</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">promiseAll</span>(<span class="params">promises</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 判断是否是数组</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(promises))&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="string">&#x27;not a array&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">let</span> resCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> len = promises.length;</span><br><span class="line">    <span class="keyword">let</span> resolveRes = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        <span class="built_in">Promise</span>.resolve(promises[i]).then(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">            resCnt++;</span><br><span class="line">            resolveRes[i] = val;</span><br><span class="line">            <span class="keyword">if</span>(resCnt === len) <span class="keyword">return</span> resolve(resolveRes);</span><br><span class="line">        &#125;, <span class="function"><span class="params">error</span> =&gt;</span> rejected(error))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        resolve(<span class="number">1</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        resolve(<span class="number">2</span>);</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p3 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        resolve(<span class="number">3</span>);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br><span class="line">promiseAll([p3, p2, p1]).then(<span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">console</span>.log(res));</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="7-手写race"><a href="#7-手写race" class="headerlink" title="7 手写race"></a>7 手写race</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.race = <span class="function"><span class="keyword">function</span> (<span class="params">args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; args.length; i++)&#123;</span><br><span class="line">            <span class="built_in">Promise</span>.resolve(args[i]).then(<span class="function"><span class="params">val</span> =&gt;</span> resolve(val), <span class="function"><span class="params">err</span> =&gt;</span> reject(err));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="8-手写防抖"><a href="#8-手写防抖" class="headerlink" title="8 手写防抖"></a>8 手写防抖</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// 返回要绑定的函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-手写节流"><a href="#9-手写节流" class="headerlink" title="9 手写节流"></a>9 手写节流</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, delay</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> pre = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> cur = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        <span class="keyword">if</span>(cur - pre &gt;= delay)&#123;</span><br><span class="line">            <span class="comment">// 依旧要返回一个函数</span></span><br><span class="line">            <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="10-手写类型判断函数"><a href="#10-手写类型判断函数" class="headerlink" title="10 手写类型判断函数"></a>10 手写类型判断函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getType</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 判断数据是null</span></span><br><span class="line">    <span class="keyword">if</span>(val === <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> val + <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> val === <span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> valClass = <span class="built_in">Object</span>.prototype.toString().call(val);</span><br><span class="line">        type = valClass.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>].split(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">        type.pop();</span><br><span class="line">        <span class="keyword">return</span> type.join(<span class="string">&#x27;&#x27;</span>).tolowerCase();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="11-手写-call-函数"><a href="#11-手写-call-函数" class="headerlink" title="11. 手写 call 函数"></a>11. 手写 call 函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// this指向的是被call调用的函数</span></span><br><span class="line">    <span class="comment">// 不是函数就报错</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">this</span> !== <span class="string">&#x27;function&#x27;</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;type Error&#x27;</span>);</span><br><span class="line">	<span class="comment">// 获取args参数</span></span><br><span class="line">    <span class="keyword">let</span> args = [...arguments].slice(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> res = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// 判断context是否存在, 不存在就指向window</span></span><br><span class="line">	context = context || <span class="built_in">window</span>;</span><br><span class="line">    <span class="comment">// 定义一个函数转移到this上</span></span><br><span class="line">    context.fn = <span class="built_in">this</span>;</span><br><span class="line">    <span class="comment">// 返回函数的执行结果</span></span><br><span class="line">    <span class="keyword">return</span> context.fn(args);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<h3 id="12-手写-apply-函数"><a href="#12-手写-apply-函数" class="headerlink" title="12. 手写 apply 函数"></a>12. 手写 apply 函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.muApply = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 判断调用对象是否为函数</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">this</span> !== <span class="string">&#x27;function&#x27;</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;type error&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> res = <span class="literal">null</span>;</span><br><span class="line">    context = context || <span class="built_in">window</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>])&#123;</span><br><span class="line">        res = context.fn(...arguments[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        res = context.fn();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="13-手写-bind-函数"><a href="#13-手写-bind-函数" class="headerlink" title="13 手写 bind 函数"></a>13 手写 bind 函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">this</span> !== <span class="string">&#x27;function&#x27;</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;type error&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>);</span><br><span class="line">    _this = args.shift();</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.apply(_this, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="15-实现ajax"><a href="#15-实现ajax" class="headerlink" title="15 实现ajax"></a>15 实现ajax</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建XMLHttpRequest对象</span></span><br><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();	<span class="comment">// 创建 Http 请求</span></span><br><span class="line"><span class="comment">// 在open方法上创建一个http请求,  open方法所需要的参数是请求的方法,  请求的地址, 是否一异步,  用户认证的信息</span></span><br><span class="line">xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;server_url&#x27;</span>, <span class="literal">true</span>)</span><br><span class="line"><span class="comment">//在发起请求前,  可以为对象添加一些信息和监听函数</span></span><br><span class="line"><span class="comment">//setRequestHeader方法添加头信息</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.readyState !== <span class="number">4</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 当请求成功时</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="number">200</span>) handle(<span class="built_in">this</span>.response);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(<span class="built_in">this</span>.statusText);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 设置请求失败的监听函数</span></span><br><span class="line">xhr.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="built_in">this</span>.statusText);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 设置请求头信息</span></span><br><span class="line">xhr.responseType = <span class="string">&#x27;json&#x27;</span>;</span><br><span class="line">xhr.setRequestHeader(<span class="string">&#x27;Accept&#x27;</span>, <span class="string">&#x27;application/json&#x27;</span>);</span><br><span class="line"><span class="comment">// 发送Http</span></span><br><span class="line">xhr.send(<span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用Promise封装AJAX请求"><a href="#使用Promise封装AJAX请求" class="headerlink" title="使用Promise封装AJAX请求"></a>使用Promise封装AJAX请求</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/08/mianjing2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/08/mianjing2/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-08T22:44:20+08:00">
-                2022-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="this执行上下文"><a href="#this执行上下文" class="headerlink" title="this执行上下文"></a>this执行上下文</h3><p>this不是在写函数时确定指向的,   它是在函数执行中才能确定上下文,   this是执行上下文环境的一部分</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;A&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn()   <span class="comment">// this === a</span></span><br><span class="line">a.fn.call(&#123;<span class="attr">name</span>: <span class="string">&#x27;B&#x27;</span>&#125;) <span class="comment">// this === &#123;name: &#x27;B&#x27;&#125;</span></span><br><span class="line"><span class="keyword">var</span> fn1 = a.fn;</span><br><span class="line">fn1();  <span class="comment">// this === window</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="0-1-0-2-0-3问题"><a href="#0-1-0-2-0-3问题" class="headerlink" title="0.1 + 0.2 === 0.3问题"></a>0.1 + 0.2 === 0.3问题</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberEpsilon</span>(<span class="params">arg1, arg2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(arg1 - arg2) &lt; <span class="built_in">Number</span>.EPSILON;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(numberEpsilon(<span class="number">0.1</span> + <span class="number">0.2</span>, <span class="number">0.3</span>)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">var</span> res = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> obj)&#123;</span><br><span class="line">        <span class="keyword">if</span>(obj.hasOwnProperty(key))&#123;</span><br><span class="line">          <span class="keyword">if</span>(<span class="keyword">typeof</span> obj[key] === <span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">            res[key] = deepCopy(obj[key]);   <span class="comment">//递归复制</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            res[key] = obj[key];</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="浏览器缓存知识"><a href="#浏览器缓存知识" class="headerlink" title="浏览器缓存知识"></a>浏览器缓存知识</h3><blockquote>
-<p>浏览器第一次加载资源,  服务器返回200,  浏览器从服务器下载资源文件,  并缓存资源文件与response header,  以供下次加载对比使用</p>
-</blockquote>
-<blockquote>
-<p>下一次加载资源,  由于强制缓存优先级高,  先比较上一次返回200的时间差,  如果没有超过cache-control设置的max-age,  则没有过期,  并命中强缓存,  从本地读取资源.   如果不支持http1.1  则用expires判断是否过期</p>
-</blockquote>
-<blockquote>
-<p>如果资源已经过期,   则表明强制缓存没有被命中,  则开始协商缓存,  向服务器发送带有if-none-match和if-modified-since的请求</p>
-</blockquote>
-<blockquote>
-<p>服务器收到请求后,   优先根据ETag的值判断被请求的文件有没有被修改, ETag值则一致则没有修改,   命中协商缓存返回304;   如果不一致则返回新资源带上新的ETag并返回200</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/08/mianjing1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/08/mianjing1/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-08T00:39:59+08:00">
-                2022-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="判断一个对象为空对象的几种方法"><a href="#判断一个对象为空对象的几种方法" class="headerlink" title="判断一个对象为空对象的几种方法"></a>判断一个对象为空对象的几种方法</h3><h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一:"></a>方法一:</h5><p>将对象转换成字符串</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringfy(obj) === <span class="string">&quot;&#123;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二:"></a>方法二:</h5><p>for in 循环</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> obj)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ture;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
-
-<h5 id="方法三"><a href="#方法三" class="headerlink" title="方法三:"></a>方法三:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj).length);</span><br></pre></td></tr></table></figure>
-
-<h5 id="方法四"><a href="#方法四" class="headerlink" title="方法四:"></a>方法四:</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(obj).length === <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="用reduce实现Map"><a href="#用reduce实现Map" class="headerlink" title="用reduce实现Map"></a>用reduce实现Map</h3><h5 id="用reduce实现Map-1"><a href="#用reduce实现Map-1" class="headerlink" title="用reduce实现Map"></a>用reduce实现Map</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype._map = <span class="function"><span class="keyword">function</span> (<span class="params">fn, thisArg</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = [];</span><br><span class="line">        <span class="built_in">this</span>.reduce(<span class="function">(<span class="params">prev, curr, index, array</span>) =&gt;</span> &#123;</span><br><span class="line">          result[index] = fn.call(thisArg, array[index], index, array);</span><br><span class="line">        &#125;, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手写trim"><a href="#手写trim" class="headerlink" title="手写trim"></a>手写trim</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype._trim = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; str.length; i++)&#123;</span><br><span class="line">          <span class="keyword">if</span>(str[i] !== <span class="string">&#x27; &#x27;</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(j = str.length - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">          <span class="keyword">if</span>(str[j] !== <span class="string">&#x27; &#x27;</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> str.slice(i, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手写Promise"><a href="#手写Promise" class="headerlink" title="手写Promise"></a>手写Promise</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">proAll</span>(<span class="params">promises</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> len = promises.length;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="built_in">Array</span>(len);</span><br><span class="line">        <span class="keyword">let</span> countEnd = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(len === <span class="number">0</span>) resolve(result);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">let</span> promise = promises[i];</span><br><span class="line"></span><br><span class="line">            <span class="built_in">Promise</span>.resolve(promise).then(</span><br><span class="line">              <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">                result[countEnd++] = data;</span><br><span class="line">                <span class="keyword">if</span>(countEnd === len) resolve(result);</span><br><span class="line">              &#125;,</span><br><span class="line">              <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                reject(err);</span><br><span class="line">              &#125;</span><br><span class="line">            );</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; </span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> promise1 = <span class="built_in">Promise</span>.resolve(<span class="number">3</span>);</span><br><span class="line">      <span class="keyword">const</span> promise2 = <span class="number">42</span>;</span><br><span class="line">      <span class="keyword">const</span> promise3 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(resolve, <span class="number">100</span>, <span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="built_in">console</span>.log(proAll([promise1, promise2, promise3]));</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="闭包的两个作用"><a href="#闭包的两个作用" class="headerlink" title="闭包的两个作用"></a>闭包的两个作用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 封装私有变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Nin</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> private = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.getPrivate = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> private;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.addPrivate = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">          private++;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> nin = <span class="keyword">new</span> Nin();</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(nin.private);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(nin.getPrivate());</span><br><span class="line">      nin.addPrivate();</span><br><span class="line">      <span class="built_in">console</span>.log(nin.getPrivate());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理回调函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> tick = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;tick init&quot;</span>, tick);</span><br><span class="line">        <span class="keyword">const</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(tick &lt; <span class="number">100</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;tick is less then 100&#x27;</span>, tick);</span><br><span class="line">            tick += <span class="number">1</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;now tick is &#x27;</span>, tick);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;, <span class="number">10</span>);</span><br><span class="line">        </span><br><span class="line">      &#125;</span><br><span class="line">      fun();</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手写二叉树"><a href="#手写二叉树" class="headerlink" title="手写二叉树"></a>手写二叉树</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TreeNode</span>(<span class="params">val, left, right</span>)</span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.val = (val === <span class="literal">undefined</span> ? <span class="number">0</span> : val);</span><br><span class="line">      <span class="built_in">this</span>.left = (left === <span class="literal">undefined</span> ? <span class="literal">null</span> : left);</span><br><span class="line">      <span class="built_in">this</span>.right = (right === <span class="literal">undefined</span> ? <span class="literal">null</span> : right);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手写promise-race"><a href="#手写promise-race" class="headerlink" title="手写promise.race"></a>手写promise.race</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PromiseRace</span>(<span class="params">promises</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(promises)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;promise must be an array&#x27;</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        promises.forEach(<span class="function"><span class="params">p</span> =&gt;</span> resolve(p), <span class="function"><span class="params">err</span> =&gt;</span> reject(err));</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promise</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">fn</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.status = <span class="string">&#x27;pending&#x27;</span>;</span><br><span class="line">    <span class="built_in">this</span>.resolve = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="built_in">this</span>.reject = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> resolve = <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="string">&#x27;pending&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="string">&#x27;resolved&#x27;</span>;</span><br><span class="line">        <span class="built_in">this</span>.resolve = val;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> reject = <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="string">&#x27;pending&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="string">&#x27;rejected&#x27;</span>;</span><br><span class="line">        <span class="built_in">this</span>.reject = val;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      fn(resolve, reject);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      reject(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  then (onResolved, onRejected)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="string">&#x27;resolved&#x27;</span>) onResolved(<span class="built_in">this</span>.resolve);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="string">&#x27;rejected&#x27;</span>) onRejected(<span class="built_in">this</span>.reject);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="手写防抖"><a href="#手写防抖" class="headerlink" title="手写防抖"></a>手写防抖</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">          <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">          timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, args);</span><br><span class="line">          &#125;, wait);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手写节流"><a href="#手写节流" class="headerlink" title="手写节流"></a>手写节流</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> curTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="built_in">this</span>,</span><br><span class="line">            args = <span class="built_in">arguments</span>,</span><br><span class="line">            nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">          <span class="keyword">if</span>(nowTime - curTime &gt;= wait)&#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/02/js9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/02/js9/" itemprop="url">js9</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-02T19:51:03+08:00">
-                2022-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="原型修改、重写"><a href="#原型修改、重写" class="headerlink" title="原型修改、重写"></a>原型修改、重写</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.pototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(p.__proto__ === Person.prototype) </span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(p.__proto__ === p.constructor.prototype)   <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 重写原型</span></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    <span class="attr">getName</span>: <span class="function"><span class="title">funciton</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取对象非原型链上的属性"><a href="#获取对象非原型链上的属性" class="headerlink" title="获取对象非原型链上的属性"></a>获取对象非原型链上的属性</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">iterate</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> obj)&#123;</span><br><span class="line">        <span class="keyword">if</span>(obj.hasOwnProperty(key))</span><br><span class="line">            res.push(key+<span class="string">&#x27;: &#x27;</span> )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="闭包理解"><a href="#闭包理解" class="headerlink" title="闭包理解"></a>闭包理解</h2><p><strong>闭包是指有权访问另一个函数作用域中变量的函数</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/01/js8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/01/js8/" itemprop="url">js8</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-01T19:20:23+08:00">
-                2022-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="三种获取对象原型的方法"><a href="#三种获取对象原型的方法" class="headerlink" title="三种获取对象原型的方法"></a>三种获取对象原型的方法</h2><ul>
-<li>Constructor.prototype是构造函数指向原型对象的方法</li>
-<li><code>Object.getPrototypeOf(obj)</code>是ES5中用来获取<strong>obj对象</strong>的原型对象的标准方法。</li>
-<li><code>obj.__proto__</code>是获取<strong>obj对象</strong>的原型对象的非标准方法。</li>
-</ul>
-<h2 id="实现Instanceof"><a href="#实现Instanceof" class="headerlink" title="实现Instanceof"></a>实现Instanceof</h2><p>instanceof运算符用于判断构造函数的prototype属性是否出现在对象的原型链中的任何位置</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">left, right</span>)</span>&#123;</span><br><span class="line">      <span class="comment">// 获取对象的原型</span></span><br><span class="line">      <span class="keyword">let</span> proto = <span class="built_in">Object</span>.getPrototypeOf(left)</span><br><span class="line">      <span class="comment">// 获取构造函数对象的原型</span></span><br><span class="line">      <span class="keyword">let</span> prototype = right.prototype</span><br><span class="line">    </span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!proto) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">if</span>(proto === prototype) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment">// 如果没有找到, 就继续从其原型上找</span></span><br><span class="line">        proto = <span class="built_in">Object</span>.getPrototypeOf(proto)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="解决0-1-0-2-0-3"><a href="#解决0-1-0-2-0-3" class="headerlink" title="解决0.1+0.2 !== 0.3"></a>解决0.1+0.2 !== 0.3</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberEpsilon</span>(<span class="params">arg1, arg2</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Math</span>.abs(arg1 - arg2) &lt; <span class="built_in">Number</span>.EPSILON</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(numberEpsilon(<span class="number">0.1</span> + <span class="number">0.2</span>, <span class="number">0.3</span>)); <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="js包装类型"><a href="#js包装类型" class="headerlink" title="js包装类型"></a>js包装类型</h2><p>js中基本类型是没有属性和方法的,为了方便操作基本类型,在调用基本类型时js会在后台隐式将基本类型转换为对象</p>
-<h2 id="let、const、var区别"><a href="#let、const、var区别" class="headerlink" title="let、const、var区别"></a>let、const、var区别</h2><p>(1) 块级作用域由{}包括,   let和const具有块级作用域,   var不存在块级作用域,解决了两个问题</p>
-<blockquote>
-<p>内层变量可以覆盖外层变量</p>
-<p>用来计数的循环变量泄漏为全局变量</p>
-</blockquote>
-<p><strong>var存在变量提升</strong>,   let,   const不存在变量提升,   变量只能在声明后使用</p>
-<p><strong>var会给全局添加属性</strong></p>
-<p><strong>var允许重复声明</strong>,  const, let不允许</p>
-<p>给let, const命令声明变量之前,  该变量都是不可用的,  语法上成为<strong>暂时性死区</strong>,   var声明不存在</p>
-<p>var,  let可以不用设置初始值,   const必须设置初始值</p>
-<p>let可以改变指针指向,   const不可以改变指针指向</p>
-<h2 id="const属性修改问题"><a href="#const属性修改问题" class="headerlink" title="const属性修改问题"></a>const属性修改问题</h2><p>const保证变量指向的地址不可改变,   对于基本的数据类型(数值,  字符串,  布尔值),  其值就保存在变量指向的那个内存地址中,  等同与常量</p>
-<p>对于引用类型来说(对象,  数组),  变量指向数据的内存地址,  保存的只是一个指针,  const只能保证这个指针固定不动,  数据结构内部不可控</p>
-<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>箭头函数时es6提出的,  它没有prototype,  也没有自己的指向,  所以不可以new一个箭头函数</p>
-<p>new操作符的实现步骤如下:  </p>
-<blockquote>
-<p>1、创建一个对象</p>
-<p>2、将对象的proto属性指向构造函数的prototype</p>
-<p>3、构造函数肚饿this指向该对象，为这个对象挂载属性和方法</p>
-<p>4、返回新的对象</p>
-</blockquote>
-<p>上面的二、三步箭头函数无法执行</p>
-<h2 id="箭头函数和普通函数区别"><a href="#箭头函数和普通函数区别" class="headerlink" title="箭头函数和普通函数区别"></a>箭头函数和普通函数区别</h2><blockquote>
-<p><strong>箭头函数比普通函数更简洁</strong></p>
-<p>如果不需要返回值, 且只有一句话,   可以给语句前面加一个void,  再调用一个函数</p>
-<p>let fn = () =&gt; void fun()</p>
-</blockquote>
-<blockquote>
-<p><strong>箭头函数没有自己的this</strong></p>
-<p>箭头函数不会创建自己的this,  它继承了自己作用域上一层的this</p>
-</blockquote>
-<blockquote>
-<p><strong>箭头函数指向的this不会改变</strong></p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">&#x27;GLOBAL&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	<span class="attr">id</span>: <span class="string">&#x27;OBJ&#x27;</span>,</span><br><span class="line">	<span class="attr">a</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">b</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.a() <span class="comment">// &#x27;OBJ&#x27;</span></span><br><span class="line">obj.b(); <span class="comment">// &#x27;GLOBAL&#x27;</span></span><br><span class="line"><span class="keyword">new</span> obj.a() <span class="comment">// undefine</span></span><br><span class="line"><span class="keyword">new</span> obj.b() <span class="comment">// Uncaught TypeError: obj.b is..</span></span><br></pre></td></tr></table></figure>
-
-<p>对象obj的方法b是使用箭头函数定义的,  这个函数中this就永远指向它定义时所处的全局执行环境this,  即便这个函数时作为对象obj的方法调用,   this依旧指向window对象  定义对象的大括号{}无法形成一个单独的执行环境, 它依然处于全局环境中</p>
-<blockquote>
-<p><strong>call() bind() apply() 等方法不能改变箭头函数this指向</strong></p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">&#x27;Global&#x27;</span></span><br><span class="line"><span class="keyword">let</span> fun1 = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.id)</span><br><span class="line">&#125;</span><br><span class="line">fun1();	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.call(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.apply(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)	<span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.bind(&#123;<span class="attr">id</span>: <span class="string">&#x27;obj&#x27;</span>&#125;)()	<span class="comment">// &#x27;Global&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>箭头函数不能作为构造函数使用</strong></p>
-<p><strong>没有arguments</strong></p>
-<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h2><p>1.<strong>对象扩展运算符</strong></p>
-<p>对象的扩展运算符(…)用于取出参数对象中的所有可遍历属性,  拷贝到当前对象中</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = &#123;...bar&#125; <span class="comment">// &#123;a: 1, b: 2&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>上述方法等价于</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = <span class="built_in">Object</span>.assign(&#123;&#125;, bar) <span class="comment">// </span></span><br></pre></td></tr></table></figure>
-
-<p>Object.assign()方法用于对象的合并, 将源对象source的所有可枚举属性,  复制到目标对象(target)</p>
-<p>Object.assign方法第一个参数是目标对象,  后面参数是源对象(如果有同名属性, 后面会覆盖前面)</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bar = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">let</span> baz = &#123;...bar, ...&#123;<span class="attr">a</span>: <span class="number">2</span>, <span class="attr">b</span>: <span class="number">4</span>&#125;&#125; <span class="comment">//被覆盖</span></span><br></pre></td></tr></table></figure>
-
-<p>2.<strong>数组扩展运算符</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 1 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(...[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">5</span>]) </span><br><span class="line"><span class="comment">// 1 [2, 3, 4] 5</span></span><br></pre></td></tr></table></figure>
-
-<p>数组扩展运算符的应用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">add(...numbers) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-
-<p>复制数组</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"><span class="keyword">const</span> arr2 = [...arr1]</span><br></pre></td></tr></table></figure>
-
-<p>扩展运算符会取出参数对象中所有可用属性, 拷贝到当前对象中</p>
-<p>合并数组</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr1 = [&#x27;two&#x27;, &#x27;three&#x27;];</span><br><span class="line">const arr2 = [&#x27;one&#x27;, ...arr1, &#x27;four&#x27;, &#x27;five&#x27;]</span><br><span class="line">// [&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;five&#x27;]</span><br></pre></td></tr></table></figure>
-
-<p>将字符串转换为真正的数组</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...<span class="string">&#x27;hello&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
-<h2 id="对数组和对象的结构"><a href="#对数组和对象的结构" class="headerlink" title="对数组和对象的结构"></a>对数组和对象的结构</h2><p>解构是ES6提供的新的提取数据的模式,这种模式能够从对象或数组中针对性拿到想要的东西</p>
-<p><strong>数组解构</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a,b,c] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-
-<p>或者留空</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a,,c] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] <span class="comment">// a: 1, c: 3</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>对象结构</strong></p>
-<p>解构对象是以属性名称为匹配条件</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stu = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span>,</span><br><span class="line">	<span class="attr">age</span>: <span class="number">24</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解构属性</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;name, age&#125; = stu	<span class="comment">//name: &#x27;Bob&#x27; age: 24</span></span><br><span class="line"><span class="comment">// 调换位置也一样</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="new操作符实现-手写"><a href="#new操作符实现-手写" class="headerlink" title="new操作符实现(手写)"></a>new操作符实现(手写)</h2><p>1.首先创建了一个新的空对象</p>
-<p>2.设置原型,  将对象的原型设置为函数的prototype对象</p>
-<p>3.让函数的this指向这个对象,  指向构造函数的代码</p>
-<p>4.返回对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">    Dog.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_new</span>(<span class="params">fn, ...args</span>)</span>&#123;</span><br><span class="line">      <span class="comment">// 先用object创建一个新对象</span></span><br><span class="line">      <span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(fn.prototype)</span><br><span class="line">      <span class="comment">// obj指向构造函数原型了, 再修改this指针</span></span><br><span class="line">      <span class="keyword">const</span> res = fn.apply(obj, args)</span><br><span class="line">      <span class="keyword">return</span> res <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? res : obj</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> dog = _new(Dog, <span class="string">&#x27;大毛&#x27;</span>)</span><br><span class="line">    dog.sayName()</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/01/lc26/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/01/lc26/" itemprop="url">lc26</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-01T11:33:50+08:00">
-                2022-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h4><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/03/swap_ex1.jpg"></p>
-<p>输入：head = [1,2,3,4]<br>输出：[2,1,4,3]<br>示例 2：</p>
-<p>输入：head = []<br>输出：[]<br>示例 3：</p>
-<p>输入：head = [1]<br>输出：[1]</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">head</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> swapPairs = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> dummy = <span class="keyword">new</span> ListNode(-<span class="number">1</span>)</span><br><span class="line">  dummy.next = head</span><br><span class="line">  <span class="keyword">let</span> cur = dummy</span><br><span class="line">  <span class="keyword">while</span>(cur.next &amp;&amp; cur.next.next)&#123;</span><br><span class="line">    <span class="keyword">let</span> node1 = cur.next</span><br><span class="line">    <span class="keyword">let</span> node2 = cur.next.next.next</span><br><span class="line">    </span><br><span class="line">    cur.next = cur.next.next</span><br><span class="line">    cur.next.next = node1</span><br><span class="line">    cur.next.next.next = node2</span><br><span class="line"></span><br><span class="line">    cur = cur.next.next</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dummy.next</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="19-删除链表的倒数第-N-个结点"><a href="#19-删除链表的倒数第-N-个结点" class="headerlink" title="19. 删除链表的倒数第 N 个结点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></h4><p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg"></p>
-<p>输入：head = [1,2,3,4,5], n = 2<br>输出：[1,2,3,5]<br>示例 2：</p>
-<p>输入：head = [1], n = 1<br>输出：[]<br>示例 3：</p>
-<p>输入：head = [1,2], n = 1<br>输出：[1]</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">head</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span>(<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> cur = head</span><br><span class="line">  <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">    sum++</span><br><span class="line">    cur = cur.next</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> dummy = <span class="keyword">new</span> ListNode(-<span class="number">1</span>)</span><br><span class="line">  dummy.next = head</span><br><span class="line">  cur = dummy</span><br><span class="line">  <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">    <span class="keyword">if</span>(cnt === sum - n) &#123;</span><br><span class="line">      <span class="keyword">if</span>(cur.next) cur.next = cur.next.next</span><br><span class="line">      <span class="keyword">else</span> cur.next = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    cnt++</span><br><span class="line">    <span class="keyword">if</span>(cur) cur = cur.next</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dummy.next</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="面试题-02-07-链表相交"><a href="#面试题-02-07-链表相交" class="headerlink" title="面试题 02.07. 链表相交"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists-lcci/">面试题 02.07. 链表相交</a></h4><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</p>
-<p>图示两个链表在节点 c1 开始相交：</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png"></p>
-<p>题目数据 <strong>保证</strong> 整个链式结构中不存在环。</p>
-<p><strong>注意</strong>，函数返回结果后，链表必须 <strong>保持其原始结构</strong> 。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">headA</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">headB</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> getIntersectionNode = <span class="function"><span class="keyword">function</span>(<span class="params">headA, headB</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sub = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> aa = headA, bb = headB</span><br><span class="line">    <span class="keyword">let</span> cntA = <span class="number">0</span>, cntB = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span>(aa)&#123;</span><br><span class="line">      cntA++</span><br><span class="line">      aa = aa.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(bb)&#123;</span><br><span class="line">      cntB++</span><br><span class="line">      bb = bb.next</span><br><span class="line">    &#125;</span><br><span class="line">    aa = headA, bb = headB</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(cntA &lt; cntB)&#123;</span><br><span class="line">      [aa, bb] = [bb, aa];</span><br><span class="line">      [cntA, cntB] = [cntB, cntA];</span><br><span class="line">    &#125;</span><br><span class="line">    sub = cntA - cntB;</span><br><span class="line">    <span class="keyword">while</span>(sub-- &amp;&amp; aa)&#123;</span><br><span class="line">      aa = aa.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(aa)&#123;</span><br><span class="line">      <span class="keyword">if</span>(aa == bb)&#123;</span><br><span class="line">        <span class="keyword">return</span> aa</span><br><span class="line">      &#125;</span><br><span class="line">      aa = aa.next</span><br><span class="line">      bb = bb.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="142-环形链表-II"><a href="#142-环形链表-II" class="headerlink" title="142. 环形链表 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></h4><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
-<p>不允许修改 链表。</p>
-<p><img src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = val;</span></span><br><span class="line"><span class="comment"> *     this.next = null;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">head</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> detectCycle = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fast = head, slow = head</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!fast || !fast.next) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">      fast = fast.next.next;</span><br><span class="line">      slow = slow.next;</span><br><span class="line">    &#125;<span class="keyword">while</span>(fast !== slow)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> node = head</span><br><span class="line">    <span class="keyword">while</span>(node!== slow)&#123;</span><br><span class="line">      node = node.next</span><br><span class="line">      slow = slow.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/02/28/%E8%AE%A1%E7%BD%911/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/02/28/%E8%AE%A1%E7%BD%911/" itemprop="url">计网</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-28T20:31:18+08:00">
-                2022-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="为什么需要三次握手"><a href="#为什么需要三次握手" class="headerlink" title="为什么需要三次握手"></a>为什么需要三次握手</h2><p>第一次:   客户端给服务器发送syn报文</p>
-<p>第二次:   服务器收到syn报文后,  会应答一个syn+ack报文</p>
-<p>第三次:   客户端收到syn + ack报文,  会回应一个ack报文,  至此三次握手建立</p>
-<p>第一次时,  客户端发送网络包,  服务器得到结论,  服务器接收能力和客户端发送能力正常.   第二次服务器发包,  客户端收到后得到结论,  客户端收发能力正常,  服务器收发能力正常,  但服务器还不知道. 所以第三次客户端发包给服务器接收后,  服务器才能确定双方都能正常接收网络包</p>
-<p>刚开始时客户端处于closed状态, 服务端处于listen状态</p>
-<p>1、第一次握手：客户端给服务器发一个syn报文， 并指明客户端的初始化序列号ISN（c），此时客户端处于syn_send状态</p>
-<p>2、第二次握手：服务器接收到syn报文后，会以自己的syn报文作为应答 ，并且也是制定了自己的初始化序列号ISN（s），同时会把同时会把ISN + 1作为ACK的值，表示自己已经收到了客户端的SYN，此时服务器处于SYN_RCVD的状态</p>
-<p>3、第三次握手：客户端收到SYN报文后，会发送一个ACK报文，也一样把服务器ISN + 1作为ACK的值， 表示已经接受了服务器SYN报文，此时客户端处于established状态</p>
-<p>三次握手的作用</p>
-<blockquote>
-<p>确认上方接受能力、发送能力是否正常</p>
-<p>指定自己的初始化序列号，为后面的可靠传输做准备</p>
-</blockquote>
-<p>1、（ISN）是固定的吗</p>
-<p>三次握手的一个重要功能是客户端和服务端交换ISN（Initial Sequence Number），以便让对方知道接下来接受数据如何按照序列号组装数据。ISN是随机生成的，否则攻击者很容易猜出</p>
-<p>2、什么是半连接队列</p>
-<p>服务器第一次接受到客户端的syn后会处于SYN_REVD状态，会将请求连接放在一个队列里，称为半连接队列</p>
-<p>三次握手前两次不能携带数据，第三次可以</p>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>开始时双方都处于establised状态，客户端先发起请求关闭</p>
-<p>1、第一次挥手：客户端发送一个fin报文，报文中会指定一个序列号。此时客户端处于FIN_WAIT1状态</p>
-<p>2、第二次挥手：服务端收到FIN后，会发送ACK报文，且吧客户端序列号值+1</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/02/28/js7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hydra">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/02/28/js7/" itemprop="url">js7</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-28T19:07:15+08:00">
-                2022-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="New"><a href="#New" class="headerlink" title="New"></a>New</h2><p>js中new的作用是通过构造函数创建实例对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="new经历了什么过程"><a href="#new经历了什么过程" class="headerlink" title="new经历了什么过程"></a>new经历了什么过程</h3><p>new帮我们做了4件事情: </p>
-<blockquote>
+<p>三次握手的目的:  </p>
 <ol>
-<li>帮我们创建了空对象</li>
-<li>把空对象的原型__ proto __ 指向了构造函数的原型对象</li>
-<li>使用call方法,  将本来指向window的this改成了指向obj实例,  这样我们再去向构造函数传参时, 参数就会被挂载到实例上</li>
-<li>返回对象</li>
+<li>确认双方的接受能力,   发送能力是否正常</li>
+<li>指定自己的初始化序列号,  为后面的可靠传送做准备</li>
 </ol>
+<h6 id="三次握手中可以携带数据吗"><a href="#三次握手中可以携带数据吗" class="headerlink" title="三次握手中可以携带数据吗"></a>三次握手中可以携带数据吗</h6><p>第一和第二次握手可以不携带数据,   第三次握手可以携带数据.   如果第一次就能携带数据的话,   如果有人要恶意攻击服务器,   那他每次都在第一次握手的SYN报文中放入大量数据,   攻击者根本不用理会服务器的接受,    发送能力是否正常,   疯狂发送SYN报文,   会让服务器花费很多时间,   内存来接受这些报文,   也就是说,   第一次握手可以放数据的话,   服务器会很容易遭到攻击</p>
+<blockquote>
+<p><strong>第一次握手</strong>:客户端发送网络包，服务端收到了。这样服务端就能得出结论:客户端的发送能力、服务端的接收能力是正常的。<br><strong>第二次握手</strong>:服务端发包，客户端收到了。这样客户端就能得出结论:服务端的接收、发送能力，客户端的接收、发送能力是正常的。不过此时服务器并不能确认客户端的接收能力是否正常。<br><strong>第三次握手</strong>:客户端发包，服务端收到了。这样服务端就能得出结论:客户端的接收、发送能力正常，服务器自己的发送、接收能力也正常。</p>
 </blockquote>
+<h3 id="为什么需要四次挥手？三次不行？"><a href="#为什么需要四次挥手？三次不行？" class="headerlink" title="为什么需要四次挥手？三次不行？"></a>为什么需要四次挥手？三次不行？</h3><ol>
+<li>第一次挥手:   客户端发送一个FIN报文,   报文中会指定一个序列号,   此时客户端处于FIN_WAIT1</li>
+<li>第二次挥手:   服务器收到FIN报文,   会发送ACK报文,   且把客户端的序列号值 + 1作为ACK报文的序列号,   表明已经收到客户端的报文了,   此时服务器处于CLOSE_WAIT状态</li>
+<li>第三次挥手:   如果服务端也想断开连接了,    服务器发送FIN报文,   且指定一个序列号,   此时客户端处于LAST_ACK状态</li>
+<li>第四次挥手:   客户端收到FIN后,   一样发送了一个ACK报文作为应答,   且把服务端的序列号值 + 1作为自己的ACK序列号值,   此时客户端处于TIME_WAIT,   需要过一阵阵子确保服务端收到自己的ACK报文后才进入CLOSED状态</li>
+<li>服务端收到ACK之后,   就处于关闭连接了,   处于CLOSED状态</li>
+</ol>
+<p>TIME_WAIT状态,   客户端发送ACK后不会关闭,   而是等一阵子才关闭,   要确保服务器已经收到我们的ACK报文,   如果没有收到的话,   服务器会重新发送FIN报文,   就知道之前的报文丢失了,   再次发送报文</p>
+<p>TIME_WAIT持续时间至少是一个报文的来回时间,   一般会设置一个计时,   如果这个计时没有收到FIN报文,   则代表发送成功,   此时就处于CLOSED状态</p>
 
           
         
@@ -1705,7 +1256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/02/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/12/Vue%E7%9F%A5%E8%AF%86%E7%82%B92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1724,7 +1275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/02/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841/" itemprop="url">数据结构1</a></h1>
+                <a class="post-title-link" href="/2022/03/12/Vue%E7%9F%A5%E8%AF%86%E7%82%B92/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -1736,8 +1287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-28T16:07:24+08:00">
-                2022-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-12T21:41:20+08:00">
+                2022-03-12
               </time>
             
 
@@ -1776,18 +1327,378 @@
       
         
           
-            <h2 id="1-数组"><a href="#1-数组" class="headerlink" title="1.数组"></a>1.数组</h2><p><strong>数组是存放在连续空间上的相同类型的数据集合</strong></p>
-<p>数组可以通过下标索引获取对应数据</p>
-<p><img src="https://code-thinking.cdn.bcebos.com/pics/%E7%AE%97%E6%B3%95%E9%80%9A%E5%85%B3%E6%95%B0%E7%BB%84.png"></p>
-<p><strong>数组下标是从0开始的</strong></p>
-<p><strong>数组内存空间是连续的</strong></p>
-<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表是通过指针串联在一起的结构,  每个结点由两部分组成:  数据域 和 指针域,  最后一个指针域指向null</p>
-<p><img src="https://img-blog.csdnimg.cn/20200806194529815.png"></p>
-<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><p>单链表中指针只能指向下一个结点</p>
-<h3 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h3><p>每个结点有两个指针域,  一个指向上一个节点,  一个指向下一个结点,  可以向前后查询</p>
-<p><img src="https://img-blog.csdnimg.cn/20200806194559317.png"></p>
-<p>数组在内存中是连续分布的,  链表在内存中是不连续分布的,  链表通过指针域指针连接在内存各个结点</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">  val;</span><br><span class="line">  next = <span class="literal">null</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.val = value;</span><br><span class="line">    <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="Vue基本原理"><a href="#Vue基本原理" class="headerlink" title="Vue基本原理"></a>Vue基本原理</h3><p>当一个Vue实例创建时,   Vue会遍历data中的所有属性,   用Object.defineProperty()进行数据劫持,   通过get和set函数,   当数据被访问时,  会调用get函数,  当数据被修改时,  会调用set函数,   然后在内部追踪相关依赖,   在属性被访问和修改时发生相应变化.   每个组件实例都有一个watcher实例,   它会在组件中把属性记录为依赖,   之后当依赖的setter被调用时,   会通知watcher重新计算,   从而致使它在关联的组件得以更新</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/12/%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/12/%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" itemprop="url">一些想法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-12T12:41:08+08:00">
+                2022-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看完帅地的春招之路,   又有了一点新的体会,  怕忘了,  在这里记一笔</p>
+<p>很早之前我就看过一次,   那次看完只有春招这么个概念,   当春招真的落到自己头上时再去翻这篇文章,   又有了新的体会.   </p>
+<p>我的一面是字节跳动,   人生第一次面试,   紧张得前言不搭后语,   有几次面试官问我我一问三不知,   开始之前我以为他会问js的相关知识,   结果上来就是数据库,   计网五层模型啥的,  这些我都完全没准备,   场面特别尴尬,   我和面试官都是不是那种特别能活跃气氛的人,   然后面试官让我实现一个instanceof函数,   这个太可惜了,   当时刚好那个东西没有看过,  就考了.   然后是实现flat函数.   这个只知道有这么个东西,   真的没用过,  结果自然是不会.   然后是一个二叉树的题,   太紧张然后没写出来,   直接gg</p>
+<p>这次让我感觉最深的地方是,   真的不能只背面经,  会死得很惨.   当面试官问你面经题时,   你最好不是真的只会面经.   因为他如果在这里稍微提一两个小问题,  你不会,  那就gg了,   他会判断你是背面经的.  背面经是技术岗的明规则,  但如果只是会面经还是不够,    除非是小公司缺人门槛特别低.   </p>
+<p>我的解决方案是  <strong>以面经为基础骨架</strong>,   对每个问题进行延伸拓展,   最好是面试官问什么,   你都能扯一嘴,   用自己的理解去回答问题,   而不是以面经的机械化作答(网上机械化答案太多了).  重点:   把面经当成目录用,   对于重点不会就全网搜答案,  越详细越好(遵循<strong>“<em>取</em>法乎上，仅得其中；<em>取</em>法乎中，仅得其下；取法乎下，无所得矣！”</strong>的原则) ,  因为学习的过程就是忘记的过程,   学习得越多,  忘得就越多,   最终剩下的就是你真正<strong>暂时</strong>学到的内容,   只背面经,  最终一无所获</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/11/Vue%E7%9F%A5%E8%AF%86%E7%82%B91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/11/Vue%E7%9F%A5%E8%AF%86%E7%82%B91/" itemprop="url">Vue知识点1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-11T22:55:47+08:00">
+                2022-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h3><ul>
+<li><p>beforeCreate在实例初始化后,   数据观测(data  observer)之前被调用</p>
+</li>
+<li><p>created 实例已经创建完成之后被调用,   在这一步,  实例已经完成以下配置:  数据观测(data observer),  属性和方法的运算,   watch和event回调,   这里没有$el</p>
+</li>
+<li><p>beforeMounted:  在挂载开始之前被调用,  相关render函数被首次调用</p>
+</li>
+<li><p>mounted:  el被新创建的vm.$el替换,  并挂载到实例上后首次调用该钩子函数</p>
+</li>
+</ul>
+<ul>
+<li>beforeUpdate:  数据更新时调用,  发生在虚拟dom打补丁之前这里适合访问现有的dom,   比如手动移除已添加的事件监听.  该钩子在服务器端渲染期间不被调用,   因为只有初次渲染会在服务端进行</li>
+</ul>
+<ul>
+<li>updated:  由于数据更改导致虚拟DOM重新渲染和打补丁,  在这之后会调用该钩子</li>
+</ul>
+<ul>
+<li>beforeDestroy:   实例销毁前被调用,  在这一步,   实例仍然完全可用,  该钩子在服务器渲染端不能被调用</li>
+</ul>
+<ul>
+<li>destroyed:   Vue实例销毁后调用,   调用后Vue实例指示的所有东西会解绑,   所有的事件监听被移除,  子实例被销毁,   服务端渲染期间不会被调用</li>
+</ul>
+<h3 id="Vue的通讯的方式"><a href="#Vue的通讯的方式" class="headerlink" title="Vue的通讯的方式"></a>Vue的通讯的方式</h3><ol>
+<li><p>props,  emit(最常用的父子通讯方式)</p>
+<p><strong>父组件传入属性,  子组件通过props接受,   就可以在内部thisXXX的方式使用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// section父组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;section&quot;&gt;</span><br><span class="line">    &lt;com-article :articles=&quot;articleList&quot;&gt;&lt;/com-article&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import comArticle from &#x27;./test/article.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  components: &#123; comArticle &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      articleList: [&#x27;红楼梦&#x27;, &#x27;西游记&#x27;, &#x27;三国演义&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 子组件 article.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;span v-for=&quot;(item, index) in articles&quot; :key=&quot;index&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/span&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#x27;articles&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总结:   prop只可以从上一级组件传递到下一级组件(父子组件),   即所谓的单向数据流.   而且prop只读,  不可被修改,  修改会失效并警告</p>
+</blockquote>
+<p><strong>子组件向父组件传值</strong></p>
+<p>对于$emit,  $emit绑定一个自定义事件,  当这个语句被执行时,   就会将参数arg传递给父组件,   父组件通过v-on监听并接受参数.   通过一个例子,   点击页面渲染出来到的ariticle的item,   父组件中显示数组的下标</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 父组件中</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;section&quot;&gt;</span><br><span class="line">    &lt;com-article :articles=&quot;articleList&quot; @onEmitIndex=&quot;onEmitIndex&quot;&gt;&lt;/com-article&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;currentIndex&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import comArticle from &#x27;./test/article.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  components: &#123; comArticle &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      currentIndex: -1,</span><br><span class="line">      articleList: [&#x27;红楼梦&#x27;, &#x27;西游记&#x27;, &#x27;三国演义&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    onEmitIndex(idx) &#123;</span><br><span class="line">      this.currentIndex = idx</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div v-for=&quot;(item, index) in articles&quot; :key=&quot;index&quot; @click=&quot;emitIndex(index)&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#x27;articles&#x27;],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitIndex(index) &#123;</span><br><span class="line">      this.$emit(&#x27;onEmitIndex&#x27;, index)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>ref和refs</strong></p>
+<p>如果在普通的DOM元素上使用,  引用指向的就是DOM元素,   如果引用在子组件上,  就指向子组件实例,   可以<strong>通过实例直接调用组件的方法或数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 子组件 A.vue</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name: &#x27;Vue.js&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sayHello () &#123;</span><br><span class="line">      console.log(&#x27;hello&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 父组件 app.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;component-a ref=&quot;comA&quot;&gt;&lt;/component-a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    mounted () &#123;</span><br><span class="line">      const comA = this.$refs.comA;</span><br><span class="line">      console.log(comA.name);  // Vue.js</span><br><span class="line">      comA.sayHello();  // hello</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>eventBus</strong></p>
+<p>eventbus又称事件总线,   在vue中可以使用它来作为沟通桥梁的概念,   组件共用相同的事件中心,  可以向该中心注册发送事件或接收事件,   所有组件都可以通知其他组件</p>
+<blockquote>
+<p>缺点是项目较大难以维护</p>
+</blockquote>
+<ol>
+<li><p>初始化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// event-bus.js</span><br><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">export const EventBus = new Vue()</span><br></pre></td></tr></table></figure></li>
+<li><p>发送事件</p>
+<p>加入有两个组件: additionNum,   showNum,   这两个组件可以是兄弟组件,  也可以是父子组件,  这里以兄弟组件为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;show-num-com&gt;&lt;/show-num-com&gt;</span><br><span class="line">    &lt;addition-num-com&gt;&lt;/addition-num-com&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import showNumCom from &#x27;./showNum.vue&#x27;</span><br><span class="line">import additionNumCom from &#x27;./additionNum.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123; showNumCom, additionNumCom &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发送事件组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// addtionNum.vue 中发送事件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">        &lt;button @click=&quot;additionHandle&quot;&gt;+加法器    </span><br><span class="line">    	&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;EventBus&#125; from &#x27;./event-bus.js&#x27;</span><br><span class="line">console.log(EventBus)</span><br><span class="line">export default&#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            num: 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        additionHandle()&#123;</span><br><span class="line">            EventBus.$emit(&#x27;addition&#x27;, &#123;</span><br><span class="line">                num: this.num ++</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接受事件组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// showNum.vue 组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">        计算和: &#123;&#123;count&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;EventBus&#125; from &#x27;./event-bus.js&#x27;</span><br><span class="line">export default&#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            count: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    methods()&#123;</span><br><span class="line">        EventBus.$on(&#x27;addition&#x27;, param =&gt; &#123;</span><br><span class="line">            this.count = this.count + param.num;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h5><p>Vuex是一个专门为Vue.js应用程序开发的状态管理模式.   它采用集中存储管理应用的所有组件和方法,  并以相应的规则保证状态以一种可以预测的方式发生改变.   Vuex解决了<strong>多个视图依赖同一状态</strong>和<strong>来自不同视图的行为需要变更同一状态</strong>的问题,  将开发者的经历聚集在数据的更新而不是数据在组件间的传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;ChildA/&gt;</span><br><span class="line">        &lt;ChildB/&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import ChildA from &#x27;./components/ChildA&#x27;	// 导入A组件</span><br><span class="line">import ChildB from &#x27;./components/ChildB&#x27; 	// </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="vue懒加载"><a href="#vue懒加载" class="headerlink" title="vue懒加载"></a>vue懒加载</h3><p><strong>为什么要懒加载</strong></p>
+<p>Vue是单页面应用,   如果没有应用懒加载,  运用webpack打包的文件很大,   造成进入首页时,  需要加载的内容过多,   白屏时间很长,    懒加载有利于页面划分,   需要的时候加载页面,   减少首页加载压力,  减少加载用时</p>
+<p>一句话: <strong>进入首页不用一次加载过多资源,   造成用时过长</strong></p>
+<p><strong>懒加载</strong></p>
+<blockquote>
+<p>也叫延迟加载,    需要的时候再去加载,   随用随加载</p>
+<p>根据功能可以划分为图片懒加载和组件懒加载</p>
+</blockquote>
+<p><strong>图片懒加载</strong></p>
+<p>一张图片就是一个img标签,   浏览器是否发起图片请求是根据<img>的src属性,  实现懒加载的关键是,   在图片没有进入可视区域时,   先不给<img>的src值,   这样浏览区就不会发送请求了,  等待图片进入可视区域再给src赋值</p>
+<p>实现懒加载有四个步骤:  </p>
+<ol>
+<li>加载loading图片</li>
+<li>判断哪些图片要加载</li>
+<li>隐形加载图片</li>
+<li>替换真图片</li>
+</ol>
+<p><strong>加载loading图片</strong></p>
+<p>加载loading图片在html就实现的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    // src存放的是伪图片  等待的图片   data-src是自定义属性,  存放的是真实的图片</span><br><span class="line">    &lt;img class=&quot;lazy&quot; src=&quot;img/loading.gif&quot; data-src=&quot;img/pic1.jpg&quot;&gt;&lt;/img&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>判断图片进入可视区域</strong></p>
+<p>用到了onload事件,   onload事件会在页面和图像加载完成后立即发生</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 懒加载实现原理</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">lazyload</span>(<span class="params">imgs</span>)</span>&#123;</span><br><span class="line">		<span class="comment">// 可视区域高度</span></span><br><span class="line">		<span class="keyword">var</span> h = <span class="built_in">window</span>.innerHeight;</span><br><span class="line">		<span class="comment">//滚动区域高度</span></span><br><span class="line">		<span class="keyword">var</span> s = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;imgs.length;i++)&#123;</span><br><span class="line">			<span class="comment">//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载</span></span><br><span class="line">			<span class="keyword">if</span> ((h+s) &gt; getTop(imgs[i])) &#123;</span><br><span class="line">				<span class="comment">// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s</span></span><br><span class="line">				(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">					<span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">						<span class="comment">// 不加立即执行函数i会等于9</span></span><br><span class="line">						<span class="comment">// 隐形加载图片或其他资源，</span></span><br><span class="line">						<span class="comment">//创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载</span></span><br><span class="line">						<span class="keyword">var</span> temp = <span class="keyword">new</span> Image();</span><br><span class="line">						temp.src = imgs[i].getAttribute(<span class="string">&#x27;data-src&#x27;</span>);<span class="comment">//只会请求一次</span></span><br><span class="line">						<span class="comment">// onload判断图片加载完毕，真图片加载完毕，再赋值给dom节点</span></span><br><span class="line">						temp.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">							<span class="comment">// 获取自定义属性data-src，用真图片替换假图片</span></span><br><span class="line">							imgs[i].src = imgs[i].getAttribute(<span class="string">&#x27;data-src&#x27;</span>)</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;,<span class="number">2000</span>)</span><br><span class="line">				&#125;)(i)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>隐形加载</strong> 和 <strong>替换真图片</strong></p>
+<ul>
+<li>当图片的offsetTop 小于 scrollTop + window.innerHeight时,  就会开始加载</li>
+<li>隐形加载:   首先创建一个临时图片,   图片不会到页面上,  而是保存在内存中,   然后发起请求,   请求完成后,  把它赋值给src属性,   这样就完成了图片替换</li>
+</ul>
+<p><strong>路由懒加载 和 组件懒加载</strong></p>
+<p><strong>路由懒加载</strong></p>
+<p>vue异步实现懒加载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">	routes: [</span><br><span class="line">		&#123;</span><br><span class="line">			path: &#x27;/&#x27;,</span><br><span class="line">			name: &#x27;HelloWorld&#x27;,</span><br><span class="line">			component: resolve =&gt; (require([&#x27;@/components/HelloWorld&#x27;, resolve]))</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line">const HelloWorld = () =&gt; import(&#x27;@/components/HelloWorld&#x27;)</span><br><span class="line">export default new Router(&#123;</span><br><span class="line">	routers: [</span><br><span class="line">		&#123;</span><br><span class="line">			path: &#x27;/&#x27;,</span><br><span class="line">			name: &#x27;HelloWorld&#x27;,</span><br><span class="line">			component: HelloWorld</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>原来的写法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import One from &#x27;./one&#x27;</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: One</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>const方法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">const One = () =&gt; import(&#x27;./One&#x27;)</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: One</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>异步方法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">const One = () =&gt; import(&#x27;./One&#x27;)</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: resolve =&gt; ([&#x27;./one&#x27;], resolve);</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Vue响应式原理"><a href="#Vue响应式原理" class="headerlink" title="Vue响应式原理"></a>Vue响应式原理</h3><p>整体思路 是数据劫持 + 观察者模式</p>
+<p>对象内部通过defineReactive方法,   使用Object.defineProperty将属性进行劫持(只会劫持已经存在的属性),  数组则通过数组重写方式实现的.   当页面使用对应属性时,   每个属性都有自己的dep属性,   存放它所收集的watcher(依赖收集),   当属性变化后通知自己对应的watcher去派发更新</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.walk(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">walk</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 对象上所有属性一次进行观测</span></span><br><span class="line">        <span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(data);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; keys.length; i++)&#123;</span><br><span class="line">            <span class="keyword">let</span> key = keys[i];</span><br><span class="line">            <span class="keyword">let</span> value = data[key];</span><br><span class="line">            defineReactive(data, key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 数据劫持核心</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">data, key, value</span>)</span>&#123;</span><br><span class="line">    observe(value); <span class="comment">// 递归</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;获取值&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;设置值&#x27;</span>);</span><br><span class="line">            value = newValue;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 如果传过来是对象或数组,  进行属性劫持</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Object</span>.prototype.toString.call(value) === <span class="string">&#x27;object Object&#x27;</span> || <span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Oberver(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
           
         
       
@@ -1826,7 +1737,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1872,7 +1783,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1894,7 +1805,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

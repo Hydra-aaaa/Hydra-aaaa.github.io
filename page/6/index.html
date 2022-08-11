@@ -131,7 +131,7 @@
 
 
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/13/lc-day1/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/22/lc-day10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/13/lc-day1/" itemprop="url">lc刷题</a></h1>
+                <a class="post-title-link" href="/2021/11/22/lc-day10/" itemprop="url">lc-day10</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-13T15:42:22+08:00">
-                2021-11-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-22T13:59:10+08:00">
+                2021-11-22
               </time>
             
 
@@ -300,39 +300,46 @@
       
         
           
-            <h1 id="222-完全二叉树的节点个数"><a href="#222-完全二叉树的节点个数" class="headerlink" title="222. 完全二叉树的节点个数"></a>222. 完全二叉树的节点个数</h1><p><img src="/2021/11/13/lc-day1/problem_1.png" alt="problem_1"></p>
-<p>对于这个题目，一开始很容易想到遍历，不管是前、中、后、层序遍历都是可以的遍历完一边后答案就出来了，太简单就不写了。说一下一个进阶的写法</p>
-<p><img src="/2021/11/13/lc-day1/2.png" alt="转载了Carl哥的图"></p>
-<p>对于每一个棵树，首先就判断它整体是不是完全二叉树</p>
+            <h1 id="654-最大二叉树"><a href="#654-最大二叉树" class="headerlink" title="654. 最大二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-binary-tree/">654. 最大二叉树</a></h1><p><img src="/2021/11/22/lc-day10/3.png" alt="题目"></p>
+<p>重刷了最大二叉树，发现两个有意思的点</p>
 <blockquote>
-<p>如果是，那就很简单了，直接返回它的2^h即可，（h是高度，这个公式利用了满二叉树的性质）</p>
+<p>如果递归变量数目不同，那就不能拿原函数直接递归，只能再写一个递归</p>
 </blockquote>
+<p><img src="/2021/11/22/lc-day10/1.png" alt="point 1"></p>
 <blockquote>
-<p>如果不是，那么必然有一边是满二叉树，另一边不是满二叉树，那么就把这个问题细分为两个子问题再递归计算，这个问题会无限被细分成满二叉树，然后就可以套公式计算了，具体的操作步骤如下</p>
+<p>二叉树的边界构建一定要始终保持一致，开始是左闭右开那就一直左闭右开，开始是闭区间就一直是闭区间，这一点在归并、快速排序中很重要</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countNodes</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        TreeNode* left = root-&gt;left;</span><br><span class="line">        TreeNode* right = root-&gt;right;</span><br><span class="line">        <span class="keyword">int</span> leftHeight = <span class="number">0</span>, rightHeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left)&#123;</span><br><span class="line">            leftHeight++;</span><br><span class="line">            left = left-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right)&#123;</span><br><span class="line">            rightHeight++;</span><br><span class="line">            right = right-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(leftHeight == rightHeight) <span class="keyword">return</span> (<span class="number">2</span> &lt;&lt; leftHeight) - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">countNodes</span>(root-&gt;left) + <span class="built_in">countNodes</span>(root-&gt;right) + <span class="number">1</span>; </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/22/lc-day10/2.png" alt="point 2"></p>
+<p>上次借助Carl的代码写出来了，这次能手撕了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">constructMaximumBinaryTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> ll, <span class="keyword">int</span> lr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ll &gt;= lr) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> maxValue = <span class="number">-1</span>, pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = ll; i &lt; lr; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(maxValue &lt; nums[i])&#123;</span><br><span class="line">                maxValue = nums[i];</span><br><span class="line">                pos = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(maxValue);</span><br><span class="line">        node-&gt;left = <span class="built_in">dfs</span>(nums, ll, pos);</span><br><span class="line">        node-&gt;right = <span class="built_in">dfs</span>(nums, pos + <span class="number">1</span>, lr);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="110-平衡⼆叉树"><a href="#110-平衡⼆叉树" class="headerlink" title="110.平衡⼆叉树"></a>110.平衡⼆叉树</h1><p><img src="/2021/11/13/lc-day1/3.png" alt="image-20211113164842028"></p>
+<p>为什么刷上面的题目呢？ 因为是为下面的题目做铺垫  ^_^</p>
+<h1 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108. 将有序数组转换为二叉搜索树"></a>108. 将有序数组转换为二叉搜索树</h1><p><img src="/2021/11/22/lc-day10/5.png" alt="题目"></p>
+<p>设好了区间后，直接用可以求pos了</p>
+<p>实际上这题的pos包括了两种情况，一个表达式就能搞定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* sortedArrayToBST(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">        return dfs(nums, 0, nums.size());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TreeNode* dfs(vector&lt;int&gt;&amp; nums, int l, int r)&#123;</span><br><span class="line">        if(l &gt;= r) return nullptr;</span><br><span class="line">        int pos = (l + r) / 2;</span><br><span class="line">        TreeNode* node = new TreeNode(nums[pos]);</span><br><span class="line">        node-&gt;left = dfs(nums, l, pos);</span><br><span class="line">        node-&gt;right = dfs(nums, pos + 1, r);</span><br><span class="line">        return node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>再看看官方题解，区间设置也很有意思，它是左闭右闭区间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">sortedArrayToBST</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">helper</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">helper</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left &gt; right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 总是选择中间位置左边的数字作为根节点</span></span><br><span class="line">        <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(nums[mid]);</span><br><span class="line">        root-&gt;left = <span class="built_in">helper</span>(nums, left, mid - <span class="number">1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">helper</span>(nums, mid + <span class="number">1</span>, right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="450-删除⼆叉搜索树中的节点"><a href="#450-删除⼆叉搜索树中的节点" class="headerlink" title="450.删除⼆叉搜索树中的节点"></a>450.删除⼆叉搜索树中的节点</h1><p><img src="/2021/11/22/lc-day10/4.png" alt="题目"></p>
+<p>又是一个很久没写的题目，直接跪</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">deleteNode</span><span class="params">(TreeNode* root, <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val == key)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span>) <span class="keyword">return</span> root-&gt;right;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;right == <span class="literal">nullptr</span>) <span class="keyword">return</span> root-&gt;left;</span><br><span class="line">            <span class="comment">//第五种情况, 左右都不为空, root-&gt;val == key</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                TreeNode* cur = root-&gt;right;<span class="comment">//右子树</span></span><br><span class="line">                <span class="keyword">while</span>(cur-&gt;left != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                    cur = cur-&gt;left;<span class="comment">//最左结点, 是右子树最小值</span></span><br><span class="line">                &#125;</span><br><span class="line">                cur-&gt;left = root-&gt;left;<span class="comment">//把待删除点的左子树放在cur的左孩子上</span></span><br><span class="line">                TreeNode* tmp = root;</span><br><span class="line">                <span class="comment">//将待删除点的右子树地址作为新root</span></span><br><span class="line">                root = root-&gt;right;</span><br><span class="line">                <span class="keyword">delete</span> tmp;</span><br><span class="line">                <span class="keyword">return</span> root;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &gt; key) root-&gt;left = <span class="built_in">deleteNode</span>(root-&gt;left, key);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &lt; key) root-&gt;right = <span class="built_in">deleteNode</span>(root-&gt;right, key);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>为什么要后序遍历?</p>
-<p>因为要从根节点计算两边子树的高度，相减的结果就是判断返回值的依据</p>
+<p>惊叹于别人函数设计的巧妙性，望尘莫及</p>
 </blockquote>
-<blockquote>
-<p>为什么返回-1</p>
-<p>因为如果两棵子树的差大于1的话，那么他就不是平衡二叉树了，所以再返回高度就没有意义了，这时要返回一个绝对不可能出现的值标记失败（相当于返回值int承担了两个作用）</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(root) == <span class="number">-1</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> left = <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(right == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(left - right) &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">max</span>(left, right) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="538-把二叉搜索树转换为累加树"><a href="#538-把二叉搜索树转换为累加树" class="headerlink" title="538. 把二叉搜索树转换为累加树"></a>538. 把二叉搜索树转换为累加树</h1><p><img src="/2021/11/22/lc-day10/6.png" alt="题目"></p>
+<p>没写出来前觉得好难，经过卡尔的提示就很快写出来了。这题开始时觉得莫名其妙，为什么要这么累加，跟我想的完全不一样，结果没想到是反向累加，那就反向中序遍历就好了，顺便把之前的指针技巧给用上了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TreeNode* cur = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">convertBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="built_in">convertBST</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(cur != <span class="literal">nullptr</span>) root-&gt;val += cur-&gt;val;</span><br><span class="line">        cur = root;</span><br><span class="line">        <span class="built_in">convertBST</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>时间复杂度：O(n)</p>
-<p>空间复杂度：O(n)</p>
-<p>这道题一开始写还没写出来，连暴力法都没想出来，还要强加练习呀</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(<span class="built_in">dfs</span>(root-&gt;left) - <span class="built_in">dfs</span>(root-&gt;right)) &lt;= <span class="number">1</span> &amp;&amp; <span class="built_in">isBalanced</span>(root-&gt;left) &amp;&amp; <span class="built_in">isBalanced</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">dfs</span>(root-&gt;left), <span class="built_in">dfs</span>(root-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>暴力法</p>
-<p>时间复杂度O(nlog(n))</p>
-<p>空间复杂度O(n)</p>
+
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>今天就把二叉树给收尾了，中间跳了一题不想写了，下次补上，下次见面二叉树应该是二周目了！我的定位暂时是前端，最终目标应该是sde，前端是一个快速入门的过渡阶段，</p>
 
           
         
@@ -381,7 +388,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/21/lc-day9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -400,7 +407,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/" itemprop="url">搭建博客1</a></h1>
+                <a class="post-title-link" href="/2021/11/21/lc-day9/" itemprop="url">lc-day9</a></h1>
         
 
         <div class="post-meta">
@@ -412,8 +419,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-13T14:37:09+08:00">
-                2021-11-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-21T15:12:09+08:00">
+                2021-11-21
               </time>
             
 
@@ -452,16 +459,20 @@
       
         
           
-            <hr>
-<h1 id="博客的作用"><a href="#博客的作用" class="headerlink" title="博客的作用"></a>博客的作用</h1><p>这个博客我决定用来写我在学习过程中的<strong>问题</strong>和<strong>笔记</strong>，顺便发一点感想。本来最初是打算用阿里云搭建博客的，结果发现wall内的东西都要备案，就作罢了，有些东西现在还不能说</p>
-<h1 id="失败的一上午"><a href="#失败的一上午" class="headerlink" title="失败的一上午"></a>失败的一上午</h1><p>今天想做一个在【标签页】显示所有【标签】的功能，结果花了一上午也没有解决，网上翻了好多教程都没有答案，只好放弃，准备直接写学习笔记了。太失败了(-_-) 后续我应该还会再试试的，毕竟我的方向是前端，这个应该在我的业务范围之内     &#128512;</p>
-<h1 id="下午"><a href="#下午" class="headerlink" title="下午"></a>下午</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_43401436/article/details/107191688">感谢该博主的帮助</a></p>
-<p>下午在解决图片上传问题，发现一个有趣的现象，我本地的图片显示不出来，却能在云端显示出来，具体表现是这样的</p>
-<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/3.png"></p>
-<p>这张图在本地是没有在typora上显示的，但我如果再发布到网站上就出现了</p>
-<p><img src="/2021/11/13/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A21/2.png"></p>
-<p>暂时没有解决方案，不过反正能达到要求就行了，反正都要在本地先跑一遍在上传到云端。</p>
-<p>总结：这个图片路径能够被我安装的hexo插件解析出来并成功发布，但是我本地的typora却无法解析出它的路径，这是因为插件会在解析时自己再加一段路径。所以我只能舍弃本地显示选择云端显示了</p>
+            <h1 id="559-N-叉树的最大深度"><a href="#559-N-叉树的最大深度" class="headerlink" title="559. N 叉树的最大深度"></a>559. N 叉树的最大深度</h1><p><img src="/2021/11/21/lc-day9/1.png" alt="题目"></p>
+<blockquote>
+<p>今天的lc每日一题</p>
+<p>题目很简单，但是我猛然间将现在的代码和以前的代码做了一个对比，有了新发现</p>
+</blockquote>
+<p>下面是我今天的代码，我的代码思路是每递归深入一层，就更新一次深度（初始深度为1），最后的全局变量就是答案</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxH;</span><br><span class="line">    int maxDepth(Node* root) &#123;</span><br><span class="line">        if(root == nullptr) return 0;</span><br><span class="line">        dfs(root, 1);</span><br><span class="line">        return maxH;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void dfs(Node* root, int h)&#123;</span><br><span class="line">        if(root == nullptr) return;</span><br><span class="line">        if(maxH &lt; h) maxH = h;</span><br><span class="line">        for(int i = 0; i &lt; root-&gt;children.size(); i++)&#123;</span><br><span class="line">            dfs(root-&gt;children[i], h + 1);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这是我以前的代码，后序遍历，这就不是在求深度了，这是从底层往高层算，是在回溯，求的是高度，而二叉树的高度值与深度值大小相同，所以代码也就过了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> max1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; root-&gt;children.<span class="built_in">size</span>(); i++) </span><br><span class="line">        max1 = <span class="built_in">max</span>(max1, <span class="built_in">maxDepth</span>(root-&gt;children[i]));</span><br><span class="line">        <span class="keyword">return</span> max1 + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这再次印证了Carl的话，递归和回溯的区别，一个去一个回，是截然不同的</p>
 
           
         
@@ -510,7 +521,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/12/test/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/20/lc-day8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -529,7 +540,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/12/test/" itemprop="url">Markdown语法练习</a></h1>
+                <a class="post-title-link" href="/2021/11/20/lc-day8/" itemprop="url">lc-day8</a></h1>
         
 
         <div class="post-meta">
@@ -541,8 +552,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-12T19:32:20+08:00">
-                2021-11-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-20T09:02:22+08:00">
+                2021-11-20
               </time>
             
 
@@ -551,28 +562,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index">
-                    <span itemprop="name">test</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -603,64 +592,52 @@
       
         
           
-            <h1 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h1><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h1 id="一级"><a href="#一级" class="headerlink" title="一级"></a>一级</h1><h2 id="二级"><a href="#二级" class="headerlink" title="二级"></a>二级</h2><h3 id="三级"><a href="#三级" class="headerlink" title="三级"></a>三级</h3><h4 id="四级"><a href="#四级" class="headerlink" title="四级"></a>四级</h4><h5 id="五级"><a href="#五级" class="headerlink" title="五级"></a>五级</h5><h6 id="六级"><a href="#六级" class="headerlink" title="六级"></a>六级</h6><p><em>一个星号是斜体</em></p>
-<p><strong>两个星号是加粗</strong></p>
-<p><del>前后各两个波浪是删除线</del></p>
-<p><u>下划线underline</u></p>
-<h4 id="通过-Markdown-解析达到注释效果"><a href="#通过-Markdown-解析达到注释效果" class="headerlink" title="通过 Markdown 解析达到注释效果"></a>通过 Markdown 解析达到注释效果</h4><p>上面隐藏了一段被注释的文字</p>
-<p>这是一段没有被注释的文字</p>
-<h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><hr>
-<hr>
-<hr>
-<hr>
-<h4 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h4><ol>
-<li>这样</li>
-<li>表示</li>
-<li>即可</li>
-</ol>
-<ul>
-<li>无序</li>
-<li>表单</li>
-<li>表示</li>
-</ul>
-<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><ol>
-<li>hydra<ul>
-<li>123</li>
-<li>123</li>
-</ul>
-</li>
-<li>hyaaa<ul>
-<li>换行 + 四个空格 + ‘-‘</li>
-<li>321</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>无序就是把数字换成符号<ul>
-<li>ok</li>
-</ul>
-</li>
-</ul>
-<h4 id="markdown区块"><a href="#markdown区块" class="headerlink" title="markdown区块"></a>markdown区块</h4><blockquote>
-<p>hydra<br>mark<br>down</p>
+            <h1 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h1><p><img src="/2021/11/20/lc-day8/3.png" alt="题目"></p>
+<blockquote>
+<p>这个题直接g， 好久之前写的全忘了，方法太巧妙了</p>
+</blockquote>
+<p>没做出来之前好难，看完了Carl的题解后，只想说两个点</p>
+<blockquote>
+<p>返回值：这题居然是遍历整棵二叉树还附带返回值，在之前的题目中Carl的结论是【有返回值的递归是部分遍历】，这题发生了变化</p>
 </blockquote>
 <blockquote>
-<p>hydra</p>
+<p>回溯，自底向上。这道题拿到后很容易想到从底部向上移动，找出祖先节点。但这题给的条件是树的根节点，而且树是单向的，你没有第二个指针遍历回去，那怎么办呢？解决办法是回溯，既然有向下递归，那就有向上回溯，只要你进去了，总归是要出来的，然后向上返回就行了</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == p || root == q || root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line">        TreeNode* left = <span class="built_in">lowestCommonAncestor</span>(root-&gt;left, p, q);</span><br><span class="line">        TreeNode* right = <span class="built_in">lowestCommonAncestor</span>(root-&gt;right, p, q);</span><br><span class="line">        <span class="keyword">if</span>(left != <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="594-最长和谐子序列"><a href="#594-最长和谐子序列" class="headerlink" title="594. 最长和谐子序列"></a>594. 最长和谐子序列</h1><p><img src="/2021/11/20/lc-day8/1.png" alt="每日一题"></p>
 <blockquote>
-<p>mark</p>
+<p>打卡题，不过还是被迷惑了一会</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findLHS</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) p[nums[i]]++;</span><br><span class="line">        <span class="keyword">int</span> maxx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; [x, cnt] : p) </span><br><span class="line">            <span class="keyword">if</span>(p.<span class="built_in">count</span>(x + <span class="number">1</span>))</span><br><span class="line">            maxx = <span class="built_in">max</span>(maxx, p[x] + p[x + <span class="number">1</span>]); </span><br><span class="line">        <span class="keyword">return</span> maxx;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="235-二叉搜索树的最近公共祖先"><a href="#235-二叉搜索树的最近公共祖先" class="headerlink" title="235. 二叉搜索树的最近公共祖先"></a>235. 二叉搜索树的最近公共祖先</h1><p><img src="/2021/11/20/lc-day8/2.png" alt="题目"></p>
 <blockquote>
-<p>每个’&gt;’之间都有一个空格</p>
+<p>这道题结合了二叉搜索树的性质，根据根节点的值决定递归遍历左子树或右子树</p>
 </blockquote>
+<blockquote>
+<p>这题我只想说一点，部分遍历的问题</p>
 </blockquote>
+<p><img src="/2021/11/20/lc-day8/4.png" alt="题目"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &gt; p-&gt;val &amp;&amp; root-&gt;val &gt; q-&gt;val)&#123;</span><br><span class="line">            TreeNode* left = <span class="built_in">lowestCommonAncestor</span>(root-&gt;left, p, q);</span><br><span class="line">            <span class="keyword">if</span>(left) <span class="keyword">return</span> left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &lt; p-&gt;val &amp;&amp; root-&gt;val &lt; q-&gt;val) &#123;</span><br><span class="line">            TreeNode* right = <span class="built_in">lowestCommonAncestor</span>(root-&gt;right, p, q);</span><br><span class="line">            <span class="keyword">if</span>(right) <span class="keyword">return</span> right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="701-二叉搜索树中的插入操作"><a href="#701-二叉搜索树中的插入操作" class="headerlink" title="701. 二叉搜索树中的插入操作"></a>701. 二叉搜索树中的插入操作</h1><p><img src="/2021/11/20/lc-day8/5.png" alt="题目"></p>
+<blockquote>
+<p>基本的题目, 不过更高阶的做法写不出来</p>
 </blockquote>
-<p><code>cout &lt;&lt; hello</code><br>`为反引号,就是波浪线那个键</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">整段代码是用```写的</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">insertIntoBST</span><span class="params">(TreeNode* root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">insert</span>(root, val);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(TreeNode* root, <span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &gt; val)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">                root-&gt;left = node;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">insert</span>(root-&gt;left, val);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &lt; val)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;right == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">                root-&gt;right = node;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">insert</span>(root-&gt;right, val);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>Carl的解法, 不愧是acm大神</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">insertIntoBST</span><span class="params">(TreeNode* root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(val);</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &gt; val) root-&gt;left = <span class="built_in">insertIntoBST</span>(root-&gt;left, val);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &lt; val) root-&gt;right = <span class="built_in">insertIntoBST</span>(root-&gt;right, val);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-
-
-<p>这样就ok了</p>
 
           
         
@@ -709,7 +686,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/04/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/19/lc-day7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -728,7 +705,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/04/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2021/11/19/lc-day7/" itemprop="url">lc-day7</a></h1>
         
 
         <div class="post-meta">
@@ -740,8 +717,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-04T15:06:38+08:00">
-                2021-11-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-19T09:20:50+08:00">
+                2021-11-19
               </time>
             
 
@@ -750,28 +727,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index">
-                    <span itemprop="name">test</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -802,19 +757,904 @@
       
         
           
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h1 id="397-整数替换"><a href="#397-整数替换" class="headerlink" title="397. 整数替换"></a>397. 整数替换</h1><p><img src="/2021/11/19/lc-day7/4.png" alt="每日一题"></p>
+<p>简单的递归，注意值的边界问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int res = 0x3f3f3f3f;</span><br><span class="line">    int integerReplacement(long long n) &#123;</span><br><span class="line">        if(n == 1) return 0;</span><br><span class="line">        if(n &amp; 1) &#123;</span><br><span class="line">            return 1 + min(integerReplacement(n - 1), integerReplacement(n + 1));</span><br><span class="line">        &#125;</span><br><span class="line">        return 1 + integerReplacement(n / 2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h1 id="530-⼆叉搜索树的最⼩绝对差"><a href="#530-⼆叉搜索树的最⼩绝对差" class="headerlink" title="530.⼆叉搜索树的最⼩绝对差"></a>530.⼆叉搜索树的最⼩绝对差</h1><p><img src="/2021/11/19/lc-day7/1.png" alt="题目"></p>
+<p>很简单的题目,把握好中序遍历就行了,都是些小细节</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    TreeNode* node = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getMinimumDifference</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) ans = <span class="built_in">getMinimumDifference</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(node != <span class="literal">nullptr</span>) ans = <span class="built_in">min</span>(ans, root-&gt;val - node-&gt;val);</span><br><span class="line">        node = root;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right) ans = <span class="built_in">getMinimumDifference</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+<h1 id="501-⼆叉搜索树中的众数"><a href="#501-⼆叉搜索树中的众数" class="headerlink" title="501.⼆叉搜索树中的众数"></a>501.⼆叉搜索树中的众数</h1><p><img src="/2021/11/19/lc-day7/2.png" alt="题目"></p>
+<p>水题，先上自己的版本</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p;</span><br><span class="line">    <span class="keyword">int</span> mi = <span class="number">-1</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findMode</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;[a, b] : p)&#123;</span><br><span class="line">            <span class="keyword">if</span>(mi == b) vec.<span class="built_in">push_back</span>(a);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> vec;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        p[root-&gt;val]++;</span><br><span class="line">        mi = <span class="built_in">max</span>(p[root-&gt;val], mi);</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>利用搜索二叉树的原理进行优化</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//没啥说的,随便改改就好了</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> mi = <span class="number">1</span>;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findMode</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> vec;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* pre = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(pre != <span class="literal">NULL</span> &amp;&amp; pre-&gt;val == root-&gt;val) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span>(count &gt; mi) &#123;</span><br><span class="line">                mi = count;</span><br><span class="line">                vec.<span class="built_in">clear</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(count == mi) vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(pre == <span class="literal">nullptr</span> || pre-&gt;val != root-&gt;val) &#123;</span><br><span class="line">            count = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(count == mi) vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">        pre = root;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树所有的迭代法周目二再说！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/18/lc-day6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/18/lc-day6/" itemprop="url">lc-day6</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-18T09:30:55+08:00">
+                2021-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="563-二叉树的坡度"><a href="#563-二叉树的坡度" class="headerlink" title="563. 二叉树的坡度"></a>563. 二叉树的坡度</h1><p>没想清除一个点，被卡了好久，二叉树的遍历别看只有短短几行代码，递归起来是真的要命，不好debug就很麻烦了，准备后期放假了玩命刷，现在就尽量把每题精刷一遍</p>
+<p><img src="/2021/11/18/lc-day6/1.png" alt="图片"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> ans;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="comment">//if(root-&gt;left == nullptr &amp;&amp; root-&gt;right == nullptr) return root-&gt;val;</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) l = <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right) r = <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        ans += <span class="built_in">abs</span>(l - r);</span><br><span class="line">        <span class="keyword">return</span> l + r + root-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>没想清楚的是【递归返回值】，我错误地认为【返回值】能干同时干两件事：返回正确答案+能跑递归代码。实际上只能干一件事，就是跑代码。题目的答案则需要用一个ans另外计算</p>
+</blockquote>
+<blockquote>
+<p>递归水太深，把握不住</p>
+</blockquote>
+<h1 id="654-最大二叉树"><a href="#654-最大二叉树" class="headerlink" title="654.最大二叉树"></a>654.最大二叉树</h1><p>构建二叉树只会写模板题，还要加强练习</p>
+<p><img src="/2021/11/18/lc-day6/2.png" alt="题目"></p>
+<p><img src="/2021/11/18/lc-day6/3.png" alt="题目"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">constructMaximumBinaryTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>)&#123;</span><br><span class="line">            node-&gt;val = nums[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> maxValue = <span class="number">0</span>, maxIndex = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(maxValue &lt; nums[i]) &#123;</span><br><span class="line">                maxValue = nums[i];</span><br><span class="line">                maxIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        node-&gt;val = maxValue;</span><br><span class="line">        <span class="comment">//保证左边有一个节点</span></span><br><span class="line">        <span class="keyword">if</span>(maxIndex &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">newVec</span><span class="params">(nums.begin(), nums.begin() + maxIndex)</span></span>;</span><br><span class="line">            node-&gt;left = <span class="built_in">constructMaximumBinaryTree</span>(newVec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//保证右边有一个节点</span></span><br><span class="line">        <span class="keyword">if</span>(maxIndex &lt; (nums.<span class="built_in">size</span>() - <span class="number">1</span>))&#123;</span><br><span class="line">            <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">newVec</span><span class="params">(nums.begin() + maxIndex + <span class="number">1</span>, nums.end())</span></span>;</span><br><span class="line">            node-&gt;right = <span class="built_in">constructMaximumBinaryTree</span>(newVec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单暴力的写法，思路清晰，还学到一个技巧，动态数组还能这么玩</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">constructMaximumBinaryTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">        <span class="comment">//左闭右开区间</span></span><br><span class="line">        <span class="keyword">if</span>(left &gt;= right) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        TreeNode* node = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> maxIndex = left;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = left + <span class="number">1</span>; i &lt; right; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[maxIndex] &lt; nums[i]) &#123;</span><br><span class="line">                maxIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        node-&gt;val = nums[maxIndex];</span><br><span class="line">        <span class="comment">//实际取值区间【left， maxIndex - 1】</span></span><br><span class="line">        node-&gt;left = <span class="built_in">dfs</span>(nums, left, maxIndex);</span><br><span class="line">        <span class="comment">//实际取值区间【maxIndex + 1， right - 1】</span></span><br><span class="line">        node-&gt;right = <span class="built_in">dfs</span>(nums, maxIndex + <span class="number">1</span>, right);</span><br><span class="line">        <span class="comment">//这样就把中间值maxIndex跳过去了</span></span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二种方法把空节点引入到了递归中，所以省去了两个if条件</p>
+</blockquote>
+<h1 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617. 合并二叉树"></a>617. 合并二叉树</h1><p><img src="/2021/11/18/lc-day6/4.png" alt="题目"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">mergeTrees</span><span class="params">(TreeNode* root1, TreeNode* root2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root1 == <span class="literal">nullptr</span> &amp;&amp; root2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(root1 == <span class="literal">nullptr</span> || root2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> root2 == <span class="literal">nullptr</span> ? root1 : root2;</span><br><span class="line">        root1-&gt;val += root2-&gt;val;</span><br><span class="line">        root1-&gt;left = <span class="built_in">mergeTrees</span>(root1-&gt;left, root2-&gt;left);</span><br><span class="line">        root1-&gt;right = <span class="built_in">mergeTrees</span>(root1-&gt;right, root2-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> root1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将root2树上的值移到root1树上就行了</p>
+</blockquote>
+<h1 id="700-二叉搜索树中的搜索"><a href="#700-二叉搜索树中的搜索" class="headerlink" title="700. 二叉搜索树中的搜索"></a>700. 二叉搜索树中的搜索</h1><p><img src="/2021/11/18/lc-day6/5.png" alt="题目"></p>
+<p>白给题</p>
+<blockquote>
+<p>递归法</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* searchBST(TreeNode* root, int val) &#123;</span><br><span class="line">        if(root == nullptr) return nullptr;</span><br><span class="line">        if(root-&gt;val &gt; val) return searchBST(root-&gt;left, val);</span><br><span class="line">        if(root-&gt;val &lt; val) return searchBST(root-&gt;right, val);</span><br><span class="line">        return root;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>迭代法</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">searchBST</span><span class="params">(TreeNode* root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(root-&gt;val &gt; val) root = root-&gt;left;</span><br><span class="line">        	<span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;val &lt; val) root = root-&gt;right;</span><br><span class="line">        	<span class="keyword">else</span> <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="98-验证二叉搜索树"><a href="#98-验证二叉搜索树" class="headerlink" title="98. 验证二叉搜索树"></a>98. 验证二叉搜索树</h1><p><img src="/2021/11/18/lc-day6/6.png" alt="题目"></p>
+<blockquote>
+<p>踩陷阱啦，我憨憨地用递归直接进行判断，左边val小右边val大，然后直接gg</p>
+<p>正确思路应该是用中序遍历把它输出成数组，然后在数组里面判断是否是严格递增序列，不是判false</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">judge</span>(result)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        result.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">            <span class="keyword">if</span>(res[i] &gt;= res[i + <span class="number">1</span>]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>今天就到这吧  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/17/lc-day5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/17/lc-day5/" itemprop="url">lc-day5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-17T22:33:07+08:00">
+                2021-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p>不要学地理，会变得不幸！注册一个傻逼esri账户，各种给我报错，我的电脑一碰就错，同学的电脑一试就行，我真的杀人的心都有了，我弄了三节课一直报错（有心栽花），同学w在那边看漫画边弄（还是我指点的），一节课就弄好了（无心插柳）。最后下午还是用w的电脑弄好的。。地理信息真的是个傻逼专业，建议关了</p>
+<h1 id="318-最大单词长度乘积"><a href="#318-最大单词长度乘积" class="headerlink" title="318. 最大单词长度乘积"></a>318. 最大单词长度乘积</h1><p><img src="/2021/11/17/lc-day5/1.png" alt="题目"></p>
+<p>这个题乍一看没思路，想清楚了其实很简单，就是一个位运算预处理，然后就是常规遍历。剩下的都是一些细节处理</p>
+<blockquote>
+<p>如何快速检测两个单词有没有重复字母？答案是哈希化处理。创建一个26位的数字，记录每个字母是否在哈希表中出现过，如果出现则设为1，没有出现就是0，这样预处理万所有单词后，枚举所有的情况，如果有两个单词的哈希值“相与”，如果结果为0则证明满足要求</p>
+</blockquote>
+<blockquote>
+<p>细节：lc对c++及其不友好，稍微没写严谨就报错，比如(int)(words[i].size() * words[j].size())这行代码，多加了两对括弧才能开始跑代码，真的恶心</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; state;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;word : words)&#123;</span><br><span class="line">            <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : word)&#123;</span><br><span class="line">                num |= <span class="number">1</span> &lt;&lt; (c - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            state.<span class="built_in">push_back</span>(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; words.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((state[i] &amp; state[j]) == <span class="number">0</span>) </span><br><span class="line">                    res = <span class="built_in">max</span>(res, (<span class="keyword">int</span>)(words[i].<span class="built_in">size</span>() * words[j].<span class="built_in">size</span>()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>珍爱生命，远离c++</p>
+<h1 id="再说一点题外话吧"><a href="#再说一点题外话吧" class="headerlink" title="再说一点题外话吧"></a>再说一点题外话吧</h1><p>学校的课程一点用都没有，纯纯的耽误时间，我有这些功夫，刷题八股文项目，拿一个200k的offer（秋招群里有两个二三本的人都拿到了，他们刷的题还没我多）轻轻松松，每天怀着上坟的心情上课，我还要写学校布置的作业，还要跟专业老师配合，还要听对开发毫无卵用的线代，概率论，写他们的作业，让他们侵占我的学习时间，我感觉我好伟大，顶着这么多debuff现在11点还在这写lc和博客，睡前还得听英语，明天早晨7点多起来继续还得的刷lc，看js。我越来越搞不懂我自己了吗？不，恰恰相反，我太清楚我这个时间点要做什么了，所以对未达标很痛苦 。我渴望有一天能活的纯粹一点</p>
+<p>没啥说的了，生命不息，圣战（run）不止</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/16/lc-day4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/16/lc-day4/" itemprop="url">lc-day4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-16T18:39:12+08:00">
+                2021-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="113-路径总和-II"><a href="#113-路径总和-II" class="headerlink" title="113. 路径总和 II"></a>113. 路径总和 II</h1><p><img src="/2021/11/16/lc-day4/1.png" alt="题目"></p>
+<p>经过昨天的思考后，今天这题能直接秒了。仔细观察这个写法，我发现递归函数dfs每次都对函数进行了判断，判断这个</p>
+<p>点是不是叶子节点，所以这对所有节点适用，但要记得此时的tar已经减去了这层的节点值了</p>
+<blockquote>
+<p>关于特判，这个题只有主函数特判了初始的节点，后面如果再出现空节点函数dfs会忽略过去</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">pathSum</span>(TreeNode* root, <span class="keyword">int</span> targetSum) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(root, targetSum - root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span> &amp;&amp; targetSum == <span class="number">0</span>) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)&#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(root-&gt;left-&gt;val);</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;left, targetSum - root-&gt;left-&gt;val);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(root-&gt;right-&gt;val);</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;right, targetSum - root-&gt;right-&gt;val);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/16/lc-day4/1.png" alt="通过"></p>
+<h1 id="106-从中序与后序遍历序列构造二叉树"><a href="#106-从中序与后序遍历序列构造二叉树" class="headerlink" title="106. 从中序与后序遍历序列构造二叉树"></a>106. 从中序与后序遍历序列构造二叉树</h1><p><img src="/2021/11/16/lc-day4/3.png" alt="题目"></p>
+<p>这个已经一两个月没写了，忘完了，直接看题解吧 ^_^</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; inorder, vector&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = inorder.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            p[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(inorder, postorder, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; inorder, vector&lt;<span class="keyword">int</span>&gt;&amp; postorder, <span class="keyword">int</span> il, <span class="keyword">int</span> ir, <span class="keyword">int</span> pl, <span class="keyword">int</span> pr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pl &gt; pr) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">int</span> key = postorder[pr];</span><br><span class="line">        <span class="keyword">int</span> k = p[key] - il;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(key);</span><br><span class="line">        root-&gt;left = <span class="built_in">dfs</span>(inorder, postorder, il, il + k - <span class="number">1</span>, pl, pl + k - <span class="number">1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">dfs</span>(inorder, postorder, il + k + <span class="number">1</span>, ir, pl + k, pr - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用的y总的模板"><a href="#用的y总的模板" class="headerlink" title="用的y总的模板"></a>用的y总的模板</h2><blockquote>
+<p>难点1：边界处理，这里的边界是左闭右闭</p>
+</blockquote>
+<blockquote>
+<p>难点2：后续遍历，在经过前几日的后序遍历的洗礼后，现在看后序遍历就有更新的体会了，这题用后序遍历特别巧妙的把一个问题划分为若干个子问题解决</p>
+</blockquote>
+<h2 id="再研究一下Carl的解法"><a href="#再研究一下Carl的解法" class="headerlink" title="再研究一下Carl的解法"></a>再研究一下Carl的解法</h2><p>我选择死亡，太多了。。。。。</p>
+<p>不写啦</p>
+<h1 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a>105. 从前序与中序遍历序列构造二叉树</h1><p><img src="/2021/11/16/lc-day4/4.png" alt="题目"></p>
+<p>直接套用上一题的模板</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pos;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; pre, vector&lt;<span class="keyword">int</span>&gt;&amp; in)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = pre.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) pos[in[i]] = i;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(pre, in, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; pre, vector&lt;<span class="keyword">int</span>&gt;&amp; in, <span class="keyword">int</span> pl, <span class="keyword">int</span> pr, <span class="keyword">int</span> il, <span class="keyword">int</span> ir)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pl &gt; pr) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">int</span> key = pre[pl];</span><br><span class="line">        <span class="keyword">int</span> k = pos[key] - il;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(key);</span><br><span class="line">        root-&gt;left = <span class="built_in">dfs</span>(pre, in, pl + <span class="number">1</span>, pl + <span class="number">1</span> + k - <span class="number">1</span>, il, il + k - <span class="number">1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">dfs</span>(pre, in, pl + k + <span class="number">1</span>, pr, il + k + <span class="number">1</span>, ir);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>五分钟搞定！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/15/lc-day3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/15/lc-day3/" itemprop="url">lc-day3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-15T12:08:21+08:00">
+                2021-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="404-左叶子之和"><a href="#404-左叶子之和" class="headerlink" title="404. 左叶子之和"></a>404. 左叶子之和</h1><p><img src="/2021/11/15/lc-day3/1.png" alt="404. 左叶子之和"></p>
+<p>一个很简单的题目,我这里用dfs的遍历实现的，所以也就没有具体的遍历顺序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumOfLeftLeaves</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) &#123;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;left-&gt;right == <span class="literal">nullptr</span>) </span><br><span class="line">                ans += root-&gt;left-&gt;val;</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right) <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Carl的解法是标准的后序遍历方法，在了解了他的方法后我也仿写了一下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumOfLeftLeaves</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="built_in">sumOfLeftLeaves</span>(root-&gt;left); <span class="comment">//左</span></span><br><span class="line">        <span class="keyword">int</span> right = <span class="built_in">sumOfLeftLeaves</span>(root-&gt;right);   <span class="comment">//右</span></span><br><span class="line">        <span class="comment">//后序遍历法</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left != <span class="literal">NULL</span> &amp;&amp; root-&gt;left-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;left-&gt;right == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            sum = root-&gt;left-&gt;val;</span><br><span class="line">        &#125;<span class="comment">//中</span></span><br><span class="line">        <span class="keyword">return</span> sum + left + right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度O(n)，其中 <em>n</em> 是树中的节点个数。</p>
+<p>空间复杂度O(n)，空间复杂度和深度优先搜索使用的栈内存有关，最坏情况下，树呈链式结构，深度为O(n),对应空间复杂度为O(n)</p>
+<h3 id="迭代法的实现"><a href="#迭代法的实现" class="headerlink" title="迭代法的实现"></a>迭代法的实现</h3><p>理论上来说能用递归的题目必然涉及到了栈， 那么就可以用迭代法模拟栈的运行写出题解，由于时间关系，这里就不说了，等下一轮复习的时候再刷一遍吧，我的想法是第一遍追求广度，第二遍后面追求深度！</p>
+<h1 id="513-找树左下角的值"><a href="#513-找树左下角的值" class="headerlink" title="513. 找树左下角的值"></a>513. 找树左下角的值</h1><p><img src="/2021/11/15/lc-day3/2.png" alt="513. 找树左下角的值"></p>
+<p>拿到这个题第一反应是用bfs做，这种写法最简单，找到每一层第一个节点不断进行更新就可以了</p>
+<p><strong>bfs：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">int</span> ans = root-&gt;val;</span><br><span class="line">        <span class="keyword">while</span>(q.<span class="built_in">size</span>())&#123;</span><br><span class="line">            <span class="keyword">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">                TreeNode* temp = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>) ans = temp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(temp-&gt;left) q.<span class="built_in">push</span>(temp-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(temp-&gt;right) q.<span class="built_in">push</span>(temp-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>再贴一个我的dfs解法：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> maxH, ans;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        ans = root-&gt;val;</span><br><span class="line">        <span class="built_in">dfs</span>(root, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> depth)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">if</span>(maxH &lt; depth) &#123;</span><br><span class="line">            ans = root-&gt;val;</span><br><span class="line">            maxH = depth;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>dfs的思路是不断地往左边找，每到最深一层就记录一下高度，最后就得到答案了</p>
+<p><del>我感觉不是最优解，不太自信</del>好像跟Carl的差不多，哈哈</p>
+<h1 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112. 路径总和"></a>112. 路径总和</h1><p><img src="/2021/11/15/lc-day3/2.png" alt="路径综合"></p>
+<p>这个题目的测试点好恶心，故意卡边界，开局就两个边界给我干懵了。</p>
+<blockquote>
+<p>对于根节点为空，直接返回false</p>
+</blockquote>
+<blockquote>
+<p>对于根节点不为空，要特判整个树是否只有这一个节点并且等于target，返回true</p>
+</blockquote>
+<p>处理完这两步后就可以写递归代码了，这题递归代码我采用了后序遍历，观察这个题你会发现，只要找出了一组答案，最终结果就是true了，这一点跟或（||）命令很像，只要有一个表达式为true满足了，整个表达式就为true。因此这里用后序遍历</p>
+<blockquote>
+<p>在写完上面一段后，我突然发现有一个剪枝操作，如果有一个值为true，直接进入返回就好了</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span> &amp;&amp; root-&gt;val == targetSum) </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(root-&gt;left, targetSum - root-&gt;val) || <span class="built_in">dfs</span>(root-&gt;right, targetSum - root-&gt;val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(targetSum - root-&gt;val == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">bool</span> left = <span class="literal">false</span>, right = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) &#123;</span><br><span class="line">            left = <span class="built_in">dfs</span>(root-&gt;left, targetSum - root-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(left) <span class="keyword">return</span> <span class="literal">true</span>;	<span class="comment">//剪枝，如果这一步执行了，后面的搜索就不用执行了</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right) &#123;</span><br><span class="line">            right = <span class="built_in">dfs</span>(root-&gt;right, targetSum - root-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(right) <span class="keyword">return</span> <span class="literal">true</span>;	<span class="comment">//后面的这个好像剪不掉了，为了整齐，还是加上吧</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left || right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/15/lc-day3/4.png" alt="剪枝"></p>
+<hr>
+<p>看了Carl的代码后感觉我太菜了，-_-，他的代码把边界情况处理的太好了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dfs</span>(root, targetSum - root-&gt;val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right &amp;&amp; targetSum == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) </span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">dfs</span>(root-&gt;left, targetSum - root-&gt;left-&gt;val)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">dfs</span>(root-&gt;right, targetSum - root-&gt;right-&gt;val)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>我在写这个题目时遇到了一个问题就是把握不住tar减去val的时机，把整个过程都弄乱了，虽然最后勉强过了。。。。。</p>
+<p>感觉没啥收获</p>
+<h3 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h3><blockquote>
+<p>Carl的解法是先在开头特判了根节点，然后后面的代码就统一化了，就有点像是打印“1-&gt;2-&gt;3-&gt;4”这个字符串一样，先打印出“1”，后面每一步打印“-&gt;num”，这是做pat的常用套路。他这里的代码就是tar减去root-&gt;left-&gt;val，然后留在在下一层判断</p>
+</blockquote>
+<blockquote>
+<p>我的解法就很乱了，我是在每一个结点都减去当前结点的值，然后进入递归函数进行判断，这样势必导致最后写递归出口的时候还要再减一次if（targetSum - root-&gt;val == 0）…    这么写太啰嗦了</p>
+</blockquote>
+<blockquote>
+<p>把突然想到很重要的一点补上， 什么时候需要返回值？</p>
+<p>Carl的说法是如果要搜索整个树，那就不要返回值。如果只是需要返回某一条路径，就需要返回值，遇到了符合条件的路径就返回。有了这个结论，以后再写递归就不会眉毛胡子一把抓了。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/14/%E7%84%A6%E8%99%91%E4%B8%8E%E7%83%A6%E8%BA%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/14/%E7%84%A6%E8%99%91%E4%B8%8E%E7%83%A6%E8%BA%81/" itemprop="url">焦虑与烦躁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-14T21:59:55+08:00">
+                2021-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="不想学习"><a href="#不想学习" class="headerlink" title="不想学习"></a>不想学习</h1><p>不想学习，完全不想学习，上了一天的课已经不想去思考了，周六学了一天，周日学了一天，零零七也莫过于此了吧。我现在只想发呆 发呆 发呆，lc明天再更新吧</p>
+<h1 id="剩下的时间不多了"><a href="#剩下的时间不多了" class="headerlink" title="剩下的时间不多了"></a>剩下的时间不多了</h1><p>这个月还有一半，下个月是开始月，然后今年结束，一二月真的来的及准备春招吗，事情太多时间太少，我还是不够平静，随便吧，不要打乱自己的节奏</p>
+<h1 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h1><p>【计算机网络】，【lc】，【 js】， 【css】拿命肝吧，</p>
+<p>“化鬼成魔，在所不惜” —– 《半泽直树》</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2021/11/14/lc-day2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/14/lc-day2/" itemprop="url">lc-day2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-14T14:44:57+08:00">
+                2021-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="257-⼆叉树的所有路径"><a href="#257-⼆叉树的所有路径" class="headerlink" title="257. ⼆叉树的所有路径"></a>257. ⼆叉树的所有路径</h1><p>这个题出的好呀，一个简单题让我吃尽苦头</p>
+<p><img src="/2021/11/14/lc-day2/1.png" alt="257"></p>
+<blockquote>
+<p>先说遍历，感觉用不了广搜，只能深搜，而且深搜还得用先序遍历</p>
+</blockquote>
+<blockquote>
+<p>先序遍历的原因：先序遍历的顺序是“中左右”，这题我把“中”当做递归出口，而“左右”当做递归入口，只有在经历了大量搜索之后，然后判断已经到叶结点了，我就保存结果，执行return，递归结束</p>
+</blockquote>
+<blockquote>
+<p>这个题难住我的一个地方之一就是回溯，根据Carl的理论，有递归式就必须有回溯式，递归和回溯永远是在一起的。对于回溯我的理解就是恢复现场</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string&gt; result;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            string s;</span><br><span class="line">            s += <span class="built_in">to_string</span>(path[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; path.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">                s += <span class="string">&quot;-&gt;&quot;</span>;</span><br><span class="line">                s += <span class="built_in">to_string</span>(path[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(s);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left) &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>剩下的没啥说的了，都是常规操作</p>
+<h1 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100. 相同的树"></a>100. 相同的树</h1><p>待更新</p>
+<h1 id="101-对称⼆叉树"><a href="#101-对称⼆叉树" class="headerlink" title="101. 对称⼆叉树"></a>101. 对称⼆叉树</h1><p>待更新</p>
 
           
         
@@ -854,7 +1694,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -900,7 +1740,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -922,7 +1762,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

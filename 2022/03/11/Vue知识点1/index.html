@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue生命周期 beforeCreate在实例初始化后,   数据观测(data  observer)之前被调用  created 实例已经创建完成之后被调用,   在这一步,  实例已经完成以下配置:  数据观测(data observer),  属性和方法的运算,   watch和event回调,   这里没有$el  beforeMounted:  在挂载开始之前被调用,  相关render">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue知识点1">
+<meta property="og:url" content="https://hydra-aaaa.github.io/2022/03/11/Vue%E7%9F%A5%E8%AF%86%E7%82%B91/index.html">
+<meta property="og:site_name" content="Hydra">
+<meta property="og:description" content="Vue生命周期 beforeCreate在实例初始化后,   数据观测(data  observer)之前被调用  created 实例已经创建完成之后被调用,   在这一步,  实例已经完成以下配置:  数据观测(data observer),  属性和方法的运算,   watch和event回调,   这里没有$el  beforeMounted:  在挂载开始之前被调用,  相关render">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-03-11T14:55:47.908Z">
+<meta property="article:modified_time" content="2022-03-12T12:21:40.681Z">
+<meta property="article:author" content="hydra">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hydra-aaaa.github.io/2022/03/11/Vue知识点1/"/>
+
+
+
+
+
+  <title>Vue知识点1 | Hydra</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hydra</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hydra blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hydra-aaaa.github.io/2022/03/11/Vue%E7%9F%A5%E8%AF%86%E7%82%B91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hydra">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue知识点1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-11T22:55:47+08:00">
+                2022-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h3><ul>
+<li><p>beforeCreate在实例初始化后,   数据观测(data  observer)之前被调用</p>
+</li>
+<li><p>created 实例已经创建完成之后被调用,   在这一步,  实例已经完成以下配置:  数据观测(data observer),  属性和方法的运算,   watch和event回调,   这里没有$el</p>
+</li>
+<li><p>beforeMounted:  在挂载开始之前被调用,  相关render函数被首次调用</p>
+</li>
+<li><p>mounted:  el被新创建的vm.$el替换,  并挂载到实例上后首次调用该钩子函数</p>
+</li>
+</ul>
+<ul>
+<li>beforeUpdate:  数据更新时调用,  发生在虚拟dom打补丁之前这里适合访问现有的dom,   比如手动移除已添加的事件监听.  该钩子在服务器端渲染期间不被调用,   因为只有初次渲染会在服务端进行</li>
+</ul>
+<ul>
+<li>updated:  由于数据更改导致虚拟DOM重新渲染和打补丁,  在这之后会调用该钩子</li>
+</ul>
+<ul>
+<li>beforeDestroy:   实例销毁前被调用,  在这一步,   实例仍然完全可用,  该钩子在服务器渲染端不能被调用</li>
+</ul>
+<ul>
+<li>destroyed:   Vue实例销毁后调用,   调用后Vue实例指示的所有东西会解绑,   所有的事件监听被移除,  子实例被销毁,   服务端渲染期间不会被调用</li>
+</ul>
+<h3 id="Vue的通讯的方式"><a href="#Vue的通讯的方式" class="headerlink" title="Vue的通讯的方式"></a>Vue的通讯的方式</h3><ol>
+<li><p>props,  emit(最常用的父子通讯方式)</p>
+<p><strong>父组件传入属性,  子组件通过props接受,   就可以在内部thisXXX的方式使用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// section父组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;section&quot;&gt;</span><br><span class="line">    &lt;com-article :articles=&quot;articleList&quot;&gt;&lt;/com-article&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import comArticle from &#x27;./test/article.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  components: &#123; comArticle &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      articleList: [&#x27;红楼梦&#x27;, &#x27;西游记&#x27;, &#x27;三国演义&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 子组件 article.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;span v-for=&quot;(item, index) in articles&quot; :key=&quot;index&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/span&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#x27;articles&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总结:   prop只可以从上一级组件传递到下一级组件(父子组件),   即所谓的单向数据流.   而且prop只读,  不可被修改,  修改会失效并警告</p>
+</blockquote>
+<p><strong>子组件向父组件传值</strong></p>
+<p>对于$emit,  $emit绑定一个自定义事件,  当这个语句被执行时,   就会将参数arg传递给父组件,   父组件通过v-on监听并接受参数.   通过一个例子,   点击页面渲染出来到的ariticle的item,   父组件中显示数组的下标</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 父组件中</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;section&quot;&gt;</span><br><span class="line">    &lt;com-article :articles=&quot;articleList&quot; @onEmitIndex=&quot;onEmitIndex&quot;&gt;&lt;/com-article&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;currentIndex&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import comArticle from &#x27;./test/article.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  components: &#123; comArticle &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      currentIndex: -1,</span><br><span class="line">      articleList: [&#x27;红楼梦&#x27;, &#x27;西游记&#x27;, &#x27;三国演义&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    onEmitIndex(idx) &#123;</span><br><span class="line">      this.currentIndex = idx</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div v-for=&quot;(item, index) in articles&quot; :key=&quot;index&quot; @click=&quot;emitIndex(index)&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#x27;articles&#x27;],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitIndex(index) &#123;</span><br><span class="line">      this.$emit(&#x27;onEmitIndex&#x27;, index)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>ref和refs</strong></p>
+<p>如果在普通的DOM元素上使用,  引用指向的就是DOM元素,   如果引用在子组件上,  就指向子组件实例,   可以<strong>通过实例直接调用组件的方法或数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 子组件 A.vue</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name: &#x27;Vue.js&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sayHello () &#123;</span><br><span class="line">      console.log(&#x27;hello&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 父组件 app.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;component-a ref=&quot;comA&quot;&gt;&lt;/component-a&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    mounted () &#123;</span><br><span class="line">      const comA = this.$refs.comA;</span><br><span class="line">      console.log(comA.name);  // Vue.js</span><br><span class="line">      comA.sayHello();  // hello</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>eventBus</strong></p>
+<p>eventbus又称事件总线,   在vue中可以使用它来作为沟通桥梁的概念,   组件共用相同的事件中心,  可以向该中心注册发送事件或接收事件,   所有组件都可以通知其他组件</p>
+<blockquote>
+<p>缺点是项目较大难以维护</p>
+</blockquote>
+<ol>
+<li><p>初始化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// event-bus.js</span><br><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">export const EventBus = new Vue()</span><br></pre></td></tr></table></figure></li>
+<li><p>发送事件</p>
+<p>加入有两个组件: additionNum,   showNum,   这两个组件可以是兄弟组件,  也可以是父子组件,  这里以兄弟组件为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;show-num-com&gt;&lt;/show-num-com&gt;</span><br><span class="line">    &lt;addition-num-com&gt;&lt;/addition-num-com&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import showNumCom from &#x27;./showNum.vue&#x27;</span><br><span class="line">import additionNumCom from &#x27;./additionNum.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123; showNumCom, additionNumCom &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发送事件组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// addtionNum.vue 中发送事件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">        &lt;button @click=&quot;additionHandle&quot;&gt;+加法器    </span><br><span class="line">    	&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;EventBus&#125; from &#x27;./event-bus.js&#x27;</span><br><span class="line">console.log(EventBus)</span><br><span class="line">export default&#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            num: 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        additionHandle()&#123;</span><br><span class="line">            EventBus.$emit(&#x27;addition&#x27;, &#123;</span><br><span class="line">                num: this.num ++</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接受事件组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// showNum.vue 组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">        计算和: &#123;&#123;count&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;EventBus&#125; from &#x27;./event-bus.js&#x27;</span><br><span class="line">export default&#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            count: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    methods()&#123;</span><br><span class="line">        EventBus.$on(&#x27;addition&#x27;, param =&gt; &#123;</span><br><span class="line">            this.count = this.count + param.num;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h5><p>Vuex是一个专门为Vue.js应用程序开发的状态管理模式.   它采用集中存储管理应用的所有组件和方法,  并以相应的规则保证状态以一种可以预测的方式发生改变.   Vuex解决了<strong>多个视图依赖同一状态</strong>和<strong>来自不同视图的行为需要变更同一状态</strong>的问题,  将开发者的经历聚集在数据的更新而不是数据在组件间的传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;ChildA/&gt;</span><br><span class="line">        &lt;ChildB/&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import ChildA from &#x27;./components/ChildA&#x27;	// 导入A组件</span><br><span class="line">import ChildB from &#x27;./components/ChildB&#x27; 	// </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="vue懒加载"><a href="#vue懒加载" class="headerlink" title="vue懒加载"></a>vue懒加载</h3><p><strong>为什么要懒加载</strong></p>
+<p>Vue是单页面应用,   如果没有应用懒加载,  运用webpack打包的文件很大,   造成进入首页时,  需要加载的内容过多,   白屏时间很长,    懒加载有利于页面划分,   需要的时候加载页面,   减少首页加载压力,  减少加载用时</p>
+<p>一句话: <strong>进入首页不用一次加载过多资源,   造成用时过长</strong></p>
+<p><strong>懒加载</strong></p>
+<blockquote>
+<p>也叫延迟加载,    需要的时候再去加载,   随用随加载</p>
+<p>根据功能可以划分为图片懒加载和组件懒加载</p>
+</blockquote>
+<p><strong>图片懒加载</strong></p>
+<p>一张图片就是一个img标签,   浏览器是否发起图片请求是根据<img>的src属性,  实现懒加载的关键是,   在图片没有进入可视区域时,   先不给<img>的src值,   这样浏览区就不会发送请求了,  等待图片进入可视区域再给src赋值</p>
+<p>实现懒加载有四个步骤:  </p>
+<ol>
+<li>加载loading图片</li>
+<li>判断哪些图片要加载</li>
+<li>隐形加载图片</li>
+<li>替换真图片</li>
+</ol>
+<p><strong>加载loading图片</strong></p>
+<p>加载loading图片在html就实现的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    // src存放的是伪图片  等待的图片   data-src是自定义属性,  存放的是真实的图片</span><br><span class="line">    &lt;img class=&quot;lazy&quot; src=&quot;img/loading.gif&quot; data-src=&quot;img/pic1.jpg&quot;&gt;&lt;/img&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>判断图片进入可视区域</strong></p>
+<p>用到了onload事件,   onload事件会在页面和图像加载完成后立即发生</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 懒加载实现原理</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">lazyload</span>(<span class="params">imgs</span>)</span>&#123;</span><br><span class="line">		<span class="comment">// 可视区域高度</span></span><br><span class="line">		<span class="keyword">var</span> h = <span class="built_in">window</span>.innerHeight;</span><br><span class="line">		<span class="comment">//滚动区域高度</span></span><br><span class="line">		<span class="keyword">var</span> s = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;imgs.length;i++)&#123;</span><br><span class="line">			<span class="comment">//图片距离顶部的距离大于可视区域和滚动区域之和时懒加载</span></span><br><span class="line">			<span class="keyword">if</span> ((h+s) &gt; getTop(imgs[i])) &#123;</span><br><span class="line">				<span class="comment">// 真实情况是页面开始有2秒空白，所以使用setTimeout定时2s</span></span><br><span class="line">				(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">					<span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">						<span class="comment">// 不加立即执行函数i会等于9</span></span><br><span class="line">						<span class="comment">// 隐形加载图片或其他资源，</span></span><br><span class="line">						<span class="comment">//创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载</span></span><br><span class="line">						<span class="keyword">var</span> temp = <span class="keyword">new</span> Image();</span><br><span class="line">						temp.src = imgs[i].getAttribute(<span class="string">&#x27;data-src&#x27;</span>);<span class="comment">//只会请求一次</span></span><br><span class="line">						<span class="comment">// onload判断图片加载完毕，真图片加载完毕，再赋值给dom节点</span></span><br><span class="line">						temp.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">							<span class="comment">// 获取自定义属性data-src，用真图片替换假图片</span></span><br><span class="line">							imgs[i].src = imgs[i].getAttribute(<span class="string">&#x27;data-src&#x27;</span>)</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;,<span class="number">2000</span>)</span><br><span class="line">				&#125;)(i)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>隐形加载</strong> 和 <strong>替换真图片</strong></p>
+<ul>
+<li>当图片的offsetTop 小于 scrollTop + window.innerHeight时,  就会开始加载</li>
+<li>隐形加载:   首先创建一个临时图片,   图片不会到页面上,  而是保存在内存中,   然后发起请求,   请求完成后,  把它赋值给src属性,   这样就完成了图片替换</li>
+</ul>
+<p><strong>路由懒加载 和 组件懒加载</strong></p>
+<p><strong>路由懒加载</strong></p>
+<p>vue异步实现懒加载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">	routes: [</span><br><span class="line">		&#123;</span><br><span class="line">			path: &#x27;/&#x27;,</span><br><span class="line">			name: &#x27;HelloWorld&#x27;,</span><br><span class="line">			component: resolve =&gt; (require([&#x27;@/components/HelloWorld&#x27;, resolve]))</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line">const HelloWorld = () =&gt; import(&#x27;@/components/HelloWorld&#x27;)</span><br><span class="line">export default new Router(&#123;</span><br><span class="line">	routers: [</span><br><span class="line">		&#123;</span><br><span class="line">			path: &#x27;/&#x27;,</span><br><span class="line">			name: &#x27;HelloWorld&#x27;,</span><br><span class="line">			component: HelloWorld</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>原来的写法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import One from &#x27;./one&#x27;</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: One</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>const方法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">const One = () =&gt; import(&#x27;./One&#x27;)</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: One</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>异步方法</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        &lt;One-com&gt;&lt;/One-com&gt;</span><br><span class="line">        1234</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">const One = () =&gt; import(&#x27;./One&#x27;)</span><br><span class="line">export default&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        &#x27;One-com&#x27;: resolve =&gt; ([&#x27;./one&#x27;], resolve);</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Vue响应式原理"><a href="#Vue响应式原理" class="headerlink" title="Vue响应式原理"></a>Vue响应式原理</h3><p>整体思路 是数据劫持 + 观察者模式</p>
+<p>对象内部通过defineReactive方法,   使用Object.defineProperty将属性进行劫持(只会劫持已经存在的属性),  数组则通过数组重写方式实现的.   当页面使用对应属性时,   每个属性都有自己的dep属性,   存放它所收集的watcher(依赖收集),   当属性变化后通知自己对应的watcher去派发更新</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.walk(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">walk</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 对象上所有属性一次进行观测</span></span><br><span class="line">        <span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(data);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; keys.length; i++)&#123;</span><br><span class="line">            <span class="keyword">let</span> key = keys[i];</span><br><span class="line">            <span class="keyword">let</span> value = data[key];</span><br><span class="line">            defineReactive(data, key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 数据劫持核心</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">data, key, value</span>)</span>&#123;</span><br><span class="line">    observe(value); <span class="comment">// 递归</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;获取值&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;设置值&#x27;</span>);</span><br><span class="line">            value = newValue;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 如果传过来是对象或数组,  进行属性劫持</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Object</span>.prototype.toString.call(value) === <span class="string">&#x27;object Object&#x27;</span> || <span class="built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Oberver(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/10/mianjing3/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/12/%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" rel="prev" title="一些想法">
+                一些想法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E7%9A%84%E9%80%9A%E8%AE%AF%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">Vue的通讯的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vuex"><span class="nav-number">2.0.1.</span> <span class="nav-text">Vuex</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">vue懒加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Vue响应式原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hydra</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
